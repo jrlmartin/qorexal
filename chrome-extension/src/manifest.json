@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "My New Angular Extension",
+  "name": "Qorexal",
   "version": "1.0.0",
-  "description": "A minimal Angular-based Chrome extension to build upon.",
+  "description": "AI Bot Trader",
   "icons": {
     "16": "favicon.ico",
     "48": "favicon.ico",
