@@ -11,6 +11,8 @@ import { DOMManipulationService } from '../../../../../services/DOMManipulation.
   styleUrls: ['./floating-panel.component.scss']
 })
 export class FloatingPanelComponent implements OnInit, AfterViewInit {
+  isRunning = false;
+
   constructor(private domManipulationService: DOMManipulationService) {}
 
   ngOnInit() {
@@ -29,17 +31,25 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
   }
 
   injectText() {
+    this.isRunning = true;
     this.domManipulationService.runWorkflow();
-    // Implement text injection logic here
   }
 
   captureText() {
     this.domManipulationService.captureText();
-    // Implement text capture logic here
   }
 
   processData() {
     //this.domManipulationService.processData();
-    // Implement data processing logic here
+  }
+
+  toggleWorkflow() {
+    if (this.isRunning) {
+      this.domManipulationService.stopWorkflow();
+      this.isRunning = false;
+    } else {
+      this.isRunning = true;
+      this.domManipulationService.runWorkflow();
+    }
   }
 }   
