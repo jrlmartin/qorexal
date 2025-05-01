@@ -1,0 +1,30 @@
+{
+  "name": "Qorexal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "ng build --configuration production",
+    "build-background": "tsc -p tsconfig.background.json",
+    "build-content": "ng build --configuration production --project content",
+    "build-all": "npm run build && npm run build-background && npm run build-content"
+  },
+  "dependencies": {
+    "@angular/animations": "latest",
+    "@angular/common": "latest",
+    "@angular/compiler": "latest",
+    "@angular/core": "latest",
+    "@angular/platform-browser": "latest",
+    "@angular/platform-browser-dynamic": "latest",
+    "@angular/router": "latest",
+    "rxjs": "latest",
+    "tslib": "latest",
+    "zone.js": "latest"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "latest",
+    "@angular/cli": "latest",
+    "@angular/compiler-cli": "latest",
+    "typescript": "latest",
+    "@types/chrome": "^0.0.317"
+  }
+}

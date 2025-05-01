@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/content",
+    "types": ["chrome", "node"]
+  },
+  "files": [
+    "src/apps/content/content-main.ts",
+    "src/polyfills.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/background.ts"
+  ]
+}
