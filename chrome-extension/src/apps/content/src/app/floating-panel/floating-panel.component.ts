@@ -29,17 +29,17 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
   }
 
   injectText() {
-    this.domManipulationService.runPrompt();
+    this.domManipulationService.runWorkflow();
     // Implement text injection logic here
   }
 
   captureText() {
-    console.log('[QOREXAL PANEL] Capturing text');
+    this.domManipulationService.captureText();
     // Implement text capture logic here
   }
 
   processData() {
-    console.log('[QOREXAL PANEL] Processing data');
+    this.domManipulationService.processData();
     // Implement data processing logic here
   }
 }   
