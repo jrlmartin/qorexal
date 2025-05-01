@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { EventTypeEnum, PlatformEnum } from "../../../../types";
-import { FloatingPanelComponent } from "./floating-panel.component";
+import { FloatingPanelComponent } from "./floating-panel/floating-panel.component";
 
 // Declare the window interfaces to avoid TypeScript errors
 declare global {
