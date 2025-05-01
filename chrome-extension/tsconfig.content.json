@@ -2,14 +2,18 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/content",
-    "types": ["chrome", "node"]
+    "types": ["chrome", "node"], // Include chrome types if needed
+    "moduleResolution": "node"
   },
   "files": [
-    "src/apps/content/src/main.ts",
-    "src/polyfills.ts"
+    "src/apps/content/src/main.ts", // Updated path to the main content entry file
+    "src/polyfills.ts" // Polyfills, if required
   ],
+  "include": ["src/**/*.d.ts"],
   "exclude": [
+    "src/test.ts",
+    "src/manifest.json",
     "src/**/*.spec.ts",
-    "src/background.ts"
+    "src/background.ts" // Exclude background if it's built separately
   ]
 }

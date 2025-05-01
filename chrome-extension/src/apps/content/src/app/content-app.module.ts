@@ -3,13 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ContentAppComponent } from './content-app.component';
 
 @NgModule({
-  declarations: [
+  declarations: [],
+  imports: [
+    BrowserModule,
     ContentAppComponent
   ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [ContentAppComponent]
+  providers: []
 })
 export class ContentAppModule { } 

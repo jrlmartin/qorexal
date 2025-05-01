@@ -11,7 +11,12 @@
   "permissions": [
     "storage",
     "activeTab",
-    "identity"
+    "identity",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*"
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
@@ -23,19 +28,18 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "index.html"
+        "index.html",
+        "content/*"
       ],
       "matches": [
         "<all_urls>"
       ]
     }
   ],
-  "host_permissions": [
-    "https://chatgpt.com/"
-  ],
   "content_scripts": [
     {
       "matches": [
+        "*://chat.openai.com/*",
         "*://*.chatgpt.com/*"
       ],
       "js": [
@@ -46,7 +50,7 @@
       "css": [
         "content/styles.css"
       ],
-      "run_at": "document_end"
+      "run_at": "document_start"
     }
   ],
   "background": {

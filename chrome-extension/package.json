@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "ng build --configuration production",
-    "build-background": "tsc -p tsconfig.background.json",
+    "build-background": "webpack --config tools/webpack.background.js",
     "build-content": "ng build --configuration production --project content",
     "build-all": "yarn build && yarn build-background && yarn build-content",
+    "dev": "ng run content:build:production --watch",
     "clean": "rm -rf dist/*",
     "build-extension": "yarn clean && yarn build-all"
   },
@@ -19,6 +20,7 @@
     "@angular/platform-browser-dynamic": "latest",
     "@angular/router": "latest",
     "rxjs": "latest",
+    "ts-loader": "^9.5.2",
     "tslib": "latest",
     "zone.js": "latest"
   },
@@ -26,7 +28,8 @@
     "@angular-devkit/build-angular": "latest",
     "@angular/cli": "latest",
     "@angular/compiler-cli": "latest",
+    "@types/chrome": "^0.0.317",
     "typescript": "latest",
-    "@types/chrome": "^0.0.317"
+    "webpack-cli": "^6.0.1"
   }
 }
