@@ -7,7 +7,14 @@ html, body {
 
 #qorexal-content-root {
   position: fixed;
-  top: 10px;
-  right: 10px;
- 
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999999;
+  pointer-events: none;
+}
+
+#qorexal-content-root app-content-root {
+  display: block;
+  pointer-events: auto;
 } 

@@ -5,8 +5,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 console.log('[QOREXAL CONTENT SCRIPT] Content script loaded');
 
+// Global flag to prevent multiple initializations
+let initialized = false;
+
 function initializeContentScript() {
+  // Prevent multiple initializations
+  if (initialized) {
+    console.log('[QOREXAL CONTENT SCRIPT] Already initialized, skipping');
+    return;
+  }
+  
   console.log('[QOREXAL CONTENT SCRIPT] Initializing content script');
+  initialized = true;
+  
+  // Remove any existing containers to prevent duplicates
+  const existingRoot = document.getElementById('qorexal-content-root');
+  if (existingRoot) {
+    console.log('[QOREXAL CONTENT SCRIPT] Removing existing root');
+    existingRoot.remove();
+  }
   
   // Create a container for our Angular app
   const appRoot = document.createElement('div');
@@ -24,18 +41,18 @@ function initializeContentScript() {
   })
   .then(() => {
     console.log('[QOREXAL CONTENT SCRIPT] Angular app bootstrapped successfully');
-    
-    // Notify background that we're ready
-    chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_READY" });
   })
   .catch(err => {
     console.error('[QOREXAL CONTENT SCRIPT] Angular bootstrap error:', err);
+    initialized = false; // Reset flag on error
   });
 }
 
-// Initialize when document is ready
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  initializeContentScript();
+// Wait for DOM to be fully loaded before initializing
+if (document.readyState === 'complete') {
+  setTimeout(initializeContentScript, 100); // Small delay to ensure DOM is ready
 } else {
-  document.addEventListener('DOMContentLoaded', initializeContentScript);
+  window.addEventListener('load', () => {
+    setTimeout(initializeContentScript, 100);
+  });
 } 
