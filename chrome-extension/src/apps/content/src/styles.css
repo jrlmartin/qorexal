@@ -1,20 +1,2 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-#qorexal-content-root {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999999;
-  pointer-events: none;
-}
-
-#qorexal-content-root app-content-root {
-  display: block;
-  pointer-events: auto;
-} 
+/* Global styles for content script */
+/* We're using shadow DOM for isolation, so global styles are minimal */ 

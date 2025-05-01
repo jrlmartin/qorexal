@@ -1,10 +1,7 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { EventTypeEnum, PlatformEnum } from "../../../../types";
 import { FloatingPanelComponent } from "./floating-panel.component";
-
-// Static flag to track if message was sent
-let readyMessageSent = false;
 
 @Component({
   selector: "app-content-root",
@@ -13,70 +10,36 @@ let readyMessageSent = false;
   imports: [CommonModule, FloatingPanelComponent],
 })
 export class ContentAppComponent implements OnInit {
-  constructor(private zone: NgZone) {
-    console.log("[QOREXAL COMPONENT] ContentAppComponent initializing");
+  constructor() {
+    console.log("[QOREXAL COMPONENT] ContentAppComponent constructor");
   }
 
   ngOnInit() {
     console.log("[QOREXAL COMPONENT] ContentAppComponent initialized");
     
-    // Wait a bit to make sure everything is settled
-    setTimeout(() => {
-      this.zone.run(() => {
-        this.setupCommunication();
-      });
-    }, 500);
+    // Listen for messages from background script
+    chrome.runtime.onMessage.addListener(this.handleBackgroundMessages);
   }
   
-  private setupCommunication() {
-    // Notify background script that content script is ready (only once)
-    if (!readyMessageSent) {
-      try {
-        readyMessageSent = true;
-        console.log("[QOREXAL COMPONENT] Sending ready message to background");
-        chrome.runtime.sendMessage(
-          { type: "CONTENT_SCRIPT_READY" },
-          (response) => {
-            console.log("[QOREXAL COMPONENT] Background acknowledged ready message:", response);
-          }
-        );
-      } catch (err) {
-        readyMessageSent = false;
-        console.error("[QOREXAL COMPONENT] Failed to send ready message:", err);
-      }
-    }
-
-    // Set up listener for messages from background script
+  private handleBackgroundMessages = (message, sender, sendResponse) => {
     try {
-      // Remove any existing listeners first
-      chrome.runtime.onMessage.removeListener(this.messageHandler);
+      console.log("[QOREXAL COMPONENT] Received message:", message);
       
-      // Add our listener
-      chrome.runtime.onMessage.addListener(this.messageHandler);
-      console.log("[QOREXAL COMPONENT] Message listener registered");
-    } catch (err) {
-      console.error("[QOREXAL COMPONENT] Failed to register message listener:", err);
-    }
-  }
-  
-  private messageHandler = (message, sender, sendResponse) => {
-    try {
-      if (
-        message?.type === EventTypeEnum.AICONSOLE &&
-        message.platform === PlatformEnum.CHATGPT
-      ) {
+      if (message?.type === EventTypeEnum.AICONSOLE && 
+          message.platform === PlatformEnum.CHATGPT) {
         console.log("[QOREXAL COMPONENT] Received AICONSOLE message for ChatGPT");
-        sendResponse({
-          success: true,
-          received: new Date().toISOString(),
-        });
+        sendResponse({ success: true });
       }
     } catch (err) {
-      console.error("[QOREXAL COMPONENT] Error processing message:", err);
+      console.error("[QOREXAL COMPONENT] Error handling message:", err);
       sendResponse({ error: true, message: err.message });
     }
-
-    // Return true to indicate we'll send a response asynchronously
-    return true;
+    
+    return true; // Keep channel open for async response
   };
+  
+  ngOnDestroy() {
+    // Clean up listeners
+    chrome.runtime.onMessage.removeListener(this.handleBackgroundMessages);
+  }
 }
