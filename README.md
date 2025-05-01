@@ -1,4 +1,5 @@
 **Qorexal**
+quorexal.com
 
 *Why it’s cool*  
 - **Qor-** sounds like *core* (the engine at the heart of your bot) and nods to “quantum/quick.”  
