@@ -1,7 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { EventTypeEnum, PlatformEnum } from "../../../../types";
 import { FloatingPanelComponent } from "./floating-panel.component";
+
+// Declare the window interfaces to avoid TypeScript errors
+declare global {
+  interface Window {
+    qorexalReady: boolean;
+    showQorexalUI: () => void;
+  }
+}
 
 @Component({
   selector: "app-content-root",
@@ -9,7 +17,9 @@ import { FloatingPanelComponent } from "./floating-panel.component";
   standalone: true,
   imports: [CommonModule, FloatingPanelComponent],
 })
-export class ContentAppComponent implements OnInit {
+export class ContentAppComponent implements OnInit, OnDestroy {
+  private messageListener: ((message: any, sender: any, sendResponse: any) => boolean) | null = null;
+  
   constructor() {
     console.log("[QOREXAL COMPONENT] ContentAppComponent constructor");
   }
@@ -17,29 +27,50 @@ export class ContentAppComponent implements OnInit {
   ngOnInit() {
     console.log("[QOREXAL COMPONENT] ContentAppComponent initialized");
     
-    // Listen for messages from background script
-    chrome.runtime.onMessage.addListener(this.handleBackgroundMessages);
+    // Set up a watcher to listen for messages only after UI is visible
+    const setupInterval = setInterval(() => {
+      if (window.qorexalReady) {
+        clearInterval(setupInterval);
+        this.setupMessageListener();
+      }
+    }, 100);
+    
+    // Cleanup interval after a timeout to prevent leaks
+    setTimeout(() => {
+      clearInterval(setupInterval);
+    }, 5000);
   }
   
-  private handleBackgroundMessages = (message, sender, sendResponse) => {
-    try {
-      console.log("[QOREXAL COMPONENT] Received message:", message);
-      
-      if (message?.type === EventTypeEnum.AICONSOLE && 
-          message.platform === PlatformEnum.CHATGPT) {
-        console.log("[QOREXAL COMPONENT] Received AICONSOLE message for ChatGPT");
-        sendResponse({ success: true });
-      }
-    } catch (err) {
-      console.error("[QOREXAL COMPONENT] Error handling message:", err);
-      sendResponse({ error: true, message: err.message });
-    }
+  private setupMessageListener() {
+    console.log("[QOREXAL COMPONENT] Setting up message listener");
     
-    return true; // Keep channel open for async response
-  };
+    // Create message handler
+    this.messageListener = (message, sender, sendResponse) => {
+      try {
+        console.log("[QOREXAL COMPONENT] Received message:", message);
+        
+        if (message?.type === EventTypeEnum.AICONSOLE && 
+            message.platform === PlatformEnum.CHATGPT) {
+          console.log("[QOREXAL COMPONENT] Received AICONSOLE message for ChatGPT");
+          sendResponse({ success: true });
+        }
+      } catch (err) {
+        console.error("[QOREXAL COMPONENT] Error handling message:", err);
+        sendResponse({ error: true, message: err.message });
+      }
+      
+      return true; // Keep channel open for async response
+    };
+    
+    // Add listener
+    chrome.runtime.onMessage.addListener(this.messageListener);
+  }
   
   ngOnDestroy() {
     // Clean up listeners
-    chrome.runtime.onMessage.removeListener(this.handleBackgroundMessages);
+    if (this.messageListener) {
+      chrome.runtime.onMessage.removeListener(this.messageListener);
+      this.messageListener = null;
+    }
   }
 }
