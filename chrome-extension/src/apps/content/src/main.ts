@@ -2,6 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { ContentAppComponent } from './app/content-app.component';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Add this line at the VERY beginning to ensure it's logged
 console.log('[QOREXAL CONTENT SCRIPT] Initial script execution - file loaded');
@@ -23,7 +24,7 @@ function initializeContentScript() {
     // Bootstrap Angular with standalone component
     bootstrapApplication(ContentAppComponent, {
       providers: [
-        importProvidersFrom(BrowserModule)
+        importProvidersFrom(BrowserModule, BrowserAnimationsModule)
       ]
     })
     .then(ref => {
