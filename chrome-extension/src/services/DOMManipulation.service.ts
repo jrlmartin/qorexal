@@ -22,7 +22,9 @@ export class DOMManipulationService {
       }
 
       // Set the prompt text
-      $textarea.text("how did nvidia do today at the end of the day? Respond in JSON format.");
+      $textarea.text(
+        "how did nvidia do today at the end of the day? Respond in JSON format."
+      );
       $textarea.trigger("input");
 
       // Add random delay between 1-3 seconds to simulate human behavior
@@ -34,9 +36,9 @@ export class DOMManipulationService {
       if ($submitButton.length === 0) {
         throw new Error("Submit button not found");
       }
-      
+
       $submitButton.click();
-      
+
       console.log("Prompt submitted successfully");
       return true;
     } catch (error) {
@@ -52,21 +54,26 @@ export class DOMManipulationService {
     try {
       // Wait for the response to load
       const responseContent = await this.pollForResponse();
-      
+
       if (!responseContent) {
-        throw new Error("Failed to capture response after maximum polling attempts");
+        throw new Error(
+          "Failed to capture response after maximum polling attempts"
+        );
       }
-      
+
       // Try to parse as JSON if it looks like JSON
-      if (responseContent.trim().startsWith('{') && responseContent.trim().endsWith('}')) {
+      if (
+        responseContent.trim().startsWith("{") &&
+        responseContent.trim().endsWith("}")
+      ) {
         try {
-          return JSON.parse(responseContent);
+          return responseContent;
         } catch (e) {
           console.log("Response is not valid JSON, returning raw text");
           return responseContent;
         }
       }
-      
+
       return responseContent;
     } catch (error) {
       console.error("Error in captureText:", error);
@@ -81,24 +88,27 @@ export class DOMManipulationService {
     for (let attempt = 0; attempt < this.MAX_POLLING_ATTEMPTS; attempt++) {
       // Wait for the polling interval
       await this.delay(this.POLLING_INTERVAL);
-      
+
       // Check if there's a completed response (last message from assistant)
       const $lastMessage = $("[data-message-author-role='assistant']").last();
-      
+
       // If we found a message and it doesn't have a loading indicator
-      if ($lastMessage.length > 0 && !$lastMessage.find(".result-streaming").length) {
+      if (
+        $lastMessage.length > 0 &&
+        !$lastMessage.find(".result-streaming").length
+      ) {
         console.log(`Response found after ${attempt + 1} attempts`);
-        
+
         // Look for code blocks first (in case of JSON formatting)
         const jsonText = $("div.markdown code.language-json").text();
-        
+
         // Otherwise get the text content
         return jsonText;
       }
-      
+
       console.log(`Polling for response: attempt ${attempt + 1}`);
     }
-    
+
     console.error("Max polling attempts reached without finding a response");
     return null;
   }
@@ -106,14 +116,13 @@ export class DOMManipulationService {
   /**
    * Creates a new chat
    */
-  async processData(): Promise<any> {
-    return true;
+  async reset(): Promise<any> {
     try {
       const newChatButton = document.querySelector(
         '[data-testid="create-new-chat-button"]'
       );
 
-      if (newChatButton && 'click' in newChatButton) {
+      if (newChatButton && "click" in newChatButton) {
         (newChatButton as HTMLElement).click();
         console.log("New chat created successfully");
         return true;
@@ -137,24 +146,20 @@ export class DOMManipulationService {
     if (!promptSuccess) {
       return { success: false, error: "Failed to submit prompt" };
     }
-    
+
     const responseData = await this.captureText();
     if (!responseData) {
       return { success: false, error: "Failed to capture response" };
     }
 
     console.log(responseData);
-    
-    return {
-      success: true,
-      data: responseData
-    };
+    this.reset();
   }
 
   /**
    * Helper method to create a delay
    */
   private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

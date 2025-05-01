@@ -39,7 +39,7 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
   }
 
   processData() {
-    this.domManipulationService.processData();
+    //this.domManipulationService.processData();
     // Implement data processing logic here
   }
 }   
