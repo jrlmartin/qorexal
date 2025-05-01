@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "latest",
     "@angular/router": "latest",
     "add": "^2.0.6",
+    "jquery": "^3.7.1",
     "l": "^0.6.0",
     "ng": "^0.0.0",
     "rxjs": "latest",
@@ -34,6 +35,7 @@
     "@angular/cli": "latest",
     "@angular/compiler-cli": "latest",
     "@types/chrome": "^0.0.317",
+    "@types/jquery": "^3.5.32",
     "typescript": "latest",
     "webpack-cli": "^6.0.1"
   }

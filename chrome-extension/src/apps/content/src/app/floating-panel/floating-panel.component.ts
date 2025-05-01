@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { DOMManipulationService } from '../../../../../services/DOMManipulation.service';
 
 @Component({
   standalone: true,
@@ -10,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./floating-panel.component.scss']
 })
 export class FloatingPanelComponent implements OnInit, AfterViewInit {
+  constructor(private domManipulationService: DOMManipulationService) {}
+
   ngOnInit() {
     console.log('[QOREXAL PANEL] Floating panel initialized');
   }
@@ -26,7 +29,7 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
   }
 
   injectText() {
-    console.log('[QOREXAL PANEL] Injecting text');
+    this.domManipulationService.runPrompt();
     // Implement text injection logic here
   }
 
@@ -39,4 +42,4 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
     console.log('[QOREXAL PANEL] Processing data');
     // Implement data processing logic here
   }
-}  
+}   
