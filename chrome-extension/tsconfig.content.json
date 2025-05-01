@@ -5,7 +5,7 @@
     "types": ["chrome", "node"]
   },
   "files": [
-    "src/apps/content/content-main.ts",
+    "src/apps/content/src/main.ts",
     "src/polyfills.ts"
   ],
   "exclude": [

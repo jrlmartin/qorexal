@@ -6,7 +6,9 @@
     "build": "ng build --configuration production",
     "build-background": "tsc -p tsconfig.background.json",
     "build-content": "ng build --configuration production --project content",
-    "build-all": "npm run build && npm run build-background && npm run build-content"
+    "build-all": "yarn build && yarn build-background && yarn build-content",
+    "clean": "rm -rf dist/*",
+    "build-extension": "yarn clean && yarn build-all"
   },
   "dependencies": {
     "@angular/animations": "latest",

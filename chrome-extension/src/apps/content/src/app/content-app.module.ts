@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ContentAppComponent } from '../../content-app.component';
+import { ContentAppComponent } from './content-app.component';
 
 @NgModule({
   declarations: [
