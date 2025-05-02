@@ -14,7 +14,7 @@ export class AppController {
     const message = this.llmService.prep({
       prompt: 'how much is 2 + 2?',
       fallbackPrompt: 'Fallback prompt',
-      deepResearch: false,
+      deepResearch: true,
       search: false,
       model: LLMModelEnum.GPT4O_MINI,
     });

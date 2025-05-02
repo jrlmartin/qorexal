@@ -35,6 +35,10 @@ export class DOMManipulationService {
   private readonly JSON_CODE_BLOCK_SELECTOR = "div.markdown code.language-json";
   private readonly NEW_CHAT_BUTTON_SELECTOR =
     "[data-testid='create-new-chat-button']";
+  private readonly SEARCH_BUTTON_SELECTOR =
+    "[data-testid='composer-button-search']";
+  private readonly DEEP_RESEARCH_BUTTON_SELECTOR =
+    "[data-testid='composer-button-deep-research']";
 
   // Time and polling configurations
   private readonly MAX_POLLING_ATTEMPTS = 600; // Maximum number of polling attempts
@@ -79,7 +83,7 @@ export class DOMManipulationService {
   /**
    * Injects a prompt into the textarea and submits it
    */
-  async runPrompt(prompt: string): Promise<boolean> {
+  async injectPrompt(prompt: string): Promise<boolean> {
     try {
       // Find the prompt textarea
       const $textarea = $(this.PROMPT_TEXTAREA_SELECTOR);
@@ -95,22 +99,6 @@ export class DOMManipulationService {
       $textarea.text(prompt);
       $textarea.trigger("input");
 
-      // Add random delay between MIN_RANDOM_DELAY and MAX_RANDOM_DELAY
-      await this.delay(this.getRandomDelay());
-
-      // Find and click the submit button
-      const $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
-      if ($submitButton.length === 0) {
-        this.handleError(
-          "Submit button not found",
-          DOMErrorCode.ELEMENT_NOT_FOUND,
-          { selector: this.SUBMIT_BUTTON_SELECTOR }
-        );
-      }
-
-      $submitButton.click();
-
-      console.log("Prompt submitted successfully");
       return true;
     } catch (error) {
       this.handleError(
@@ -120,6 +108,22 @@ export class DOMManipulationService {
       );
       return false;
     }
+  }
+
+  async runPrompt() {
+    // Find and click the submit button
+    const $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
+    if ($submitButton.length === 0) {
+      this.handleError(
+        "Submit button not found",
+        DOMErrorCode.ELEMENT_NOT_FOUND,
+        { selector: this.SUBMIT_BUTTON_SELECTOR }
+      );
+    }
+
+    $submitButton.click();
+
+    return true;
   }
 
   /**
@@ -210,21 +214,34 @@ export class DOMManipulationService {
   private async setSettings(message: LLMMessage) {
     const { deepResearch, search, model } = message;
 
-    // For the model, we need to update the URL to /?model=o4-mini-high
-    if (model) {
-      try {
-        // Create a base URL with the model parameter
-        const baseUrl = window.location.origin + window.location.pathname;
-        const newUrl = `${baseUrl}?model=${encodeURIComponent(model)}`;
-
-        // Use History API instead of refreshing the page
-        window.history.pushState({}, "", newUrl);
-        console.log(`URL updated with model parameter: ${model}`);
-
-        // No need to wait for navigation since we're not refreshing
-      } catch (error) {
-        console.error("Error updating URL with model parameter:", error);
+    // If search is enabled, click the search button
+    if (search) {
+      const $searchButton = $(this.SEARCH_BUTTON_SELECTOR);
+      if ($searchButton.length === 0) {
+        this.handleError(
+          "Search button not found",
+          DOMErrorCode.ELEMENT_NOT_FOUND,
+          { selector: this.SEARCH_BUTTON_SELECTOR }
+        );
       }
+
+      $searchButton.click();
+      console.log("Search button clicked");
+    } else if (deepResearch) {
+      // If deepResearch is enabled, click the deep research button
+
+      const $deepResearchButton = $(this.DEEP_RESEARCH_BUTTON_SELECTOR);
+      if ($deepResearchButton.length === 0) {
+        this.handleError(
+          "Deep research button not found",
+          DOMErrorCode.ELEMENT_NOT_FOUND,
+          { selector: this.DEEP_RESEARCH_BUTTON_SELECTOR }
+        );
+      }
+
+      $deepResearchButton.click();
+      console.log("Deep research button clicked");
+      return true;
     }
   }
 
@@ -237,12 +254,18 @@ export class DOMManipulationService {
     try {
       // Verify DOM elements before proceeding with workflow
       this.verifyDOMElements();
-      await this.delay(this.getRandomDelay());
       await this.reset();
+
       await this.delay(this.getRandomDelay());
-      this.setSettings(message);
-      await this.delay(this.getRandomDelay());
-      const promptSuccess = await this.runPrompt(message.prompt);
+
+      await  this.setSettings(message);
+      await this.delay(2000);
+
+       await this.injectPrompt(message.prompt);
+       await this.delay(this.getRandomDelay());
+
+      const promptSuccess = await this.runPrompt();
+
       if (!promptSuccess) {
         this.handleError(
           "Failed to submit prompt",
