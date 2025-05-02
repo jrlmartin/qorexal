@@ -22,6 +22,7 @@ declare global {
 export class ContentAppComponent implements OnInit, OnDestroy, AfterViewInit {
   private messageListener: ((message: any, sender: any, sendResponse: any) => boolean) | null = null;
   isRunning = false;
+  errorMessage: string | null = null;
 
   constructor(private domManipulationService: DOMManipulationService) {}
 
@@ -32,6 +33,13 @@ export class ContentAppComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('[QOREXAL COMPONENT] Received NEST_EVENT from background:', msg.payload);
         this.domManipulationService.runWorkflow().then((result) => {
          console.log('[QOREXAL COMPONENT] Result from runWorkflow:', result);
+         this.errorMessage = null; // Clear any previous errors on success
+        }).catch((error) => {
+         console.error('[QOREXAL COMPONENT] Error in runWorkflow:', error);
+         // Set error message to be displayed in the component
+         this.errorMessage = typeof error === 'string' ? error : 
+                            error.message ? error.message : 
+                            'Unknown error occurred';
         });
       }
       return false;

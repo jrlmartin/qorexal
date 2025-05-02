@@ -8,18 +8,18 @@ enum DOMErrorCode {
   // DOM element errors (100-199)
   ELEMENT_NOT_FOUND = 100,
   ELEMENT_NOT_INTERACTIVE = 101,
-  
+
   // Workflow errors (200-299)
   PROMPT_SUBMISSION_FAILED = 200,
   RESPONSE_CAPTURE_FAILED = 201,
   WORKFLOW_EXECUTION_FAILED = 202,
   RESET_FAILED = 203,
-  
+
   // Polling/timing errors (300-399)
   MAX_POLLING_ATTEMPTS_REACHED = 300,
-  
+
   // General errors (900-999)
-  GENERAL_ERROR = 900
+  GENERAL_ERROR = 900,
 }
 
 @Injectable({
@@ -56,20 +56,21 @@ export class DOMManipulationService {
   verifyDOMElements(): boolean {
     const selectors = {
       "Prompt textarea": this.PROMPT_TEXTAREA_SELECTOR,
-       // "Submit button": this.SUBMIT_BUTTON_SELECTOR,
+       "Submit button": this.SUBMIT_BUTTON_SELECTOR,
       // "Assistant message": this.ASSISTANT_MESSAGE_SELECTOR,
       // "JSON code block": this.JSON_CODE_BLOCK_SELECTOR,
-     "New chat button": this.NEW_CHAT_BUTTON_SELECTOR
+      "New chat button": this.NEW_CHAT_BUTTON_SELECTOR,
     };
 
     for (const [elementName, selector] of Object.entries(selectors)) {
       const $element = $(selector);
       if ($element.length === 0) {
-        this.handleError(`Required DOM element not found: ${elementName}`, 
-          DOMErrorCode.ELEMENT_NOT_FOUND, 
-          { 
+        this.handleError(
+          `Required DOM element not found: ${elementName}`,
+          DOMErrorCode.ELEMENT_NOT_FOUND,
+          {
             selector,
-            page: window.location.href
+            page: window.location.href,
           }
         );
       }
@@ -86,12 +87,13 @@ export class DOMManipulationService {
     try {
       // Verify DOM elements before proceeding
       this.verifyDOMElements();
-      
+
       await this.delay(this.getRandomDelay());
       // Find the prompt textarea
       const $textarea = $(this.PROMPT_TEXTAREA_SELECTOR);
       if ($textarea.length === 0) {
-        this.handleError("Prompt textarea not found", 
+        this.handleError(
+          "Prompt textarea not found",
           DOMErrorCode.ELEMENT_NOT_FOUND,
           { selector: this.PROMPT_TEXTAREA_SELECTOR }
         );
@@ -107,7 +109,8 @@ export class DOMManipulationService {
       // Find and click the submit button
       const $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
       if ($submitButton.length === 0) {
-        this.handleError("Submit button not found", 
+        this.handleError(
+          "Submit button not found",
           DOMErrorCode.ELEMENT_NOT_FOUND,
           { selector: this.SUBMIT_BUTTON_SELECTOR }
         );
@@ -118,7 +121,8 @@ export class DOMManipulationService {
       console.log("Prompt submitted successfully");
       return true;
     } catch (error) {
-      this.handleError("Error in runPrompt", 
+      this.handleError(
+        "Error in runPrompt",
         DOMErrorCode.PROMPT_SUBMISSION_FAILED,
         { error }
       );
@@ -162,16 +166,18 @@ export class DOMManipulationService {
         console.log(`Polling for response: attempt ${attempt + 1}`);
       }
 
-      this.handleError("Max polling attempts reached without finding a response", 
+      this.handleError(
+        "Max polling attempts reached without finding a response",
         DOMErrorCode.MAX_POLLING_ATTEMPTS_REACHED,
         {
           maxAttempts: this.MAX_POLLING_ATTEMPTS,
-          pollingInterval: this.POLLING_INTERVAL
+          pollingInterval: this.POLLING_INTERVAL,
         }
       );
       return null;
     } catch (error) {
-      this.handleError("Error in captureText", 
+      this.handleError(
+        "Error in captureText",
         DOMErrorCode.RESPONSE_CAPTURE_FAILED,
         { error }
       );
@@ -193,20 +199,18 @@ export class DOMManipulationService {
         console.log("New chat created successfully");
         return true;
       } else {
-        this.handleError("New chat button not found", 
+        this.handleError(
+          "New chat button not found",
           DOMErrorCode.ELEMENT_NOT_FOUND,
-          { 
+          {
             selector: this.NEW_CHAT_BUTTON_SELECTOR,
-            buttonFound: !!newChatButton 
+            buttonFound: !!newChatButton,
           }
         );
         return false;
       }
     } catch (error) {
-      this.handleError("Error in reset", 
-        DOMErrorCode.RESET_FAILED,
-        { error }
-      );
+      this.handleError("Error in reset", DOMErrorCode.RESET_FAILED, { error });
       return false;
     }
   }
@@ -214,39 +218,42 @@ export class DOMManipulationService {
   /**
    * Run the complete workflow: prompt, capture, process
    */
-  async runWorkflow(): Promise<{ success: boolean, response: string | null }> {
+  async runWorkflow(): Promise<{ success: boolean; response: string | null }> {
     try {
       // Verify DOM elements before proceeding with workflow
       this.verifyDOMElements();
-      
+
       await this.reset();
 
       const promptSuccess = await this.runPrompt();
       if (!promptSuccess) {
-        this.handleError("Failed to submit prompt", 
+        this.handleError(
+          "Failed to submit prompt",
           DOMErrorCode.PROMPT_SUBMISSION_FAILED,
           {
             step: "runPrompt",
-            workflow: "runWorkflow"
+            workflow: "runWorkflow",
           }
-        );  
+        );
         return { success: false, response: null };
       }
 
       const responseData = await this.captureText();
       if (!responseData) {
-        this.handleError("Failed to capture response", 
+        this.handleError(
+          "Failed to capture response",
           DOMErrorCode.RESPONSE_CAPTURE_FAILED,
           {
             step: "captureText",
-            workflow: "runWorkflow"
+            workflow: "runWorkflow",
           }
         );
       } else {
         return { success: true, response: responseData };
       }
     } catch (error) {
-      this.handleError("Error in workflow execution", 
+      this.handleError(
+        "Error in workflow execution",
         DOMErrorCode.WORKFLOW_EXECUTION_FAILED,
         { error }
       );
@@ -277,7 +284,11 @@ export class DOMManipulationService {
    * @param errorCode Error code from DOMErrorCode enum
    * @param details Optional object with debugging details
    */
-  private handleError(message: string, errorCode: DOMErrorCode, details?: Record<string, any>): never {
+  private handleError(
+    message: string,
+    errorCode: DOMErrorCode,
+    details?: Record<string, any>
+  ): never {
     console.error(`ERROR [${errorCode}]: ${message}`, details || {});
     throw new Error(`[${errorCode}] ${message}`);
   }

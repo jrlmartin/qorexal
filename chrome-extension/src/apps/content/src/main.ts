@@ -33,13 +33,12 @@ function initContentScript() {
   container.id = 'qorexal-root';
   container.style.cssText = `
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 100px;
     z-index: 2147483647;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     transition: opacity 0.3s ease-in-out;

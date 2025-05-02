@@ -18,7 +18,8 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  height: 300px;
+  height: 100px;
+  width: 300px;
 }
 
 .panel-header {
@@ -62,4 +63,14 @@
       }
     }
   }
+}
+
+.error-message {
+  color: #ff0000;
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 8px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 4px;
+  border-left: 4px solid #ff0000;
 } 
