@@ -74,17 +74,13 @@ export class DOMManipulationService {
 
     console.log("All required DOM elements verified");
     return true;
-  } 
+  }
 
   /**
    * Injects a prompt into the textarea and submits it
    */
   async runPrompt(prompt: string): Promise<boolean> {
     try {
-      // Verify DOM elements before proceeding
-      this.verifyDOMElements();
-
-      await this.delay(this.getRandomDelay());
       // Find the prompt textarea
       const $textarea = $(this.PROMPT_TEXTAREA_SELECTOR);
       if ($textarea.length === 0) {
@@ -211,16 +207,41 @@ export class DOMManipulationService {
     }
   }
 
+  private async setSettings(message: LLMMessage) {
+    const { deepResearch, search, model } = message;
+
+    // For the model, we need to update the URL to /?model=o4-mini-high
+    if (model) {
+      try {
+        // Create a base URL with the model parameter
+        const baseUrl = window.location.origin + window.location.pathname;
+        const newUrl = `${baseUrl}?model=${encodeURIComponent(model)}`;
+
+        // Use History API instead of refreshing the page
+        window.history.pushState({}, "", newUrl);
+        console.log(`URL updated with model parameter: ${model}`);
+
+        // No need to wait for navigation since we're not refreshing
+      } catch (error) {
+        console.error("Error updating URL with model parameter:", error);
+      }
+    }
+  }
+
   /**
    * Run the complete workflow: prompt, capture, process
    */
-  async runWorkflow(message: LLMMessage): Promise<{ success: boolean; response: string | null }> {
+  async runWorkflow(
+    message: LLMMessage
+  ): Promise<{ success: boolean; response: string | null }> {
     try {
       // Verify DOM elements before proceeding with workflow
       this.verifyDOMElements();
-
+      await this.delay(this.getRandomDelay());
       await this.reset();
-
+      await this.delay(this.getRandomDelay());
+      this.setSettings(message);
+      await this.delay(this.getRandomDelay());
       const promptSuccess = await this.runPrompt(message.prompt);
       if (!promptSuccess) {
         this.handleError(
