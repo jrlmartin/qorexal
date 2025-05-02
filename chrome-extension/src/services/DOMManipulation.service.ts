@@ -136,12 +136,12 @@ export class DOMManipulationService {
         await this.delay(this.POLLING_INTERVAL);
 
         // Check if there's a completed response (last message from assistant)
-        const $lastMessage = $(this.ASSISTANT_MESSAGE_SELECTOR).last();
+        const lastAssistantMessage = $(this.ASSISTANT_MESSAGE_SELECTOR).last();
 
         // If we found a message and it doesn't have a loading indicator
         if (
-          $lastMessage.length > 0 &&
-          !$lastMessage.find(this.LOADING_INDICATOR_SELECTOR).length
+          lastAssistantMessage.length > 0 &&
+          !lastAssistantMessage.find(this.LOADING_INDICATOR_SELECTOR).length
         ) {
           console.log(`Response found after ${attempt + 1} attempts`);
 
@@ -281,7 +281,7 @@ export class DOMManipulationService {
       let responseData = await this.captureText();
 
       if (responseData && message.deepResearch) {
-        await this.delay(this.getRandomDelay());
+        await this.delay(5000);
         await this.injectPrompt(message.fallbackPrompt);
         await this.delay(this.getRandomDelay());
 

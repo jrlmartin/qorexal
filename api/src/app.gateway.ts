@@ -30,9 +30,11 @@ export class AppGateway
     console.log('Client disconnected:', client.id);
   }
 
-  @SubscribeMessage('fromExtension')
+  @SubscribeMessage('workflowResult')
   handleFromExtension(client: any, payload: any): void {
     console.log('Received from extension:', payload);
+    const obj = JSON.parse(payload.response);
+    console.log('Received from extension:', obj);
   }
 
   /**

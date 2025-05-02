@@ -12,9 +12,9 @@ export class AppController {
   @Get()
   getHello(): object {
     const message = this.llmService.prep({
-      prompt: 'how much is 2 + 2?',
+      prompt: 'What is the capital of France? Return the answer in JSON format.',
       fallbackPrompt: 'Fallback prompt',
-      deepResearch: true,
+      deepResearch: false,
       search: false,
       model: LLMModelEnum.GPT4O_MINI,
     });
