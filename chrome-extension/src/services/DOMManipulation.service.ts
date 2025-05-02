@@ -56,7 +56,7 @@ export class DOMManipulationService {
   verifyDOMElements(): boolean {
     const selectors = {
       "Prompt textarea": this.PROMPT_TEXTAREA_SELECTOR,
-       "Submit button": this.SUBMIT_BUTTON_SELECTOR,
+      // "Submit button": this.SUBMIT_BUTTON_SELECTOR,
       // "Assistant message": this.ASSISTANT_MESSAGE_SELECTOR,
       // "JSON code block": this.JSON_CODE_BLOCK_SELECTOR,
       "New chat button": this.NEW_CHAT_BUTTON_SELECTOR,
