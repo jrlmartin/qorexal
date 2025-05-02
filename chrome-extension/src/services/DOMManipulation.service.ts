@@ -258,11 +258,11 @@ export class DOMManipulationService {
 
       await this.delay(this.getRandomDelay());
 
-      await  this.setSettings(message);
+      await this.setSettings(message);
       await this.delay(2000);
 
-       await this.injectPrompt(message.prompt);
-       await this.delay(this.getRandomDelay());
+      await this.injectPrompt(message.prompt);
+      await this.delay(this.getRandomDelay());
 
       const promptSuccess = await this.runPrompt();
 
@@ -278,7 +278,30 @@ export class DOMManipulationService {
         return { success: false, response: null };
       }
 
-      const responseData = await this.captureText();
+      let responseData = await this.captureText();
+
+      if (responseData && message.deepResearch) {
+        await this.delay(this.getRandomDelay());
+        await this.injectPrompt(message.fallbackPrompt);
+        await this.delay(this.getRandomDelay());
+
+        const promptSuccess = await this.runPrompt();
+
+        if (!promptSuccess) {
+          this.handleError(
+            "Failed to submit prompt",
+            DOMErrorCode.PROMPT_SUBMISSION_FAILED,
+            {
+              step: "runPrompt",
+              workflow: "runWorkflow",
+            }
+          );
+          return { success: false, response: null };
+        }
+
+        responseData = await this.captureText();
+      }
+
       if (!responseData) {
         this.handleError(
           "Failed to capture response",
