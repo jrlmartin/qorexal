@@ -7,6 +7,7 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
+import { LLMService } from './util/llm.service';
 
 @WebSocketGateway({
   cors: { origin: '*' }, // For local development
@@ -14,6 +15,7 @@ import { Server } from 'socket.io';
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
+  constructor(private readonly llmService: LLMService) {}
   @WebSocketServer() server: Server;
 
   afterInit(server: Server) {
@@ -37,6 +39,7 @@ export class AppGateway
    * Broadcast a message/event to all connected WebSocket clients
    */
   broadcastEvent(eventType: string, data: any) {
-    this.server.emit(eventType, data);
+    const message = this.llmService.prep(data);
+    this.server.emit(eventType, message);
   }
 }

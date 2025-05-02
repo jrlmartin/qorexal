@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import $ from "jquery";
-
+import { LLMMessage } from "../types";
 /**
  * Error codes for DOM manipulation operations
  */
@@ -35,10 +35,6 @@ export class DOMManipulationService {
   private readonly JSON_CODE_BLOCK_SELECTOR = "div.markdown code.language-json";
   private readonly NEW_CHAT_BUTTON_SELECTOR =
     "[data-testid='create-new-chat-button']";
-
-  // Prompt text
-  private readonly PROMPT_TEXT =
-    "how did nvidia do today at the end of the day? Respond in JSON format.";
 
   // Time and polling configurations
   private readonly MAX_POLLING_ATTEMPTS = 600; // Maximum number of polling attempts
@@ -78,12 +74,12 @@ export class DOMManipulationService {
 
     console.log("All required DOM elements verified");
     return true;
-  }
+  } 
 
   /**
    * Injects a prompt into the textarea and submits it
    */
-  async runPrompt(): Promise<boolean> {
+  async runPrompt(prompt: string): Promise<boolean> {
     try {
       // Verify DOM elements before proceeding
       this.verifyDOMElements();
@@ -100,7 +96,7 @@ export class DOMManipulationService {
       }
 
       // Set the prompt text
-      $textarea.text(this.PROMPT_TEXT);
+      $textarea.text(prompt);
       $textarea.trigger("input");
 
       // Add random delay between MIN_RANDOM_DELAY and MAX_RANDOM_DELAY
@@ -218,14 +214,14 @@ export class DOMManipulationService {
   /**
    * Run the complete workflow: prompt, capture, process
    */
-  async runWorkflow(): Promise<{ success: boolean; response: string | null }> {
+  async runWorkflow(message: LLMMessage): Promise<{ success: boolean; response: string | null }> {
     try {
       // Verify DOM elements before proceeding with workflow
       this.verifyDOMElements();
 
       await this.reset();
 
-      const promptSuccess = await this.runPrompt();
+      const promptSuccess = await this.runPrompt(message.prompt);
       if (!promptSuccess) {
         this.handleError(
           "Failed to submit prompt",

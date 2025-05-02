@@ -1,9 +1,5 @@
 import { EventTypeEnum, PlatformEnum } from "./types";
 import { io } from 'socket.io-client';
-
-console.log('[QOREXAL BACKGROUND] Background script initialized');
-
-console.log('[QOREXAL BACKGROUND] Starting socket.io connection');
 const socket = io('http://localhost:3000', {
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
@@ -23,14 +19,14 @@ socket.on('reconnect_attempt', (attemptNumber) => {
   console.log(`[QOREXAL BACKGROUND] Reconnection attempt ${attemptNumber}`);
 });
 
-socket.on('qorexalEvent', (data) => {
-  console.log('[QOREXAL BACKGROUND] Received qorexalEvent:', data);
+socket.on('processLLMEvent', (data) => {
+  console.log('[QOREXAL BACKGROUND] Received processLLMEvent:', data);
   
   chrome.tabs.query({}, (tabs) => {
     for (const tab of tabs) {
       if (tab.id) {
         chrome.tabs.sendMessage(tab.id, {
-          type: 'NEST_EVENT',
+          type: 'llmExtEvent',
           payload: data,
         });
       }
@@ -48,5 +44,14 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         platform: PlatformEnum.CHATGPT,
       });
     }
+  }
+});
+
+// Listen for messages from content script regarding workflow results
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'WORKFLOW_RESULT') {
+    console.log('[QOREXAL BACKGROUND] Received WORKFLOW_RESULT:', message.payload);
+    // Forward this result to the NestJS server through socket.io
+    socket.emit('workflowResult', message.payload);
   }
 });
