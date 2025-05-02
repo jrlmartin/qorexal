@@ -17,6 +17,14 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     console.log('[QOREXAL PANEL] Floating panel initialized');
+    fetch('http://localhost:3000')
+      .then(response => response.json())
+      .then(data => {
+        console.log('=================== [QOREXAL PANEL] Qorexal UI data:', data);
+      })
+      .catch(error => {
+        console.error('=================== [QOREXAL PANEL] Error fetching Qorexal UI data:', error);
+      });
   }
   
   ngAfterViewInit() {
