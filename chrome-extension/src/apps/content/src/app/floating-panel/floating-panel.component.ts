@@ -30,19 +30,6 @@ export class FloatingPanelComponent implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  injectText() {
-    this.isRunning = true;
-    this.domManipulationService.runWorkflow();
-  }
-
-  captureText() {
-    this.domManipulationService.captureText();
-  }
-
-  processData() {
-    //this.domManipulationService.processData();
-  }
-
   toggleWorkflow() {
     if (this.isRunning) {
       this.domManipulationService.stopWorkflow();

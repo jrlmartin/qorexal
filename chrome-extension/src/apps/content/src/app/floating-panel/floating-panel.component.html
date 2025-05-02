@@ -3,8 +3,8 @@
     <h3>Qorexal</h3>
   </div>
   <div class="panel-content">
-    <button mat-raised-button color="primary" (click)="injectText()">Inject Text and push button</button>
-    <button mat-raised-button color="accent" (click)="captureText()">Capture the text</button>
-    <button mat-raised-button color="warn" (click)="processData()">Process</button>
+    <button mat-raised-button [color]="isRunning ? 'warn' : 'primary'" (click)="toggleWorkflow()">
+      {{isRunning ? 'Stop Workflow' : 'Run Workflow'}}
+    </button>
   </div>
 </div> 

@@ -158,7 +158,8 @@ export class DOMManipulationService {
   async runWorkflow(): Promise<{ success: boolean }> {
     // Set flag to indicate workflow is running
     this.isWorkflowRunning = true;
-
+    await this.reset();
+    
     // Run the workflow in a loop with a delay between iterations
     while (this.isWorkflowRunning) {
       const promptSuccess = await this.runPrompt();
