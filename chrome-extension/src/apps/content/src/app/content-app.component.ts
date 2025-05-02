@@ -30,7 +30,9 @@ export class ContentAppComponent implements OnInit, OnDestroy, AfterViewInit {
     chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       if (msg.type === 'NEST_EVENT') {
         console.log('[QOREXAL COMPONENT] Received NEST_EVENT from background:', msg.payload);
-        this.domManipulationService.runWorkflow();
+        this.domManipulationService.runWorkflow().then((result) => {
+         console.log('[QOREXAL COMPONENT] Result from runWorkflow:', result);
+        });
       }
       return false;
     });
