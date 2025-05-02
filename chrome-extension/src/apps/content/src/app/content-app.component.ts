@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { EventTypeEnum, PlatformEnum } from "../../../../types";
 import { FloatingPanelComponent } from "./floating-panel/floating-panel.component";
+import { DOMManipulationService } from "src/services/DOMManipulation.service";
+
 
 // Declare the window interfaces to avoid TypeScript errors
 declare global {
@@ -20,13 +22,25 @@ declare global {
 export class ContentAppComponent implements OnInit, OnDestroy {
   private messageListener: ((message: any, sender: any, sendResponse: any) => boolean) | null = null;
   
-  constructor() {
+  constructor(
+    private domManipulationService: DOMManipulationService
+  ) {
     console.log("[QOREXAL COMPONENT] ContentAppComponent constructor");
   }
 
   ngOnInit() {
     console.log("[QOREXAL COMPONENT] ContentAppComponent initialized");
-    
+
+    // Listen for events from background (triggered by NestJS)
+    chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+      if (msg.type === 'NEST_EVENT') {
+        console.log('[QOREXAL COMPONENT] Received NEST_EVENT from background:', msg.payload);
+        this.domManipulationService.runWorkflow();
+        
+      }
+      return false;
+    });
+
     // Set up a watcher to listen for messages only after UI is visible
     const setupInterval = setInterval(() => {
       if (window.qorexalReady) {
@@ -48,7 +62,8 @@ export class ContentAppComponent implements OnInit, OnDestroy {
     this.messageListener = (message, sender, sendResponse) => {
       try {
         console.log("[QOREXAL COMPONENT] Received message:", message);
-        
+        console.log("=============");
+   
         if (message?.type === EventTypeEnum.AICONSOLE && 
             message.platform === PlatformEnum.CHATGPT) {
           console.log("[QOREXAL COMPONENT] Received AICONSOLE message for ChatGPT");

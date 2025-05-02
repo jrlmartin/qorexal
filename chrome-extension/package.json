@@ -9,7 +9,8 @@
     "build-all": "yarn build && yarn build-background && yarn build-content",
     "dev": "ng run content:build:production --watch",
     "clean": "rm -rf dist/*",
-    "build-extension": "yarn clean && yarn build-all"
+    "build-extension": "yarn clean && yarn build-all",
+    "test-server": "node server-test.js"
   },
   "dependencies": {
     "@angular/animations": "latest",
@@ -22,10 +23,13 @@
     "@angular/platform-browser-dynamic": "latest",
     "@angular/router": "latest",
     "add": "^2.0.6",
+    "express": "^4.18.2",
     "jquery": "^3.7.1",
     "l": "^0.6.0",
     "ng": "^0.0.0",
     "rxjs": "latest",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "ts-loader": "^9.5.2",
     "tslib": "latest",
     "zone.js": "latest"
