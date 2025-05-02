@@ -8,10 +8,12 @@ export class DOMManipulationService {
   // Selectors
   private readonly PROMPT_TEXTAREA_SELECTOR = "#prompt-textarea";
   private readonly SUBMIT_BUTTON_SELECTOR = "#composer-submit-button";
-  private readonly ASSISTANT_MESSAGE_SELECTOR = "[data-message-author-role='assistant']";
+  private readonly ASSISTANT_MESSAGE_SELECTOR =
+    "[data-message-author-role='assistant']";
   private readonly LOADING_INDICATOR_SELECTOR = ".result-streaming";
   private readonly JSON_CODE_BLOCK_SELECTOR = "div.markdown code.language-json";
-  private readonly NEW_CHAT_BUTTON_SELECTOR = "[data-testid='create-new-chat-button']";
+  private readonly NEW_CHAT_BUTTON_SELECTOR =
+    "[data-testid='create-new-chat-button']";
 
   // Prompt text
   private readonly PROMPT_TEXT =
@@ -22,10 +24,6 @@ export class DOMManipulationService {
   private readonly POLLING_INTERVAL = 5000; // Polling interval in milliseconds
   private readonly MIN_RANDOM_DELAY = 1000; // 1 second
   private readonly MAX_RANDOM_DELAY = 3000; // 3 seconds
-  private readonly WORKFLOW_LOOP_DELAY = 5000; // 5 seconds
-
-  // Workflow control
-  private isWorkflowRunning = false;
 
   constructor() {}
 
@@ -34,6 +32,7 @@ export class DOMManipulationService {
    */
   async runPrompt(): Promise<boolean> {
     try {
+      await this.delay(this.getRandomDelay());
       // Find the prompt textarea
       const $textarea = $(this.PROMPT_TEXTAREA_SELECTOR);
       if ($textarea.length === 0) {
@@ -45,10 +44,7 @@ export class DOMManipulationService {
       $textarea.trigger("input");
 
       // Add random delay between MIN_RANDOM_DELAY and MAX_RANDOM_DELAY
-      const randomDelay =
-        this.MIN_RANDOM_DELAY +
-        Math.random() * (this.MAX_RANDOM_DELAY - this.MIN_RANDOM_DELAY);
-      await this.delay(randomDelay);
+      await this.delay(this.getRandomDelay());
 
       // Find and click the submit button
       const $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
@@ -156,41 +152,23 @@ export class DOMManipulationService {
    * Run the complete workflow: prompt, capture, process
    */
   async runWorkflow(): Promise<{ success: boolean }> {
-    // Set flag to indicate workflow is running
-    this.isWorkflowRunning = true;
     await this.reset();
-    
-    // Run the workflow in a loop with a delay between iterations
-    while (this.isWorkflowRunning) {
-      const promptSuccess = await this.runPrompt();
-      if (!promptSuccess) {
-        console.error("Failed to submit prompt");
-        continue;
-      }
 
-      const responseData = await this.captureText();
-      if (!responseData) {
-        console.error("Failed to capture response");
-      } else {
-        // Do something with the captured response
-        console.log(responseData);
-      }
+    const promptSuccess = await this.runPrompt();
+    if (!promptSuccess) {
+      console.error("Failed to submit prompt");
+      return { success: false };
+    }
 
-      await this.reset();
-
-      // Wait before the next iteration
-      await this.delay(this.WORKFLOW_LOOP_DELAY);
+    const responseData = await this.captureText();
+    if (!responseData) {
+      console.error("Failed to capture response");
+    } else {
+      // Do something with the captured response
+      console.log(responseData);
     }
 
     return { success: true };
-  }
-
-  /**
-   * Stop the workflow loop
-   */
-  stopWorkflow(): void {
-    this.isWorkflowRunning = false;
-    console.log("Workflow loop stopped");
   }
 
   /**
@@ -198,5 +176,15 @@ export class DOMManipulationService {
    */
   private delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Generates a random delay between MIN_RANDOM_DELAY and MAX_RANDOM_DELAY
+   */
+  private getRandomDelay(): number {
+    return (
+      this.MIN_RANDOM_DELAY +
+      Math.random() * (this.MAX_RANDOM_DELAY - this.MIN_RANDOM_DELAY)
+    );
   }
 }
