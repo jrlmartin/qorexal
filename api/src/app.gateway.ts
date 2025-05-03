@@ -8,6 +8,8 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { LLMService } from './util/llm.service';
+import { WorkFlowService } from './workflow.service';
+import { LLMModelEnum } from './util/llm.service';
 
 @WebSocketGateway({
   cors: { origin: '*' }, // For local development
@@ -15,7 +17,10 @@ import { LLMService } from './util/llm.service';
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private readonly llmService: LLMService) {}
+  constructor(
+    private readonly llmService: LLMService,
+    private readonly workflowService: WorkFlowService,
+  ) {}
   @WebSocketServer() server: Server;
 
   afterInit(server: Server) {
@@ -40,8 +45,18 @@ export class AppGateway
   /**
    * Broadcast a message/event to all connected WebSocket clients
    */
-  broadcastEvent(eventType: string, data: any) {
-    const message = this.llmService.prep(data);
-    this.server.emit(eventType, message);
+  async broadcastEvent() {
+    const prompt = await this.workflowService.TopDog();
+
+    const message = this.llmService.prep({
+      prompt,
+      fallbackPrompt: null,
+      model: LLMModelEnum.O1PRO,
+      search: false,
+      deepResearch: false,
+    });
+
+    console.log('message', message); 
+    this.server.emit('processLLMEvent', message);
   }
 }
