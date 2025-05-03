@@ -7,6 +7,7 @@ import { WorkFlowService } from './workflow.service';
 import { typeOrmConfig } from './core/rds/typeormConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StockCapTierEntity } from './entities/StockCapTier.entity';
+import { StockService } from './serivces/stock.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { StockCapTierEntity } from './entities/StockCapTier.entity';
     TypeOrmModule.forFeature([StockCapTierEntity]),
   ],
   controllers: [AppController],
-  providers: [AppGateway, LLMService, WorkFlowService, BenzingaService],
+  providers: [AppGateway, LLMService, WorkFlowService, BenzingaService, StockService],
 })
 export class AppModule {}

@@ -36,6 +36,30 @@ export class StockCapTierEntity extends BaseEntityMixin(class {}) {
   companyName!: string;
 
   /**
+   * The exchange where the stock is listed (e.g., 'NASDAQ')
+   */
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  exchange!: string;
+
+  /**
+   * The sector the company belongs to (e.g., 'Technology')
+   */
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  sector!: string;
+
+  /**
+   * The specific industry within the sector (e.g., 'Consumer Electronics')
+   */
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  industry!: string;
+
+  /**
+   * The country where the company is headquartered
+   */
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  country!: string;
+
+  /**
    * The raw market capitalization value in USD
    */
   @Column({ type: 'numeric', precision: 20, scale: 2 })

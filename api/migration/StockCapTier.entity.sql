@@ -20,6 +20,10 @@
    
        ticker           VARCHAR(10)   NOT NULL,
        company_name     VARCHAR(255)  NOT NULL,
+        exchange         VARCHAR(50),                     -- nullable
+        sector           VARCHAR(100),                    -- nullable
+        industry         VARCHAR(100),                    -- nullable
+        country          VARCHAR(100),                    -- nullable
    
        market_cap_usd   NUMERIC(20,2) NOT NULL
                       CHECK (market_cap_usd >= 0),
