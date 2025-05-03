@@ -59,6 +59,7 @@ export class StockService {
 
     // Fetch stock data from Alpha Vantage API
     const overview = await this.alpha.fundamental.company_overview(ticker);
+
     const {
       Name,
       Symbol,
@@ -71,13 +72,13 @@ export class StockService {
 
     // Create a new stock cap tier entity
     const newStock = new StockCapTierEntity();
-    newStock.ticker = Symbol;
-    newStock.companyName = Name;
+    newStock.ticker = Symbol || ticker;
+    newStock.companyName = Name || ticker;
     newStock.exchange = Exchange;
     newStock.sector = Sector;
     newStock.industry = Industry;
     newStock.country = Country;
-    newStock.marketCapUsd = MarketCapitalization;
+    newStock.marketCapUsd = MarketCapitalization || 0;
 
     // Save the new stock cap tier entity to database
     const savedStock = await this.stockCapTierRepository.save(newStock);

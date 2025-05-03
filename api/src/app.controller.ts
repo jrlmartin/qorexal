@@ -13,8 +13,9 @@ export class AppController {
 
   @Get()
   async test(): Promise<object> {
+    await this.gateway.broadCastTopDogV1();
    // this.gateway.broadcastEvent();
-    const isLargeCap = await this.stockService.isStockInCapTier('DUOL', MarketCapTierEnum.LARGE);
+   // const isLargeCap = await this.stockService.isStockInCapTier('DUOL', MarketCapTierEnum.LARGE);
     
     return { event: 'qorexalEvent' };
   }
