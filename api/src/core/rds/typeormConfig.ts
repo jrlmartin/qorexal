@@ -32,7 +32,7 @@ export const typeOrmConfig = (__dirname): TypeOrmModuleOptions => {
     entities: [__dirname + '/**/*.entity.{js,ts}'],
     migrations: [__dirname + '/**/*.migration.{js,ts}'],
     synchronize: process.env.SYNCHRONIZE == 'true',
-    logging: process.env.LOG_TYPEORM_QUERIES?.toLowerCase() == 'true',
+    logging: true, // process.env.LOG_TYPEORM_QUERIES?.toLowerCase() == 'true',
     ...ssl,
     namingStrategy: new SnakeNamingStrategy(),
     extra: {
