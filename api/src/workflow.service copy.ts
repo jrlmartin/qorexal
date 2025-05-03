@@ -49,11 +49,6 @@ export class WorkFlowService {
 
     console.log('Total items collected:', finalizedList.length);
 
-
-
-
-
-return;
     const prompt = `
         You are tasked with analyzing recent news articles to identify any anomalies or indicators that could make a stock bullish. Here are the news articles to analyze:
 
@@ -91,12 +86,12 @@ return;
         page: 0,
         pageSize: 25,
         date: '2025-05-01',
-        publishedSince: this.cstToUnixTimestamp('2025-05-01', 8),
-        tickers: 'DUOL',
+        publishedSince: this.cstToUnixTimestamp('2025-05-01', 2),
+          tickers: 'DUOL',
       });
 
-     console.log(util.inspect(currentBatch, false, null, true /* enable colors */)) ;
-return
+ 
+
     console.log('Total items collected:', currentBatch.length);
 
     const prompt = `

@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
+import * as moment from 'moment-timezone';
 import {
   GetAnalystInsightsParams,
   AnalystInsightsResponse,
@@ -139,6 +140,8 @@ export class BenzingaService {
     return response.data.map(item => ({
       author: item.author,
       created: item.created,
+      updated: item.updated,
+      localCreated: moment(item.created).tz('America/Chicago').format('MM/DD/YY h:mm A'),
       title: item.title,
       teaser: item.teaser,
       body: item.body,
