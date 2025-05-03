@@ -5,8 +5,8 @@ import {
   MarketCapTierEnum,
   StockCapTierEntity,
 } from '../entities/StockCapTier.entity';
-import { BenzingaService } from 'src/util/benzinga';
 import * as alphaVantage from 'alphavantage';
+import { BenzingaService } from './market-api/benzinga';
 
 /**
  * Service for handling stock-related operations, including market cap tier classification

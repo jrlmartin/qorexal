@@ -8,8 +8,9 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { LLMService } from './util/llm.service';
-import { WorkFlowService } from './workflow.service';
+ 
 import { LLMModelEnum } from './util/llm.service';
+import { TopDogV1Workflow } from './workflows/topDogV1/topDogV1.workflow';
 
 @WebSocketGateway({
   cors: { origin: '*' }, // For local development
@@ -19,7 +20,7 @@ export class AppGateway
 {
   constructor(
     private readonly llmService: LLMService,
-    private readonly workflowService: WorkFlowService,
+    private readonly topDogV1Workflow: TopDogV1Workflow,
   ) {}
   @WebSocketServer() server: Server;
 
@@ -42,21 +43,31 @@ export class AppGateway
     console.log('Received from extension:', obj);
   }
 
+  async broadCastTopDogV1() {
+    const message = await this.topDogV1Workflow.process();
+
+
+
+   // this.server.emit('processLLMEvent', message);
+  }
+
+
+
+
+
+
+
+
+
+
   /**
    * Broadcast a message/event to all connected WebSocket clients
    */
   async broadcastEvent() {
-    const prompt = await this.workflowService.TopDog();
+    const prompt = await this.topDogV1Workflow.process();
 
-    const message = this.llmService.prep({
-      prompt,
-      fallbackPrompt: null,
-      model: LLMModelEnum.O1PRO,
-      search: false,
-      deepResearch: false,
-    });
 
-    console.log('message', message); 
-    this.server.emit('processLLMEvent', message);
+ 
+   
   }
 }
