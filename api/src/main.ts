@@ -1,9 +1,19 @@
-import { NestFactory } from '@nestjs/core';
+import { restBootstrap } from './core/server';
 import { AppModule } from './app.module';
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  await app.listen(3000);
+import * as dotenv from 'dotenv';
+ 
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
 }
-bootstrap();
+
+const SERVICE_NAME = 'Qorexal API';
+const VERSION = '1.11';
+
+restBootstrap({
+  module: AppModule, // <-- Updated to root module
+  globalPrefix: process.env.GLOBAL_PREFIX,
+  apiName: SERVICE_NAME,
+  apiVersion: VERSION,
+  host: process.env.SERVICE_HOST,
+  port: parseInt(process.env.SERVICE_PORT, 10),
+});
