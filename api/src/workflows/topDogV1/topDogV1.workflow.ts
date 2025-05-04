@@ -127,6 +127,7 @@ export class TopDogV1Workflow {
    * - Return the filtered news items
    */
   async process(step: number, payload?: any) {
+    return await this.stockService.shortCompanyProfile('IBM');
     switch (step) {
       case 1:
         return this.step1();

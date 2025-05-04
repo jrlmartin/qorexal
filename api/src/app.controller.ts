@@ -3,12 +3,14 @@ import { AppGateway } from './app.gateway';
 import { LLMModelEnum, LLMService } from './util/llm.service';
 import { StockService } from './serivces/stock.service';
 import { MarketCapTierEnum } from './entities/StockCapTier.entity';
+import { ConpanyDataSetService } from './serivces/company-dataset.service';
 @Controller()
 export class AppController {
   constructor(
     private readonly gateway: AppGateway,
     private readonly llmService: LLMService,
-    private readonly stockService: StockService
+    private readonly stockService: StockService,
+    private readonly companyDatasetService: ConpanyDataSetService
   ) {}
 
   @Get()

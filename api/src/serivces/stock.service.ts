@@ -7,6 +7,10 @@ import {
 } from '../entities/StockCapTier.entity';
 import * as alphaVantage from 'alphavantage';
 import { BenzingaService } from './market-api/benzinga';
+import { ConpanyDataSetService } from './company-dataset.service';
+
+// Type alias for the return type of the alphavantage function
+type AlphaVantageClient = ReturnType<typeof alphaVantage>;
 
 /**
  * Service for handling stock-related operations, including market cap tier classification
@@ -14,12 +18,13 @@ import { BenzingaService } from './market-api/benzinga';
  */
 @Injectable()
 export class StockService {
-  private readonly alpha: any;
+  private readonly alpha: AlphaVantageClient;
 
   constructor(
     @InjectRepository(StockCapTierEntity)
     private readonly stockCapTierRepository: Repository<StockCapTierEntity>,
     private readonly benzinga: BenzingaService,
+    private readonly companyDatasetService: ConpanyDataSetService,
   ) {
     // Initialize Alpha Vantage API client with API key
     this.alpha = alphaVantage({ key: 'CM9Z7GP4R48740XD' });
@@ -36,7 +41,7 @@ export class StockService {
   /**
    * Checks if a stock is in a specific market cap tier
    * If the stock is not in the database, fetches data from Alpha Vantage API and saves it
-   * 
+   *
    * @param ticker - Stock ticker symbol
    * @param capSize - Market cap tier to check against
    * @returns Promise resolving to a boolean indicating if the stock is in the specified cap tier
@@ -85,5 +90,16 @@ export class StockService {
 
     // Check if saved stock matches the requested cap tier
     return savedStock.capTier === capSize;
+  }
+
+  async shortCompanyProfile(ticker: string): Promise<string> {
+    const overview = await this.companyDatasetService.companyOverview(ticker);
+    //const dailyTimeSeries = await this.companyDatasetService.dailyAdjustedTimeSeries(ticker);
+    const intradayTimeSeries =
+      await this.companyDatasetService.rsiTechnicalIndicator(ticker);
+    console.log(overview);
+    //console.log(dailyTimeSeries);
+    console.log(intradayTimeSeries);
+    return overview;
   }
 }
