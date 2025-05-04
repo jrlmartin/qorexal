@@ -44,7 +44,7 @@ export class AppGateway
   }
 
   async broadCastTopDogV1() {
-    const message = await this.topDogV1Workflow.process();
+    const message = await this.topDogV1Workflow.process(1);
 
 
 
@@ -64,7 +64,7 @@ export class AppGateway
    * Broadcast a message/event to all connected WebSocket clients
    */
   async broadcastEvent() {
-    const prompt = await this.topDogV1Workflow.process();
+    const prompt = await this.topDogV1Workflow.process(1);
 
 
  

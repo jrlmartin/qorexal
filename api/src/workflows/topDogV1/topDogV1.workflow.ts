@@ -8,6 +8,7 @@ import { AppLogger } from 'src/core/logger';
 import { MarketCapTierEnum } from 'src/entities/StockCapTier.entity';
 import * as TurndownService from 'turndown';
 import { NewsItem } from 'src/serivces/market-api/benzinga/types';
+import step1Prompt from './prompts';
 
 export interface LLMResponse {}
 
@@ -37,16 +38,16 @@ export class TopDogV1Workflow {
 
     // Return formatted news item
     return `
-    <NewsItem>
-    ## Stocks: ${stocks ? stocks.map((stock) => stock.name).join(', ') : ''}
-    ## Published (UTC): ${created || ''}
-    ## Title: ${title || ''}
-    ## URL: ${url || ''}
-    ## Tags: ${tags ? tags.map((tag) => tag.name).join(', ') : ''}
-    ## Channels: ${channels ? channels.map((channel) => channel.name).join(', ') : ''}
-    ## Content: ${markdownBody}
-    </NewsItem>
-    `;
+<news-article>
+## Stocks: ${stocks ? stocks.map((stock) => stock.name).join(', ') : ''}
+## Published (UTC): ${created || ''}
+## Title: ${title || ''}
+## URL: ${url || ''}
+## Tags: ${tags ? tags.map((tag) => tag.name).join(', ') : ''}
+## Channels: ${channels ? channels.map((channel) => channel.name).join(', ') : ''}
+## Content: ${markdownBody}
+</news-article>
+`;
   }
 
   private prepNewsItemsForLLM(newsItems: Partial<NewsItem>[]): string {
@@ -87,6 +88,34 @@ export class TopDogV1Workflow {
     return filteredNewsItems;
   }
 
+  private async step1() {
+    // Pull stock news from the database within last 15 minutes
+    const newsItems = await this.benzingaService.getNewsBlocks(300, {
+      displayOutput: 'full',
+    });
+
+    // Filter on medium cap stock news items
+    const filteredNewsItems = await this.filterMediumCapNewsItems(newsItems);
+
+    const llmPreppedNewsItems =
+      await this.prepNewsItemsForLLM(filteredNewsItems);
+
+    const prompt = step1Prompt.replace(
+      '{{{newsArticles}}}',
+      llmPreppedNewsItems,
+    );
+
+    return prompt;
+  }
+
+  private async step2(payload: any) {
+
+  }
+
+  private async step3(payload: any) {
+
+  }
+
   /**
    * Process the top dog v1 workflow
    * - Pull stock news from the database within last 15 minutes
@@ -94,26 +123,14 @@ export class TopDogV1Workflow {
    * - Filter on news items with tickers in medium cap tier or no tickers
    * - Return the filtered news items
    */
-  async process() {
-    // Pull stock news from the database within last 15 minutes
-    const newsItems = await this.benzingaService.getNewsBlocks(300, {
-      displayOutput: 'full',
-    });
-
-    // Filter on medium cap news items
-    const filteredNewsItems = await this.filterMediumCapNewsItems(newsItems);
-
-    const llmPreppedNewsItems =
-      await this.prepNewsItemsForLLM(filteredNewsItems);
-
-    console.log(llmPreppedNewsItems);
+  async process(step: number, payload?: any) {
+    switch (step) {
+      case 1:
+        return this.step1();
+      case 2:
+        return this.step2(payload);
+      case 3:
+        return this.step3(payload);
+    }
   }
 }
-
-// const message = this.llmService.prep({
-//   prompt,
-//   fallbackPrompt: null,
-//   model: LLMModelEnum.O1PRO,
-//   search: false,
-//   deepResearch: false,
-// });
