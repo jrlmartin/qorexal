@@ -29,6 +29,7 @@ export class BenzingaService {
     });
     
     return response.data.map(item => ({
+      id: item.id,
       author: item.author,
       created: item.created,
       createdCst: moment(item.created).tz('America/Chicago').format('MM/DD/YY h:mm A'),

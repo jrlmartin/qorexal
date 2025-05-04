@@ -39,6 +39,7 @@ export class TopDogV1Workflow {
     // Return formatted news item
     return `
 <news-article>
+## Article ID: ${newsItem.id}
 ## Stocks: ${stocks ? stocks.map((stock) => stock.name).join(', ') : ''}
 ## Published (UTC): ${created || ''}
 ## Title: ${title || ''}
@@ -104,6 +105,8 @@ export class TopDogV1Workflow {
       '{{{newsArticles}}}',
       llmPreppedNewsItems,
     );
+
+    console.log(prompt);
 
     return prompt;
   }
