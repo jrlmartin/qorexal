@@ -6,6 +6,8 @@ import * as moment from 'moment-timezone';
 import { StockService } from 'src/serivces/stock.service';
 import { AppLogger } from 'src/core/logger';
 import { MarketCapTierEnum } from 'src/entities/StockCapTier.entity';
+import * as TurndownService from 'turndown';
+import { NewsItem } from 'src/serivces/market-api/benzinga/types';
 
 export interface LLMResponse {}
 
@@ -13,15 +15,42 @@ const logger = AppLogger.for('TopDogV1Workflow');
 
 @Injectable()
 export class TopDogV1Workflow {
+  private turndownService: TurndownService;
+
   constructor(
     private readonly benzingaService: BenzingaService,
     private readonly stockService: StockService,
-  ) {}
+  ) {
+    this.turndownService = new TurndownService();
+  }
 
-  private async prepNewsItemsForLLM(
-    newsItems: Partial<NewsItem>[],
-  ): Promise<string> {
-    return newsItems.map((item) => item.title).join('\n');
+  /**
+   * Prepares a news item for the LLM
+   * @param newsItem - The news item to prepare
+   * @returns The prepared news item
+   */
+  private prepNewsItemForLLM(newsItem: NewsItem): string {
+    const { title, body, stocks, url, channels, created, tags } = newsItem;
+
+    // Convert HTML content to markdown if body exists and contdains HTML
+    const markdownBody = body ? this.turndownService.turndown(body) : '';
+
+    // Return formatted news item
+    return `
+    <NewsItem>
+    ## Stocks: ${stocks ? stocks.map((stock) => stock.name).join(', ') : ''}
+    ## Published (UTC): ${created || ''}
+    ## Title: ${title || ''}
+    ## URL: ${url || ''}
+    ## Tags: ${tags ? tags.map((tag) => tag.name).join(', ') : ''}
+    ## Channels: ${channels ? channels.map((channel) => channel.name).join(', ') : ''}
+    ## Content: ${markdownBody}
+    </NewsItem>
+    `;
+  }
+
+  private prepNewsItemsForLLM(newsItems: Partial<NewsItem>[]): string {
+    return newsItems.map((item) => this.prepNewsItemForLLM(item)).join('\n');
   }
 
   /**
@@ -40,8 +69,12 @@ export class TopDogV1Workflow {
     const uniqueTickers = [...new Set(tickers.flat())];
 
     // Check if tickers are medium cap
-    const mediumCapTickers = uniqueTickers.filter(async (ticker) =>
-      await this.stockService.isStockInCapTier(ticker, MarketCapTierEnum.MEDIUM),
+    const mediumCapTickers = uniqueTickers.filter(
+      async (ticker) =>
+        await this.stockService.isStockInCapTier(
+          ticker,
+          MarketCapTierEnum.MEDIUM,
+        ),
     );
 
     // Only return news items that have medium cap tickers
@@ -72,6 +105,8 @@ export class TopDogV1Workflow {
 
     const llmPreppedNewsItems =
       await this.prepNewsItemsForLLM(filteredNewsItems);
+
+    console.log(llmPreppedNewsItems);
   }
 }
 
