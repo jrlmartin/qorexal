@@ -76,10 +76,12 @@ export class ConpanyDataSetService {
    * @param interval The time interval between data points
    * @param adjusted Whether to return adjusted data (defaults to true)
    * @returns Promise resolving to the intraday time series data
+   * 
+   * extended_hours if we want to see the stock right at opening bell
    */
   async intradayTimeSeries(
     ticker: string,
-    interval: TimeIntervalType = '15min',
+    interval: TimeIntervalType = '5min',
     outputsize: OutputSizeType = 'compact',
     markdown: boolean = true,
   ): Promise<any> {
@@ -98,7 +100,7 @@ export class ConpanyDataSetService {
    */
   async rsiTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
@@ -126,7 +128,7 @@ export class ConpanyDataSetService {
    */
   async macdTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
     fastPeriod: number = 12,
@@ -161,7 +163,7 @@ export class ConpanyDataSetService {
    */
   async obvTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
     numElements: number = 30,
@@ -186,7 +188,7 @@ export class ConpanyDataSetService {
    */
   async emaTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     timePeriod: number = 20, // Common default
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
@@ -212,7 +214,7 @@ export class ConpanyDataSetService {
    */
   async bbandsTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     timePeriod: number = 20, // Common BBANDS default
     seriesType: SeriesType = 'close',
     nbdevup: number = 2, // Standard dev up
@@ -244,7 +246,7 @@ export class ConpanyDataSetService {
    */
   async stochTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     fastkperiod: number = 14,
     slowkperiod: number = 3,
     slowdperiod: number = 3,
@@ -278,7 +280,7 @@ export class ConpanyDataSetService {
    */
   async adxTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
@@ -304,7 +306,7 @@ export class ConpanyDataSetService {
    */
   async atrTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
@@ -333,7 +335,7 @@ export class ConpanyDataSetService {
    */
   async vwapTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     markdown: boolean = true,
     numElements: number = 30,
   ): Promise<any> {
@@ -367,7 +369,7 @@ export class ConpanyDataSetService {
    */
   async smaTechnicalIndicator(
     ticker: string,
-    interval: TimeIntervalType = 'daily',
+    interval: TimeIntervalType = '5min',
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
