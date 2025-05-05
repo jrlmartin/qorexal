@@ -7,7 +7,7 @@ import {
 } from '../entities/StockCapTier.entity';
 import * as alphaVantage from 'alphavantage';
 import { BenzingaService } from './market-api/benzinga';
-import { ConpanyDataSetService } from './company-dataset.service';
+import { CompanyDatasetService } from './company-dataset.service';
 
 // Type alias for the return type of the alphavantage function
 type AlphaVantageClient = ReturnType<typeof alphaVantage>;
@@ -24,7 +24,7 @@ export class StockService {
     @InjectRepository(StockCapTierEntity)
     private readonly stockCapTierRepository: Repository<StockCapTierEntity>,
     private readonly benzinga: BenzingaService,
-    private readonly companyDatasetService: ConpanyDataSetService,
+    private readonly companyDatasetService: CompanyDatasetService,
   ) {
     // Initialize Alpha Vantage API client with API key
     this.alpha = alphaVantage({ key: 'CM9Z7GP4R48740XD' });

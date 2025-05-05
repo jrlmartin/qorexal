@@ -25,7 +25,7 @@ type AlphaVantageClient = ReturnType<typeof alphaVantage>;
  * and stock data retrieval from external APIs
  */
 @Injectable()
-export class ConpanyDataSetService {
+export class CompanyDatasetService {
   private readonly alpha: AlphaVantageClient;
 
   constructor(
@@ -82,13 +82,28 @@ export class ConpanyDataSetService {
   async intradayTimeSeries(
     ticker: string,
     interval: TimeIntervalType = '5min',
-    outputsize: OutputSizeType = 'compact',
+    outputsize: OutputSizeType = 'compact', // compact returns only the latest 100 data points in the intraday time series
     markdown: boolean = true,
   ): Promise<any> {
-    const data = await this.alpha.data.intraday(ticker, interval, outputsize);
-    return markdown
-      ? MarkdownFormatter.convertIntradayTimeSeriesToMarkdown(data)
-      : data;
+    try {
+        // Missing from Alpha Vantage sdk
+        const response = await axios.get('https://www.alphavantage.co/query', {
+          params: {
+            function: 'TIME_SERIES_INTRADAY',
+            symbol: ticker,
+            interval: interval,
+            apikey: ALPHA_VANTAGE_API_KEY,
+          },
+        });
+  
+        const data = response.data;
+  
+        return markdown
+        ? MarkdownFormatter.convertIntradayTimeSeriesToMarkdown(data)
+        : data;
+      } catch (error) {
+        throw new Error(`Failed to fetch VWAP data: ${error.message}`);
+      }
   }
 
   // Technical Indicators
@@ -104,7 +119,7 @@ export class ConpanyDataSetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 30,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.rsi(
       ticker,
@@ -134,7 +149,7 @@ export class ConpanyDataSetService {
     fastPeriod: number = 12,
     slowPeriod: number = 26,
     signalPeriod: number = 9,
-    numElements: number = 30,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.macd(
       ticker,
@@ -166,7 +181,7 @@ export class ConpanyDataSetService {
     interval: TimeIntervalType = '5min',
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 30,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.obv(
       ticker,
@@ -192,7 +207,7 @@ export class ConpanyDataSetService {
     timePeriod: number = 20, // Common default
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 20,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.ema(
       ticker,
@@ -220,7 +235,7 @@ export class ConpanyDataSetService {
     nbdevup: number = 2, // Standard dev up
     nbdevdn: number = 2, // Standard dev down
     markdown: boolean = true,
-    numElements: number = 20,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.bbands(
       ticker,
@@ -253,7 +268,7 @@ export class ConpanyDataSetService {
     slowkmatype: number = 0,
     slowdmatype: number = 0,
     markdown: boolean = true,
-    numElements: number = 20,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.stoch(
       ticker,
@@ -275,7 +290,7 @@ export class ConpanyDataSetService {
 
   /**
    * ADX - #7 Priority
-   * ADX measures the strength of a trend but doesn’t tell you if it’s bullish or bearish—just how strong it is.
+   * ADX measures the strength of a trend but doesn't tell you if it's bullish or bearish—just how strong it is.
    * For momentum trading, a strong ADX reading suggests a sustained price move rather than a fleeting spike.
    */
   async adxTechnicalIndicator(
@@ -284,7 +299,7 @@ export class ConpanyDataSetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 30,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.adx(
       ticker,
@@ -310,7 +325,7 @@ export class ConpanyDataSetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 20,
+    numElements: number = 100,
   ): Promise<any> {
     // Access the technical endpoint with the specific indicator function
     let data = await this.alpha.technical.atr(
@@ -330,14 +345,14 @@ export class ConpanyDataSetService {
 
   /**
    * VWAP - #9 Priority
-   * VVWAP is more commonly used intraday to gauge whether the current price is above or below the day’s “true”
+   * VVWAP is more commonly used intraday to gauge whether the current price is above or below the day's "true"
    * average price (weighted by volume). Particularly helpful if you intend to trade on an intraday basis right after a news event.
    */
   async vwapTechnicalIndicator(
     ticker: string,
     interval: TimeIntervalType = '5min',
     markdown: boolean = true,
-    numElements: number = 30,
+    numElements: number = 100,
   ): Promise<any> {
     try {
       // Missing from Alpha Vantage sdk
@@ -373,7 +388,7 @@ export class ConpanyDataSetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 30,
+    numElements: number = 100,
   ): Promise<any> {
     let data = await this.alpha.technical.sma(
       ticker,
@@ -388,5 +403,82 @@ export class ConpanyDataSetService {
           numElements,
         )
       : data;
+  }
+
+  async singleStockProfile(ticker: string): Promise<any> {
+    const data = await this.alpha.fundamental.company_overview(ticker);
+    return data;
+  }
+
+  async longProfile(ticker: string): Promise<any> {
+    const companyOverview = await this.companyOverview(ticker, true);
+    
+    // Daily adjusted data
+    const dailyData = await this.dailyAdjustedTimeSeries(ticker, 'compact', true);
+    
+    // Intraday data
+    const intradayData = await this.intradayTimeSeries(ticker, '5min', 'compact', true);
+    
+    // Technical indicators
+    const rsi = await this.rsiTechnicalIndicator(ticker, '5min', 14, 'close', true);
+    const macd = await this.macdTechnicalIndicator(ticker, '5min', 'close', true);
+    const obv = await this.obvTechnicalIndicator(ticker, '5min', 'close', true);
+    const ema = await this.emaTechnicalIndicator(ticker, '5min', 20, 'close', true);
+    const bbands = await this.bbandsTechnicalIndicator(ticker, '5min', 20, 'close', 2, 2, true);
+    const stoch = await this.stochTechnicalIndicator(ticker, '5min', 14, 3, 3, 0, 0, true);
+    const adx = await this.adxTechnicalIndicator(ticker, '5min', 14, 'close', true);
+    const atr = await this.atrTechnicalIndicator(ticker, '5min', 14, 'close', true);
+    const sma = await this.smaTechnicalIndicator(ticker, '5min', 14, 'close', true);
+    const vwap = await this.vwapTechnicalIndicator(ticker, '5min', true);
+
+    // Combine all data into a structured markdown document
+    const markdownReport = `
+# ${ticker} Comprehensive Stock Profile
+
+## Company Overview
+${companyOverview}
+
+## Stock Price Data
+
+### Daily Adjusted Time Series
+${dailyData}
+
+### Intraday Time Series (5-min)
+${intradayData}
+
+## Technical Indicators
+
+### RSI (Relative Strength Index)
+${rsi}
+
+### MACD (Moving Average Convergence Divergence)
+${macd}
+
+### OBV (On-Balance Volume)
+${obv}
+
+### EMA (Exponential Moving Average)
+${ema}
+
+### Bollinger Bands
+${bbands}
+
+### Stochastic Oscillator
+${stoch}
+
+### ADX (Average Directional Index)
+${adx}
+
+### ATR (Average True Range)
+${atr}
+
+### SMA (Simple Moving Average)
+${sma}
+
+### VWAP (Volume Weighted Average Price)
+${vwap}
+`;
+
+    return markdownReport;
   }
 }

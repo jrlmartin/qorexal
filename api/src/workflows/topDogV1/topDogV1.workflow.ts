@@ -9,6 +9,7 @@ import { MarketCapTierEnum } from 'src/entities/StockCapTier.entity';
 import * as TurndownService from 'turndown';
 import { NewsItem } from 'src/serivces/market-api/benzinga/types';
 import step1Prompt from './prompts';
+import { CompanyDatasetService } from 'src/serivces/company-dataset.service';
 
 export interface LLMResponse {}
 
@@ -21,6 +22,7 @@ export class TopDogV1Workflow {
   constructor(
     private readonly benzingaService: BenzingaService,
     private readonly stockService: StockService,
+    private readonly companyDatasetService: CompanyDatasetService
   ) {
     this.turndownService = new TurndownService();
   }
@@ -119,6 +121,8 @@ export class TopDogV1Workflow {
 
   }
 
+  
+
   /**
    * Process the top dog v1 workflow
    * - Pull stock news from the database within last 15 minutes
@@ -127,7 +131,67 @@ export class TopDogV1Workflow {
    * - Return the filtered news items
    */
   async process(step: number, payload?: any) {
-    return await this.stockService.shortCompanyProfile('IBM');
+ 
+    
+    const longProfile = await this.companyDatasetService.longProfile('NVDA');
+    const newsBlocks = await this.benzingaService.getNewsBlocks(60*24*5, { tickers: 'NVDA' });
+    
+    const newsMarkdown = this.prepNewsItemsForLLM(newsBlocks);
+
+    return `
+You are a financial analyst assistant specializing in stock market analysis.
+Your task is to analyze the provided NVIDIA (NVDA) data comprehensively and present insights in a clear, structured format.
+
+# Company Data
+<company>
+    ${longProfile}
+</company>
+ 
+# News
+<news>
+    ${newsMarkdown}
+</news>
+
+Follow these guidelines:
+<instructions>
+1. PRICE MOVEMENT ANALYSIS:
+   - Identify key price trends from daily adjusted time series data
+   - Calculate short returns (today, 1 day, 5 days)
+   - Analyze price volatility and trading volume patterns
+   - Identify support and resistance levels
+   - Note any significant price gaps or anomalies
+
+2. TECHNICAL INDICATOR ANALYSIS:
+   - Interpret the RSI (Relative Strength Index) for overbought/oversold conditions
+   - Analyze MACD (Moving Average Convergence Divergence) for trend strength and momentum
+   - Evaluate OBV (On-Balance Volume) for volume pressure confirmation
+   - Examine EMA (Exponential Moving Average) for trend direction
+   - Assess Bollinger Bands for volatility and potential price targets
+   - Review Stochastic Oscillator for momentum shifts
+   - Consider ATR (Average True Range) for volatility measurement
+   - Use SMA (Simple Moving Average) for trend confirmation
+   - Analyze VWAP (Volume Weighted Average Price) for institutional interest
+   - Combine multiple indicators for consensus signals
+
+3. NEWS SENTIMENT ANALYSIS:
+   - Summarize recent news articles affecting NVIDIA
+   - Identify positive, negative, or neutral sentiment in media coverage
+   - Extract key events, product announcements, or regulatory changes
+   - Highlight market reactions to news events
+   - Note any recurring themes or concerns in media coverage
+
+4. FUTURE OUTLOOK:
+   - Synthesize technical and fundamental analysis for short-term outlook
+   - Consider growth opportunities mentioned in news articles
+   - Discuss potential catalysts for price movement
+   - Address analyst ratings and price targets when available
+</instructions>
+
+Present your analysis in a clear, structured format with appropriate headings and bullet points where necessary. Use visualizations to illustrate key points if helpful. Avoid making definitive investment recommendations, but rather present evidence-based analysis that enables informed decision-making.
+    `
+
+   
+    
     switch (step) {
       case 1:
         return this.step1();

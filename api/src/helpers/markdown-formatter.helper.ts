@@ -90,7 +90,10 @@ export class MarkdownFormatter {
 
   static convertIntradayTimeSeriesToMarkdown(data: any): string {
     if (!data) return '';
-    
+    console.log('============================================================================================================================================================================')
+    console.log(data);
+    console.log('============================================================================================================================================================================')
+  
     let markdown = `## Intraday Time Series\n\n`;
     markdown += `\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\`\n\n`;
     
