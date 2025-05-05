@@ -94,12 +94,13 @@ export class StockService {
 
   async shortCompanyProfile(ticker: string): Promise<string> {
     const overview = await this.companyDatasetService.companyOverview(ticker);
-    //const dailyTimeSeries = await this.companyDatasetService.dailyAdjustedTimeSeries(ticker);
+    const dailyTimeSeries = await this.companyDatasetService.dailyAdjustedTimeSeries(ticker);
     const intradayTimeSeries =
+      await this.companyDatasetService.macdTechnicalIndicator(ticker);
+      const rsie =
       await this.companyDatasetService.rsiTechnicalIndicator(ticker);
-    console.log(overview);
-    //console.log(dailyTimeSeries);
-    console.log(intradayTimeSeries);
+    console.log(overview+intradayTimeSeries+rsie);
+ 
     return overview;
   }
 }

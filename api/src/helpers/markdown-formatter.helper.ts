@@ -92,7 +92,7 @@ export class MarkdownFormatter {
     if (!data) return '';
     
     let markdown = `## Intraday Time Series\n\n`;
-    markdown += `\`\`\`json ${JSON.stringify(data, null, 2)}\`\`\`\n\n`;
+    markdown += `\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\`\n\n`;
     
     return markdown;
   }
@@ -103,16 +103,43 @@ export class MarkdownFormatter {
    * @param indicatorName The name of the technical indicator (e.g., 'RSI')
    * @param timePeriod The time period of the technical indicator
    * @param seriesType The type of series to use for the technical indicator
+   * @param numElements Optional limit on number of elements to include
    * @returns A markdown string representation of the technical indicator data
    */
-  static convertTechnicalIndicatorToMarkdown(data: any, indicatorName: string, interval: string, timePeriod: number, seriesType: string): string {
+  static convertTechnicalIndicatorToMarkdown(
+    data: any, 
+    indicatorName: string, 
+    numElements?: number
+  ): string {
     if (!data) return '';
     
     let markdown = `## ${indicatorName} Technical Indicator\n\n`;
-    markdown += `- **Interval**: ${interval}\n`;
-    markdown += `- **Time Period**: ${timePeriod}\n`;
-    markdown += `- **Series Type**: ${seriesType}\n\n`;
-    markdown += `\`\`\`json ${JSON.stringify(data, null, 2)}\`\`\`\n\n`;
+    
+    if (numElements) {
+      markdown += `- **Elements Shown**: ${numElements}\n`;
+    }
+    
+    markdown += `\n`;
+    
+    // If data has Technical Analysis key and numElements is specified, limit the data
+    if (data['Technical Analysis: ' + indicatorName] && numElements) {
+      const technicalData = data['Technical Analysis: ' + indicatorName];
+      const dates = Object.keys(technicalData).sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+      const limitedDates = dates.slice(0, numElements);
+      
+      const limitedData = {
+        'Meta Data': data['Meta Data'],
+        ['Technical Analysis: ' + indicatorName]: {}
+      };
+      
+      limitedDates.forEach(date => {
+        limitedData['Technical Analysis: ' + indicatorName][date] = technicalData[date];
+      });
+      
+      markdown += `\`\`\`json\n${JSON.stringify(limitedData, null, 2)}\n\`\`\`\n\n`;
+    } else {
+      markdown += `\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\`\n\n`;
+    }
     
     return markdown;
   }

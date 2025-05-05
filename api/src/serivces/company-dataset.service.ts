@@ -8,6 +8,7 @@ import {
 import * as alphaVantage from 'alphavantage';
 import { BenzingaService } from './market-api/benzinga';
 import { MarkdownFormatter } from '../helpers/markdown-formatter.helper';
+import { TimeIntervalType, SeriesType, OutputSizeType } from '../types/stock-data.types';
 
 // Type alias for the return type of the alphavantage function
 type AlphaVantageClient = ReturnType<typeof alphaVantage>;
@@ -27,7 +28,7 @@ export class ConpanyDataSetService {
 
   ) {
     // Initialize Alpha Vantage API client with API key
-    this.alpha = alphaVantage({ key: 'CM9Z7GP4R48740XD' });
+    this.alpha = alphaVantage({ key: 'KSRQH6VLLQSZ6UGU' });
   }
 
   /**
@@ -49,7 +50,7 @@ export class ConpanyDataSetService {
    */
   async dailyAdjustedTimeSeries(
     ticker: string,
-    outputSize: 'full' | 'compact' = 'full',
+    outputSize: OutputSizeType = 'compact',
     markdown: boolean = true,
   ): Promise<any> {
     const data = await this.alpha.data.daily_adjusted(ticker, outputSize);
@@ -65,58 +66,170 @@ export class ConpanyDataSetService {
    */
   async intradayExtendedTimeSeries(
     ticker: string,
-    interval: '1min' | '5min' | '15min' | '30min' | '60min' = '15min',
-    outputsize:  'full' | 'compact' = 'compact',
+    interval: TimeIntervalType = '15min',
+    outputsize: OutputSizeType = 'compact',
     markdown: boolean = true,
   ): Promise<any> {
-    const data = await this.alpha.data.intraday(ticker, outputsize, 'json', interval);
+    const data = await this.alpha.data.intraday(ticker, interval, outputsize);
     return markdown ? MarkdownFormatter.convertIntradayTimeSeriesToMarkdown(data) : data;
   }
-
+ 
   /**
-   * Retrieves the Relative Strength Index (RSI) technical indicator for a given ticker
-   * @param ticker The stock symbol to retrieve data for
-   * @param interval The time interval between data points
-   * @param timePeriod The time period to calculate RSI (defaults to 14)
-   * @param seriesType The price series type to use (defaults to 'close')
-   * @param markdown Whether to return the data in markdown format (defaults to true)
-   * @returns Promise resolving to the RSI technical indicator data
+   * RSI - #1 Priority
+   * RSI is one of the quickest ways to judge if a stock is overbought or oversold in the short term, 
+   * which is critical right after a news catalyst triggers rapid price moves.
    */
   async rsiTechnicalIndicator(
     ticker: string,
-    interval: 'daily' | 'weekly' | 'monthly' | '1min' | '5min' | '15min' | '30min' | '60min' = 'daily',
+    interval: TimeIntervalType = 'daily',
     timePeriod: number = 14,
-    seriesType: 'close' | 'open' | 'high' | 'low' = 'close',
+    seriesType: SeriesType = 'close',
     markdown: boolean = true,
+    numElements: number = 20,
   ): Promise<any> {
-    // Access the technical endpoint with the RSI function
-    const data = await this.alpha.technical.rsi(ticker, interval, timePeriod, seriesType);
-    return markdown ? MarkdownFormatter.convertTechnicalIndicatorToMarkdown(data, 'RSI', interval, timePeriod, seriesType) : data;
+    let data = await this.alpha.technical.atr(ticker, interval, timePeriod, seriesType);
+    return markdown ? MarkdownFormatter.convertTechnicalIndicatorToMarkdown(data, 'RSI', numElements) : data;
   }
-//   ## 2. Technical Indicators
+  /**
+   * 
+   * MACD - #2 Priority
+   * MACD helps confirm emerging momentum shifts and trend changes—key to knowing if a news-driven 
+   * price move has potential follow-through or is a short-lived pop.
+   */
+  async macdTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    fastPeriod: number = 12,
+    slowPeriod: number = 26,
+    signalPeriod: number = 9,
+    numElements: number = 20,
+  ): Promise<any> {
+    let data = await this.alpha.technical.macd(
+      ticker, 
+      interval, 
+      seriesType,
+      fastPeriod,
+      slowPeriod, 
+      signalPeriod,
+      0, // fastmatype (default)
+      0, // slowmatype (default)
+      0  // signalmatype (default)
+    );
+    return markdown ? MarkdownFormatter.convertTechnicalIndicatorToMarkdown(data, 'MACD', numElements) : data;
+  }
 
-// ### a) RSI
-// **Base Function:** RSI
-// **Explanation**
-//  - Momentum oscillator used to evaluate overbought/oversold conditions.
+  async obvTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'obv', 'OBV', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
 
-// #### Required Parameters
-// * function=RSI
-// * symbol=SYMBOL
-// * interval=daily
-// * time_period=14
-// * series_type=close
-// * apikey=YOUR_API_KEY
+  async adxTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'adx', 'ADX', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
 
-// #### Optional Parameters
-// * datatype=json|csv
+  async smaTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'sma', 'SMA', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
 
-// **Recommended URL**
-// https://www.alphavantage.co/query?function=RSI
-// &symbol=IBM
-// &interval=daily
-// &time_period=14
-// &series_type=close
-// &apikey=YOUR_API_KEY
+  
+  async vwapTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'vwap', 'VWAP', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
 
+  
+  async emaTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'ema', 'EMA', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
+
+  async bbandsTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'bbands', 'BBANDS', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
+
+  async stochTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    return this.fetchTechnicalIndicator(
+      ticker, 'stoch', 'STOCH', interval, timePeriod, seriesType, markdown, numElements
+    );
+  }
+
+  async atrTechnicalIndicator(
+    ticker: string,
+    interval: TimeIntervalType = 'daily',
+    timePeriod: number = 14,
+    seriesType: SeriesType = 'close',
+    markdown: boolean = true,
+    numElements: number = 20,
+  ): Promise<any> {
+    // Access the technical endpoint with the specific indicator function
+    let data = await this.alpha.technical.atr(ticker, interval, timePeriod, seriesType);
+    return markdown ? 
+      MarkdownFormatter.convertTechnicalIndicatorToMarkdown(
+        data, 'ATR', numElements
+      ) : 
+      data;
+  }
+  
+      
+  }
 }
