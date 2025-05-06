@@ -16,7 +16,11 @@ export class AppController {
 
   @Get()
   async test(@Query('query') query: string = ''): Promise<any> {
-    return await this.topDogV1Workflow.process(query, 1);
+    this.gateway.broadcastEvent();
+
+
+
+   // return await this.topDogV1Workflow.process(query, 1);
  //    await this.gateway.broadCastTopDogV1();
    // this.gateway.broadcastEvent();
    // const isLargeCap = await this.stockService.isStockInCapTier('DUOL', MarketCapTierEnum.LARGE);

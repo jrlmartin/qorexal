@@ -1,6 +1,6 @@
 import { EventTypeEnum, PlatformEnum } from "./types";
 import { io } from 'socket.io-client';
-const socket = io('http://localhost:3000', {
+const socket = io('http://localhost:7001', {
   reconnectionAttempts: 5,
   reconnectionDelay: 1000,
   timeout: 10000,

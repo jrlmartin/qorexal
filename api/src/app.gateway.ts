@@ -8,7 +8,7 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { LLMService } from './util/llm.service';
- 
+
 import { LLMModelEnum } from './util/llm.service';
 import { TopDogV1Workflow } from './workflows/topDogV1/topDogV1.workflow';
 
@@ -46,28 +46,25 @@ export class AppGateway
   async broadCastTopDogV1() {
     const message = await this.topDogV1Workflow.process('', 1);
 
-
-
-   // this.server.emit('processLLMEvent', message);
+    // this.server.emit('processLLMEvent', message);
   }
-
-
-
-
-
-
-
-
-
 
   /**
    * Broadcast a message/event to all connected WebSocket clients
    */
-  async broadcastEvent() {
+  async broadcastEvent2() {
     const prompt = await this.topDogV1Workflow.process('', 1);
+  }
 
+  broadcastEvent() {
+    const message = this.llmService.prep({
+      prompt: 'What is the capital of France? Return the answer in JSON format.',
+      fallbackPrompt: 'Fallback prompt',
+      deepResearch: false,
+      search: false,
+      model: LLMModelEnum.GPT4O_MINI,
+    });
 
- 
-   
+    this.server.emit('processLLMEvent', message);
   }
 }
