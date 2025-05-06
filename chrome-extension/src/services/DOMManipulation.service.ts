@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import $ from "jquery";
 import { LLMMessage } from "../types";
+import HumanInteractionSimulator from "./stealth";
+
 /**
  * Error codes for DOM manipulation operations
  */
@@ -46,7 +48,42 @@ export class DOMManipulationService {
   private readonly MIN_RANDOM_DELAY = 1000; // 1 second
   private readonly MAX_RANDOM_DELAY = 3000; // 3 seconds
 
-  constructor() {}
+  // Human interaction simulator
+  private simulator: HumanInteractionSimulator;
+
+  constructor() {
+    // Initialize the human interaction simulator with custom settings
+    this.simulator = new HumanInteractionSimulator({
+      typingSpeed: {
+        min: 50,  // Minimum ms between keystrokes
+        max: 150, // Maximum ms between keystrokes
+      },
+      typingVariance: {
+        wordPause: 200,       // Additional pause at word endings (space, period)
+        sentencePause: 500,   // Additional pause at end of sentences
+        errorRate: 0.05,      // 5% chance of making a typo
+        correctionDelay: 300, // Time before correcting typo
+      },
+      mouseMovement: {
+        useHumanCurve: true,  // Use bezier curves for mouse movement
+        turbulence: 0.5,      // Random turbulence in mouse path (0-1)
+        speedVariance: 0.3,   // Variance in speed during movement (0-1)
+      },
+      interactionTiming: {
+        minDelay: 500,        // Minimum delay between interactions
+        maxDelay: 2000,       // Maximum delay between interactions
+        idleTimeout: 30000,   // Time before simulated "idle" behavior
+        idleProbability: 0.1, // Probability of triggering idle behavior
+      },
+    });
+  }
+
+  /**
+   * Generate a random number between min and max
+   */
+  private randomBetween(min: number, max: number): number {
+    return min + Math.random() * (max - min);
+  }
 
   /**
    * Verifies that all required DOM elements exist in the page
@@ -95,9 +132,14 @@ export class DOMManipulationService {
         );
       }
 
-      // Set the prompt text
-      $textarea.text(prompt);
-      $textarea.trigger("input");
+      // Get the DOM element from jQuery object
+      const textareaElement = $textarea[0] as HTMLInputElement;
+
+      // Add human-like thinking delay before typing
+      await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
+
+      // Use simulator to type the prompt with human-like patterns
+      await this.simulator.typeText(textareaElement, prompt);
 
       return true;
     } catch (error) {
@@ -111,7 +153,7 @@ export class DOMManipulationService {
   }
 
   async runPrompt() {
-    // Find and click the submit button
+    // Find the submit button
     const $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
     if ($submitButton.length === 0) {
       this.handleError(
@@ -121,7 +163,18 @@ export class DOMManipulationService {
       );
     }
 
-    $submitButton.click();
+    // Get the DOM element from jQuery object
+    const submitButtonElement = $submitButton[0] as HTMLElement;
+
+    // Add a human-like pause before clicking
+    await this.simulator.delay(this.randomBetween(300, 1000));
+
+    // Use simulator to click the button with natural movement
+    await this.simulator.clickButton(submitButtonElement, {
+      clickPattern: 'natural',
+      thinkBeforeClick: true,
+      turbulence: 0.4
+    });
 
     return true;
   }
@@ -132,8 +185,9 @@ export class DOMManipulationService {
   async captureText(): Promise<string | null> {
     try {
       for (let attempt = 0; attempt < this.MAX_POLLING_ATTEMPTS; attempt++) {
-        // Wait for the polling interval
-        await this.delay(this.POLLING_INTERVAL);
+        // Wait for the polling interval with slight randomization
+        const randomizedInterval = this.POLLING_INTERVAL + this.randomBetween(-500, 500);
+        await this.simulator.delay(randomizedInterval);
 
         // Check if there's a completed response (last message from assistant)
         const lastAssistantMessage = $(this.ASSISTANT_MESSAGE_SELECTOR).last();
@@ -144,6 +198,11 @@ export class DOMManipulationService {
           !lastAssistantMessage.find(this.LOADING_INDICATOR_SELECTOR).length
         ) {
           console.log(`Response found after ${attempt + 1} attempts`);
+
+          // Simulate human reading time - longer for more content
+          const contentLength = lastAssistantMessage.text().length;
+          const readingTime = Math.min(contentLength * 5, 5000); // ~5ms per character, max 5 seconds
+          await this.simulator.simulateThinking({ idleTimeout: readingTime });
 
           // Look for code blocks (in case of JSON formatting)
           const jsonText = $(this.JSON_CODE_BLOCK_SELECTOR).text();
@@ -188,10 +247,18 @@ export class DOMManipulationService {
     try {
       const newChatButton = document.querySelector(
         this.NEW_CHAT_BUTTON_SELECTOR
-      );
+      ) as HTMLElement;
 
-      if (newChatButton && "click" in newChatButton) {
-        (newChatButton as HTMLElement).click();
+      if (newChatButton) {
+        // Simulate human thinking before starting a new chat
+        await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
+
+        // Use simulator to click the new chat button
+        await this.simulator.clickButton(newChatButton, {
+          clickPattern: 'natural',
+          thinkBeforeClick: true
+        });
+
         console.log("New chat created successfully");
         return true;
       } else {
@@ -214,6 +281,9 @@ export class DOMManipulationService {
   private async setSettings(message: LLMMessage) {
     const { deepResearch, search, model } = message;
 
+    // Add random delay before changing settings
+    await this.simulator.randomDelay();
+
     // If search is enabled, click the search button
     if (search) {
       const $searchButton = $(this.SEARCH_BUTTON_SELECTOR);
@@ -225,11 +295,18 @@ export class DOMManipulationService {
         );
       }
 
-      $searchButton.click();
+      // Get the DOM element from jQuery object
+      const searchButtonElement = $searchButton[0] as HTMLElement;
+
+      // Use simulator to click the button with natural movement
+      await this.simulator.clickButton(searchButtonElement, {
+        clickPattern: 'natural',
+        thinkBeforeClick: true
+      });
+
       console.log("Search button clicked");
     } else if (deepResearch) {
       // If deepResearch is enabled, click the deep research button
-
       const $deepResearchButton = $(this.DEEP_RESEARCH_BUTTON_SELECTOR);
       if ($deepResearchButton.length === 0) {
         this.handleError(
@@ -239,11 +316,19 @@ export class DOMManipulationService {
         );
       }
 
-      $deepResearchButton.click();
+      // Get the DOM element from jQuery object
+      const deepResearchButtonElement = $deepResearchButton[0] as HTMLElement;
+
+      // Use simulator to click the button with natural movement
+      await this.simulator.clickButton(deepResearchButtonElement, {
+        clickPattern: 'natural',
+        thinkBeforeClick: true
+      });
+
       console.log("Deep research button clicked");
       return true;
     }
-  }
+  } 
 
   /**
    * Run the complete workflow: prompt, capture, process
@@ -256,13 +341,18 @@ export class DOMManipulationService {
       this.verifyDOMElements();
       await this.reset();
 
-      await this.delay(this.getRandomDelay());
+      // Use randomized delays instead of fixed delays
+      await this.simulator.randomDelay();
 
       await this.setSettings(message);
-      await this.delay(2000);
+      
+      // Randomized delay between setting selection and typing prompt
+      await this.simulator.randomDelay();
 
       await this.injectPrompt(message.prompt);
-      await this.delay(this.getRandomDelay());
+      
+      // Randomized thinking time before submitting prompt
+      await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
 
       const promptSuccess = await this.runPrompt();
 
@@ -281,9 +371,13 @@ export class DOMManipulationService {
       let responseData = await this.captureText();
 
       if (responseData && message.deepResearch) {
-        await this.delay(5000);
+        // Randomized thinking delay before continuing with fallback prompt
+        await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(3000, 7000) });
+        
         await this.injectPrompt(message.fallbackPrompt);
-        await this.delay(this.getRandomDelay());
+        
+        // Randomized delay before submitting the fallback prompt
+        await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 2000) });
 
         const promptSuccess = await this.runPrompt();
 
@@ -325,19 +419,19 @@ export class DOMManipulationService {
   }
 
   /**
-   * Helper method to create a delay
+   * Helper method to create a delay (using simulator's delay method)
    */
   private delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    return this.simulator.delay(ms);
   }
 
   /**
    * Generates a random delay between MIN_RANDOM_DELAY and MAX_RANDOM_DELAY
    */
   private getRandomDelay(): number {
-    return (
-      this.MIN_RANDOM_DELAY +
-      Math.random() * (this.MAX_RANDOM_DELAY - this.MIN_RANDOM_DELAY)
+    return this.randomBetween(
+      this.MIN_RANDOM_DELAY,
+      this.MAX_RANDOM_DELAY
     );
   }
 
