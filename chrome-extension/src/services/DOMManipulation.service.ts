@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import $ from "jquery";
 import { LLMMessage } from "../types";
 import HumanInteractionSimulator from "./stealth";
+import { HumanInteractionVisualization } from "./visualize";
 
 /**
  * Error codes for DOM manipulation operations
@@ -50,6 +51,7 @@ export class DOMManipulationService {
 
   // Human interaction simulator
   private simulator: HumanInteractionSimulator;
+  private visualization: HumanInteractionVisualization | null = null;
 
   constructor() {
     // Initialize the human interaction simulator with custom settings
@@ -76,6 +78,143 @@ export class DOMManipulationService {
         idleProbability: 0.1, // Probability of triggering idle behavior
       },
     });
+
+    // Initialize visualization
+    this.initVisualization();
+  }
+
+  /**
+   * Initialize the human interaction visualization
+   */
+  private initVisualization(): void {
+    // Create visualization with default settings
+    this.visualization = new HumanInteractionVisualization(this.simulator, {
+      cursorSize: 15,
+      trailLength: 50,
+      trailColor: 'rgba(255, 0, 0, 0.4)',
+      cursorColor: 'rgba(255, 0, 0, 0.7)',
+      showTrail: true,
+      fadeTrail: true,
+      showSpeed: true,
+      trailThickness: 3
+    });
+
+    // Create visualization control panel
+    this.createVisualizationControls();
+  }
+
+  /**
+   * Create UI controls for the visualization
+   */
+  private createVisualizationControls(): void {
+    if (!this.visualization) return;
+
+    // Create control panel container
+    const controlPanel = document.createElement('div');
+    controlPanel.style.position = 'fixed';
+    controlPanel.style.bottom = '20px';
+    controlPanel.style.right = '20px';
+    controlPanel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    controlPanel.style.padding = '10px';
+    controlPanel.style.borderRadius = '5px';
+    controlPanel.style.zIndex = '10000';
+    controlPanel.style.color = 'white';
+    controlPanel.style.fontFamily = 'Arial, sans-serif';
+    controlPanel.style.fontSize = '12px';
+
+    // Add title
+    const title = document.createElement('div');
+    title.textContent = 'Visualization Controls';
+    title.style.fontWeight = 'bold';
+    title.style.marginBottom = '8px';
+    controlPanel.appendChild(title);
+
+    // Show trail checkbox
+    const showTrailLabel = this.createCheckboxControl(
+      'Show Trail', 
+      this.visualization.options.showTrail,
+      (checked) => {
+        if (this.visualization) {
+          this.visualization.options.showTrail = checked;
+          if (!checked) {
+            this.visualization.clearTrail();
+          }
+        }
+      }
+    );
+    controlPanel.appendChild(showTrailLabel);
+
+    // Fade trail checkbox
+    const fadeTrailLabel = this.createCheckboxControl(
+      'Fade Trail', 
+      this.visualization.options.fadeTrail,
+      (checked) => {
+        if (this.visualization) {
+          this.visualization.options.fadeTrail = checked;
+        }
+      }
+    );
+    controlPanel.appendChild(fadeTrailLabel);
+
+    // Show speed checkbox
+    const showSpeedLabel = this.createCheckboxControl(
+      'Show Speed', 
+      this.visualization.options.showSpeed,
+      (checked) => {
+        if (this.visualization && this.visualization.speedIndicator) {
+          this.visualization.options.showSpeed = checked;
+          this.visualization.speedIndicator.style.display = checked ? 'block' : 'none';
+        }
+      }
+    );
+    controlPanel.appendChild(showSpeedLabel);
+
+    // Clear trail button
+    const clearButton = document.createElement('button');
+    clearButton.textContent = 'Clear Trail';
+    clearButton.style.backgroundColor = '#4a90e2';
+    clearButton.style.color = 'white';
+    clearButton.style.border = 'none';
+    clearButton.style.padding = '5px 10px';
+    clearButton.style.borderRadius = '3px';
+    clearButton.style.marginTop = '8px';
+    clearButton.style.cursor = 'pointer';
+    clearButton.style.display = 'block';
+    clearButton.style.width = '100%';
+    clearButton.addEventListener('click', () => {
+      if (this.visualization) {
+        this.visualization.clearTrail();
+      }
+    });
+    controlPanel.appendChild(clearButton);
+
+    // Add the control panel to the document
+    document.body.appendChild(controlPanel);
+  }
+
+  /**
+   * Create a checkbox control with label
+   */
+  private createCheckboxControl(
+    labelText: string, 
+    initialValue: boolean, 
+    onChange: (checked: boolean) => void
+  ): HTMLLabelElement {
+    const label = document.createElement('label');
+    label.style.display = 'block';
+    label.style.marginBottom = '5px';
+    label.style.cursor = 'pointer';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = initialValue;
+    checkbox.style.marginRight = '5px';
+    checkbox.addEventListener('change', () => onChange(checkbox.checked));
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(labelText));
+    
+    return label;
   }
 
   /**

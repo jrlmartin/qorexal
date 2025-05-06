@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Interaction Simulator Visualization Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, button {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 100px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #3a80d2;
+        }
+        .controls {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .visualization-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .visualization-options label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+        .visualization-options input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        .results {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            min-height: 100px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Human Interaction Simulator Visualization Test</h1>
+    
+    <div class="controls">
+        <h2>Visualization Controls</h2>
+        <div class="visualization-options">
+            <label>
+                <input type="checkbox" id="show-trail" checked> Show Movement Trail
+            </label>
+            <label>
+                <input type="checkbox" id="fade-trail" checked> Fade Trail
+            </label>
+            <label>
+                <input type="checkbox" id="show-speed" checked> Show Speed Indicator
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="trail-color">Trail Color:</label>
+            <input type="color" id="trail-color" value="#ff0000">
+        </div>
+        <button id="clear-trail">Clear Trail</button>
+    </div>
+    
+    <form id="demo-form">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" placeholder="Enter your message"></textarea>
+        </div>
+        
+        <button type="button" id="submit-button">Submit</button>
+        <button type="button" id="reset-button">Reset</button>
+    </form>
+    
+    <div class="demo-actions">
+        <h2>Demo Actions</h2>
+        <button id="run-typing-demo">Run Typing Demo</button>
+        <button id="run-mouse-demo">Run Mouse Movement Demo</button>
+        <button id="run-full-demo">Run Full Form Demo</button>
+    </div>
+    
+    <div class="results">
+        <h2>Results</h2>
+        <div id="results-content"></div>
+    </div>
+
+    <script>
+        // Import the HumanInteractionSimulator and HumanInteractionVisualization classes
+        // This script will load them dynamically when running the test
+        async function loadScripts() {
+            // Create a dynamic script to load the necessary JavaScript
+            const script = document.createElement('script');
+            script.textContent = `
+                // Simple implementation of Point interface
+                class Point {
+                    constructor(x, y) {
+                        this.x = x;
+                        this.y = y;
+                    }
+                }
+
+                // Simplified simulator for testing
+                class HumanInteractionSimulator {
+                    constructor(options = {}) {
+                        // Default configuration
+                        this.config = {
+                            typingSpeed: {
+                                min: 50,  // Minimum ms between keystrokes
+                                max: 150, // Maximum ms between keystrokes
+                            },
+                            typingVariance: {
+                                wordPause: 200,       // Additional pause at word endings (space, period)
+                                sentencePause: 500,   // Additional pause at end of sentences
+                                errorRate: 0.05,      // 5% chance of making a typo
+                                correctionDelay: 300, // Time before correcting typo
+                            },
+                            mouseMovement: {
+                                useHumanCurve: true,  // Use bezier curves for mouse movement
+                                turbulence: 0.5,      // Random turbulence in mouse path (0-1)
+                                speedVariance: 0.3,   // Variance in speed during movement (0-1)
+                            },
+                            interactionTiming: {
+                                minDelay: 500,        // Minimum delay between interactions
+                                maxDelay: 2000,       // Maximum delay between interactions
+                                idleTimeout: 30000,   // Time before simulated "idle" behavior
+                                idleProbability: 0.1, // Probability of triggering idle behavior
+                            },
+                            ...options
+                        };
+                        
+                        // Initialize state
+                        this.state = {
+                            lastInteractionTime: Date.now(),
+                            typingSession: {
+                                active: false,
+                                lastTypedChar: null,
+                                typingSpeed: 0,
+                            },
+                            mouseState: {
+                                lastPosition: { x: 0, y: 0 },
+                                currentSpeed: 0,
+                            }
+                        };
+                    }
+                    
+                    // Helper method to delay execution
+                    async delay(ms) {
+                        return new Promise(resolve => setTimeout(resolve, ms));
+                    }
+                    
+                    // Move mouse to target
+                    async moveMouseTo(target, options = {}) {
+                        // Get target coordinates
+                        let targetX, targetY;
+                        
+                        if (target instanceof HTMLElement) {
+                            const rect = target.getBoundingClientRect();
+                            targetX = rect.left + rect.width / 2;
+                            targetY = rect.top + rect.height / 2;
+                        } else {
+                            targetX = target.x;
+                            targetY = target.y;
+                        }
+                        
+                        // Get starting position
+                        const startX = this.state.mouseState.lastPosition.x;
+                        const startY = this.state.mouseState.lastPosition.y;
+                        
+                        // Determine number of steps based on distance
+                        const dx = targetX - startX;
+                        const dy = targetY - startY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const steps = Math.max(10, Math.min(30, Math.floor(distance / 10)));
+                        
+                        // Random bezier control points for natural curve
+                        const cp1x = startX + dx * (0.3 + Math.random() * 0.2);
+                        const cp1y = startY + dy * (0.1 + Math.random() * 0.4);
+                        const cp2x = startX + dx * (0.6 + Math.random() * 0.2);
+                        const cp2y = startY + dy * (0.6 + Math.random() * 0.4);
+                        
+                        // Move in steps
+                        for (let i = 0; i <= steps; i++) {
+                            const t = i / steps;
+                            
+                            // Cubic bezier calculation for x and y
+                            const x = this.cubicBezier(t, startX, cp1x, cp2x, targetX);
+                            const y = this.cubicBezier(t, startY, cp1y, cp2y, targetY);
+                            
+                            // Add some random jitter
+                            const jitter = this.config.mouseMovement.turbulence * 3;
+                            const jx = x + (Math.random() * 2 - 1) * jitter;
+                            const jy = y + (Math.random() * 2 - 1) * jitter;
+                            
+                            // Update mouse position
+                            this.state.mouseState.lastPosition = { x: jx, y: jy };
+                            
+                            // Wait before next move
+                            await this.delay(5 + Math.random() * 10);
+                        }
+                        
+                        // Set final position precisely
+                        this.state.mouseState.lastPosition = { x: targetX, y: targetY };
+                    }
+                    
+                    // Cubic bezier curve calculation
+                    cubicBezier(t, p0, p1, p2, p3) {
+                        const oneMinusT = 1 - t;
+                        return (
+                            oneMinusT * oneMinusT * oneMinusT * p0 +
+                            3 * oneMinusT * oneMinusT * t * p1 +
+                            3 * oneMinusT * t * t * p2 +
+                            t * t * t * p3
+                        );
+                    }
+                    
+                    // Simulate clicking on an element
+                    async click(element = null, options = {}) {
+                        if (element) {
+                            // Move mouse to element first
+                            await this.moveMouseTo(element);
+                        }
+                        
+                        // Get current position
+                        const x = this.state.mouseState.lastPosition.x;
+                        const y = this.state.mouseState.lastPosition.y;
+                        
+                        // Dispatch mousedown event
+                        const mousedownEvent = new MouseEvent('mousedown', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window,
+                            clientX: x,
+                            clientY: y
+                        });
+                        
+                        if (element) {
+                            element.dispatchEvent(mousedownEvent);
+                        } else {
+                            document.elementFromPoint(x, y)?.dispatchEvent(mousedownEvent);
+                        }
+                        
+                        // Wait a bit
+                        await this.delay(100 + Math.random() * 100);
+                        
+                        // Dispatch mouseup event
+                        const mouseupEvent = new MouseEvent('mouseup', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window,
+                            clientX: x,
+                            clientY: y
+                        });
+                        
+                        if (element) {
+                            element.dispatchEvent(mouseupEvent);
+                        } else {
+                            document.elementFromPoint(x, y)?.dispatchEvent(mouseupEvent);
+                        }
+                        
+                        // Dispatch click event
+                        const clickEvent = new MouseEvent('click', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window,
+                            clientX: x,
+                            clientY: y
+                        });
+                        
+                        if (element) {
+                            element.dispatchEvent(clickEvent);
+                        } else {
+                            document.elementFromPoint(x, y)?.dispatchEvent(clickEvent);
+                        }
+                    }
+                    
+                    // Simulate human-like typing in a text field
+                    async typeText(element, text, options = {}) {
+                        if (!element) return;
+                        
+                        // Focus on the element first
+                        element.focus();
+                        
+                        // Configure typing speed
+                        const config = {
+                            min: this.config.typingSpeed.min,
+                            max: this.config.typingSpeed.max,
+                            wordPause: this.config.typingVariance.wordPause,
+                            sentencePause: this.config.typingVariance.sentencePause,
+                            errorRate: this.config.typingVariance.errorRate,
+                            ...options
+                        };
+                        
+                        // Type each character
+                        for (let i = 0; i < text.length; i++) {
+                            const char = text[i];
+                            
+                            // Maybe make a typing error
+                            if (Math.random() < config.errorRate) {
+                                // Type an adjacent key instead
+                                const wrongChar = this.getAdjacentKey(char);
+                                await this.simulateTypingChar(element, wrongChar);
+                                await this.delay(config.correctionDelay);
+                                
+                                // Delete the wrong character
+                                await this.simulateBackspace(element);
+                                await this.delay(100 + Math.random() * 200);
+                            }
+                            
+                            // Type the correct character
+                            await this.simulateTypingChar(element, char);
+                            
+                            // Add pause after word or sentence
+                            if (char === ' ' || char === '\\n') {
+                                await this.delay(config.wordPause * (0.8 + Math.random() * 0.4));
+                            } else if (char === '.' || char === '!' || char === '?') {
+                                await this.delay(config.sentencePause * (0.8 + Math.random() * 0.4));
+                            } else {
+                                // Regular typing speed
+                                await this.delay(config.min + Math.random() * (config.max - config.min));
+                            }
+                        }
+                    }
+                    
+                    // Simulate typing a single character
+                    async simulateTypingChar(element, char) {
+                        // Implementation simplified for test purposes
+                        element.value += char;
+                        element.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                    
+                    // Simulate backspace
+                    async simulateBackspace(element) {
+                        // Implementation simplified for test purposes
+                        if (element.value.length > 0) {
+                            element.value = element.value.substring(0, element.value.length - 1);
+                            element.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    }
+                    
+                    // Get a random adjacent key (simplified)
+                    getAdjacentKey(char) {
+                        const keyboard = {
+                            'a': ['s', 'q', 'z'],
+                            'b': ['v', 'g', 'n'],
+                            'c': ['x', 'd', 'v'],
+                            'd': ['s', 'f', 'e', 'c'],
+                            'e': ['w', 'r', 'd'],
+                            'f': ['d', 'g', 'r', 'v'],
+                            'g': ['f', 'h', 't', 'b'],
+                            'h': ['g', 'j', 'y', 'n'],
+                            'i': ['u', 'o', 'k'],
+                            'j': ['h', 'k', 'u', 'm'],
+                            'k': ['j', 'l', 'i', ','],
+                            'l': ['k', ';', 'o', '.'],
+                            'm': ['n', 'j', ','],
+                            'n': ['b', 'm', 'h'],
+                            'o': ['i', 'p', 'l'],
+                            'p': ['o', '[', '0'],
+                            'q': ['w', 'a', '1'],
+                            'r': ['e', 't', 'f'],
+                            's': ['a', 'd', 'w', 'x'],
+                            't': ['r', 'y', 'g'],
+                            'u': ['y', 'i', 'j'],
+                            'v': ['c', 'b', 'f'],
+                            'w': ['q', 'e', 's'],
+                            'x': ['z', 'c', 's'],
+                            'y': ['t', 'u', 'h'],
+                            'z': ['a', 'x']
+                        };
+                        
+                        // Get adjacent keys for this character
+                        const adjacent = keyboard[char.toLowerCase()];
+                        
+                        if (adjacent && adjacent.length > 0) {
+                            // Return a random adjacent key
+                            return adjacent[Math.floor(Math.random() * adjacent.length)];
+                        }
+                        
+                        // If no adjacent keys defined, return the original character
+                        return char;
+                    }
+                    
+                    // Simulate thinking
+                    async simulateThinking(options = {}) {
+                        const thinkingTime = options.idleTimeout || 
+                            this.config.interactionTiming.minDelay + 
+                            Math.random() * (this.config.interactionTiming.maxDelay - this.config.interactionTiming.minDelay);
+                        
+                        await this.delay(thinkingTime);
+                    }
+                }
+
+                // Visualization class
+                class HumanInteractionVisualization {
+                    constructor(simulator, options = {}) {
+                        this.simulator = simulator;
+                        
+                        // Default options
+                        this.options = {
+                            cursorSize: 20,
+                            trailLength: 50,
+                            trailColor: 'rgba(255, 0, 0, 0.5)',
+                            cursorColor: 'rgba(255, 0, 0, 0.7)',
+                            showTrail: true,
+                            showSpeed: true,
+                            fadeTrail: true,
+                            trailThickness: 3,
+                            ...options
+                        };
+                        
+                        // Create overlay
+                        this.overlay = document.createElement('div');
+                        this.overlay.style.position = 'fixed';
+                        this.overlay.style.top = '0';
+                        this.overlay.style.left = '0';
+                        this.overlay.style.width = '100%';
+                        this.overlay.style.height = '100%';
+                        this.overlay.style.pointerEvents = 'none'; // Don't interfere with page interaction
+                        this.overlay.style.zIndex = '9999';
+                        
+                        // Create cursor element
+                        this.cursor = document.createElement('div');
+                        this.cursor.style.position = 'absolute';
+                        this.cursor.style.width = \`\${this.options.cursorSize}px\`;
+                        this.cursor.style.height = \`\${this.options.cursorSize}px\`;
+                        this.cursor.style.borderRadius = '50%';
+                        this.cursor.style.backgroundColor = this.options.cursorColor;
+                        this.cursor.style.transform = 'translate(-50%, -50%)';
+                        this.cursor.style.transition = 'background-color 0.2s';
+                        
+                        // Add cursor to overlay
+                        this.overlay.appendChild(this.cursor);
+                        
+                        // Create speed indicator if enabled
+                        if (this.options.showSpeed) {
+                            this.speedIndicator = document.createElement('div');
+                            this.speedIndicator.style.position = 'absolute';
+                            this.speedIndicator.style.top = '10px';
+                            this.speedIndicator.style.right = '10px';
+                            this.speedIndicator.style.padding = '5px 10px';
+                            this.speedIndicator.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                            this.speedIndicator.style.color = 'white';
+                            this.speedIndicator.style.fontFamily = 'Arial, sans-serif';
+                            this.speedIndicator.style.fontSize = '14px';
+                            this.speedIndicator.style.borderRadius = '3px';
+                            this.overlay.appendChild(this.speedIndicator);
+                        }
+                        
+                        // Add overlay to document
+                        document.body.appendChild(this.overlay);
+                        
+                        // Create trail storage
+                        this.trail = [];
+                        this.trailElements = [];
+                        
+                        // Extend the original moveMouseTo method to visualize movements
+                        this.extendMoveMouseTo();
+                        
+                        // Extend the click method to visualize clicks
+                        this.extendClick();
+                    }
+                    
+                    // Override the simulator's moveMouseTo method to visualize mouse movements
+                    extendMoveMouseTo() {
+                        const originalMoveMouseTo = this.simulator.moveMouseTo;
+                        
+                        this.simulator.moveMouseTo = async (target, options = {}) => {
+                            // Store the original lastPosition property descriptor
+                            const originalLastPositionDesc = Object.getOwnPropertyDescriptor(
+                                this.simulator.state.mouseState, 
+                                'lastPosition'
+                            );
+                            
+                            // Override the lastPosition setter to update visualization
+                            Object.defineProperty(this.simulator.state.mouseState, 'lastPosition', {
+                                get: function() { 
+                                    return this._lastPosition || { x: 0, y: 0 }; 
+                                },
+                                set: (newPos) => {
+                                    // Update the internal value
+                                    this.simulator.state.mouseState._lastPosition = newPos;
+                                    
+                                    // Update visualization
+                                    this.updateCursorPosition(newPos);
+                                    
+                                    // Update trail
+                                    if (this.options.showTrail) {
+                                        this.addTrailPoint(newPos);
+                                    }
+                                }
+                            });
+                            
+                            // Call the original method
+                            await originalMoveMouseTo.call(this.simulator, target, options);
+                            
+                            // Restore original property descriptor if it existed
+                            if (originalLastPositionDesc) {
+                                Object.defineProperty(
+                                    this.simulator.state.mouseState, 
+                                    'lastPosition', 
+                                    originalLastPositionDesc
+                                );
+                            }
+                        };
+                    }
+                    
+                    // Extend the click method to visualize clicks
+                    extendClick() {
+                        const originalClick = this.simulator.click;
+                        
+                        this.simulator.click = async (element = null, options = {}) => {
+                            // Show click animation
+                            this.showClickEffect();
+                            
+                            // Call the original method
+                            return originalClick.call(this.simulator, element, options);
+                        };
+                    }
+                    
+                    // Update cursor position in the visualization
+                    updateCursorPosition(position) {
+                        this.cursor.style.left = \`\${position.x}px\`;
+                        this.cursor.style.top = \`\${position.y}px\`;
+                        
+                        // Update speed indicator if enabled
+                        if (this.options.showSpeed && this.speedIndicator) {
+                            const speed = this.calculateCurrentSpeed();
+                            this.speedIndicator.textContent = \`Speed: \${speed.toFixed(1)} px/s\`;
+                        }
+                    }
+                    
+                    // Calculate current mouse movement speed
+                    calculateCurrentSpeed() {
+                        if (this.trail.length < 2) return 0;
+                        
+                        const lastPoint = this.trail[this.trail.length - 1];
+                        const prevPoint = this.trail[this.trail.length - 2];
+                        
+                        // Simple distance calculation
+                        const distance = Math.sqrt(
+                            Math.pow(lastPoint.x - prevPoint.x, 2) + 
+                            Math.pow(lastPoint.y - prevPoint.y, 2)
+                        );
+                        
+                        // Assuming movement happens at around 60fps for visualization
+                        return distance * 60;
+                    }
+                    
+                    // Show click effect animation
+                    showClickEffect() {
+                        // Current cursor position
+                        const position = this.simulator.state.mouseState.lastPosition;
+                        
+                        // Change cursor color temporarily
+                        const originalColor = this.cursor.style.backgroundColor;
+                        this.cursor.style.backgroundColor = 'rgba(0, 255, 0, 0.9)';
+                        
+                        // Create ripple effect
+                        const ripple = document.createElement('div');
+                        ripple.style.position = 'absolute';
+                        ripple.style.left = \`\${position.x}px\`;
+                        ripple.style.top = \`\${position.y}px\`;
+                        ripple.style.width = \`\${this.options.cursorSize}px\`;
+                        ripple.style.height = \`\${this.options.cursorSize}px\`;
+                        ripple.style.borderRadius = '50%';
+                        ripple.style.backgroundColor = 'transparent';
+                        ripple.style.border = '2px solid rgba(0, 255, 0, 0.9)';
+                        ripple.style.transform = 'translate(-50%, -50%)';
+                        ripple.style.animation = 'ripple 0.5s ease-out forwards';
+                        
+                        // Add ripple animation style if not already present
+                        if (!document.getElementById('ripple-animation')) {
+                            const style = document.createElement('style');
+                            style.id = 'ripple-animation';
+                            style.textContent = \`
+                                @keyframes ripple {
+                                    0% {
+                                        transform: translate(-50%, -50%) scale(1);
+                                        opacity: 1;
+                                    }
+                                    100% {
+                                        transform: translate(-50%, -50%) scale(2.5);
+                                        opacity: 0;
+                                    }
+                                }
+                            \`;
+                            document.head.appendChild(style);
+                        }
+                        
+                        this.overlay.appendChild(ripple);
+                        
+                        // Remove ripple after animation
+                        setTimeout(() => {
+                            ripple.remove();
+                            this.cursor.style.backgroundColor = originalColor;
+                        }, 500);
+                    }
+                    
+                    // Add a point to the movement trail
+                    addTrailPoint(position) {
+                        // Add to trail array
+                        this.trail.push({ ...position });
+                        
+                        // Limit trail length
+                        if (this.trail.length > this.options.trailLength) {
+                            this.trail.shift();
+                        }
+                        
+                        // Create visual trail element
+                        const trailPoint = document.createElement('div');
+                        trailPoint.style.position = 'absolute';
+                        trailPoint.style.left = \`\${position.x}px\`;
+                        trailPoint.style.top = \`\${position.y}px\`;
+                        trailPoint.style.width = \`\${this.options.trailThickness}px\`;
+                        trailPoint.style.height = \`\${this.options.trailThickness}px\`;
+                        trailPoint.style.borderRadius = '50%';
+                        trailPoint.style.backgroundColor = this.options.trailColor;
+                        trailPoint.style.transform = 'translate(-50%, -50%)';
+                        
+                        this.overlay.appendChild(trailPoint);
+                        this.trailElements.push(trailPoint);
+                        
+                        // Manage trail element lifecycle
+                        if (this.options.fadeTrail) {
+                            // Add fade out effect
+                            setTimeout(() => {
+                                trailPoint.style.opacity = '0';
+                                trailPoint.style.transition = 'opacity 0.5s ease-out';
+                            }, 100);
+                        }
+                        
+                        // Remove excess trail elements
+                        if (this.trailElements.length > this.options.trailLength) {
+                            const removedElement = this.trailElements.shift();
+                            if (removedElement) {
+                                removedElement.remove();
+                            }
+                        }
+                        
+                        // Connect trail segments with lines
+                        if (this.trail.length >= 2) {
+                            this.drawTrailLine(
+                                this.trail[this.trail.length - 2],
+                                this.trail[this.trail.length - 1]
+                            );
+                        }
+                    }
+                    
+                    // Draw a line segment between two trail points
+                    drawTrailLine(point1, point2) {
+                        // Calculate line length and angle
+                        const dx = point2.x - point1.x;
+                        const dy = point2.y - point1.y;
+                        const length = Math.sqrt(dx * dx + dy * dy);
+                        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                        
+                        // Create line element
+                        const line = document.createElement('div');
+                        line.style.position = 'absolute';
+                        line.style.left = \`\${point1.x}px\`;
+                        line.style.top = \`\${point1.y}px\`;
+                        line.style.width = \`\${length}px\`;
+                        line.style.height = \`\${this.options.trailThickness}px\`;
+                        line.style.backgroundColor = this.options.trailColor;
+                        line.style.transformOrigin = '0 50%';
+                        line.style.transform = \`rotate(\${angle}deg)\`;
+                        
+                        this.overlay.appendChild(line);
+                        this.trailElements.push(line);
+                        
+                        // Apply fade out effect if enabled
+                        if (this.options.fadeTrail) {
+                            setTimeout(() => {
+                                line.style.opacity = '0';
+                                line.style.transition = 'opacity 0.8s ease-out';
+                            }, 100);
+                        }
+                    }
+                    
+                    // Clear all trail elements
+                    clearTrail() {
+                        this.trailElements.forEach(element => element.remove());
+                        this.trailElements = [];
+                        this.trail = [];
+                    }
+                    
+                    // Remove the visualization
+                    remove() {
+                        this.overlay.remove();
+                    }
+                }
+
+                // Initialize simulator and visualization after page load
+                document.addEventListener('DOMContentLoaded', function() {
+                    console.log('Initializing Human Interaction Simulator...');
+                    
+                    // Create simulator instance
+                    const simulator = new HumanInteractionSimulator({
+                        typingSpeed: {
+                            min: 50,
+                            max: 150
+                        },
+                        typingVariance: {
+                            errorRate: 0.05
+                        },
+                        mouseMovement: {
+                            turbulence: 0.5
+                        }
+                    });
+                    
+                    // Create visualization
+                    const visualization = new HumanInteractionVisualization(simulator, {
+                        cursorSize: 15,
+                        trailLength: 50,
+                        trailColor: 'rgba(255, 0, 0, 0.4)',
+                        cursorColor: 'rgba(255, 0, 0, 0.7)',
+                        showTrail: true,
+                        fadeTrail: true,
+                        showSpeed: true
+                    });
+                    
+                    // Helper function to convert hex to rgba
+                    function hexToRgba(hex, alpha) {
+                        const r = parseInt(hex.slice(1, 3), 16);
+                        const g = parseInt(hex.slice(3, 5), 16);
+                        const b = parseInt(hex.slice(5, 7), 16);
+                        return \`rgba(\${r}, \${g}, \${b}, \${alpha})\`;
+                    }
+                    
+                    // UI Controls for visualization
+                    document.getElementById('show-trail').addEventListener('change', function(e) {
+                        visualization.options.showTrail = e.target.checked;
+                        if (!e.target.checked) {
+                            visualization.clearTrail();
+                        }
+                    });
+                    
+                    document.getElementById('fade-trail').addEventListener('change', function(e) {
+                        visualization.options.fadeTrail = e.target.checked;
+                    });
+                    
+                    document.getElementById('show-speed').addEventListener('change', function(e) {
+                        visualization.options.showSpeed = e.target.checked;
+                        if (visualization.speedIndicator) {
+                            visualization.speedIndicator.style.display = e.target.checked ? 'block' : 'none';
+                        }
+                    });
+                    
+                    document.getElementById('trail-color').addEventListener('change', function(e) {
+                        const color = e.target.value;
+                        const rgba = hexToRgba(color, 0.4);
+                        visualization.options.trailColor = rgba;
+                    });
+                    
+                    document.getElementById('clear-trail').addEventListener('click', function() {
+                        visualization.clearTrail();
+                    });
+                    
+                    // Demo actions
+                    document.getElementById('run-typing-demo').addEventListener('click', async function() {
+                        updateResults('Running typing demo...');
+                        const nameInput = document.getElementById('name');
+                        await simulator.moveMouseTo(nameInput);
+                        await simulator.click(nameInput);
+                        await simulator.typeText(nameInput, 'John Smith');
+                        
+                        updateResults('Completed typing demo');
+                    });
+                    
+                    document.getElementById('run-mouse-demo').addEventListener('click', async function() {
+                        updateResults('Running mouse movement demo...');
+                        const elements = [
+                            document.getElementById('name'),
+                            document.getElementById('email'),
+                            document.getElementById('message'),
+                            document.getElementById('submit-button'),
+                            document.getElementById('reset-button')
+                        ];
+                        
+                        for (const element of elements) {
+                            await simulator.moveMouseTo(element);
+                            await simulator.delay(500);
+                        }
+                        
+                        updateResults('Completed mouse movement demo');
+                    });
+                    
+                    document.getElementById('run-full-demo').addEventListener('click', async function() {
+                        // Fill out the entire form with realistic human-like behavior
+                        updateResults('Running full form demo...');
+                        
+                        // Name field
+                        await simulator.moveMouseTo(document.getElementById('name'));
+                        await simulator.click(document.getElementById('name'));
+                        await simulator.typeText(document.getElementById('name'), 'Jane Doe');
+                        
+                        // Thinking pause
+                        await simulator.simulateThinking({ idleTimeout: 1000 });
+                        
+                        // Email field
+                        await simulator.moveMouseTo(document.getElementById('email'));
+                        await simulator.click(document.getElementById('email'));
+                        await simulator.typeText(document.getElementById('email'), 'jane.doe@example.com');
+                        
+                        // More thinking
+                        await simulator.simulateThinking({ idleTimeout: 1500 });
+                        
+                        // Message field
+                        await simulator.moveMouseTo(document.getElementById('message'));
+                        await simulator.click(document.getElementById('message'));
+                        await simulator.typeText(document.getElementById('message'), 'This is a test message demonstrating the Human Interaction Simulator.');
+                        
+                        // Final thinking before submit
+                        await simulator.simulateThinking({ idleTimeout: 2000 });
+                        
+                        // Click submit button
+                        await simulator.moveMouseTo(document.getElementById('submit-button'));
+                        await simulator.click(document.getElementById('submit-button'));
+                        
+                        updateResults('Completed full form demo');
+                    });
+                    
+                    // Reset button functionality
+                    document.getElementById('reset-button').addEventListener('click', function() {
+                        document.getElementById('demo-form').reset();
+                        visualization.clearTrail();
+                        updateResults('Form reset');
+                    });
+                    
+                    function updateResults(message) {
+                        const resultsContent = document.getElementById('results-content');
+                        const timestamp = new Date().toLocaleTimeString();
+                        resultsContent.innerHTML += \`<p>[\${timestamp}] \${message}</p>\`;
+                    }
+                    
+                    // Initial position of cursor in center of viewport
+                    simulator.state.mouseState.lastPosition = {
+                        x: window.innerWidth / 2,
+                        y: window.innerHeight / 2
+                    };
+                    visualization.updateCursorPosition(simulator.state.mouseState.lastPosition);
+                    
+                    updateResults('Human Interaction Simulator initialized');
+                });
+            `;
+            document.head.appendChild(script);
+        }
+
+        // Load the scripts
+        loadScripts();
+    </script>
+</body>
+</html> 
