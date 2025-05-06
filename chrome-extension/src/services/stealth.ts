@@ -107,6 +107,16 @@ interface Point {
     options?: ExtractAndTypeOptions;
   }
   
+  interface CopyPasteConfig {
+    copyDelay: number;       // Delay before pressing Ctrl+C
+    pasteDelay: number;      // Delay before pressing Ctrl+V
+    thinkingTime: number;    // Thinking time between copy and paste (disabled)
+    variancePercent: number; // Percentage variation in timing (0-1)
+    selectDelay: number;     // Delay for text selection
+    errorProbability: number; // Chance of making an error during the process
+    recoveryDelay: number;   // Time before recovering from errors
+  }
+  
   class HumanInteractionSimulator {
     private config: SimulatorConfig;
     private state: SimulatorState;
@@ -274,17 +284,61 @@ interface Point {
       element: HTMLElement | HTMLInputElement, 
       char: string
     ): Promise<void> {
-      // You would integrate with automation library here
-      // Example implementation: manually update input value
+      // Create keyboard events for keydown and keyup
+      const keydownEvent = new KeyboardEvent('keydown', {
+        key: char,
+        code: this.getCodeFromChar(char),
+        bubbles: true,
+        cancelable: true
+      });
+      element.dispatchEvent(keydownEvent);
+      
+      // Update the input value
       if (element && 'value' in element) {
         (element as HTMLInputElement).value += char;
         
-        // Dispatch events
+        // Dispatch input event
         this.dispatchInputEvent(element);
       }
       
-      // If working with a more complex automation tool, you would
-      // convert this to the appropriate API call for typing
+      // Simulate delay between keydown and keyup (like a real keystroke)
+      await this.delay(this.getRandomBetween(10, 30));
+      
+      // Create and dispatch keyup event
+      const keyupEvent = new KeyboardEvent('keyup', {
+        key: char,
+        code: this.getCodeFromChar(char),
+        bubbles: true,
+        cancelable: true
+      });
+      element.dispatchEvent(keyupEvent);
+    }
+    
+    /**
+     * Get key code from character
+     */
+    private getCodeFromChar(char: string): string {
+      // Basic mapping for common keys
+      const keyCodes: Record<string, string> = {
+        'a': 'KeyA', 'b': 'KeyB', 'c': 'KeyC', 'd': 'KeyD', 'e': 'KeyE',
+        'f': 'KeyF', 'g': 'KeyG', 'h': 'KeyH', 'i': 'KeyI', 'j': 'KeyJ',
+        'k': 'KeyK', 'l': 'KeyL', 'm': 'KeyM', 'n': 'KeyN', 'o': 'KeyO',
+        'p': 'KeyP', 'q': 'KeyQ', 'r': 'KeyR', 's': 'KeyS', 't': 'KeyT',
+        'u': 'KeyU', 'v': 'KeyV', 'w': 'KeyW', 'x': 'KeyX', 'y': 'KeyY',
+        'z': 'KeyZ', ' ': 'Space', '.': 'Period', ',': 'Comma',
+        '0': 'Digit0', '1': 'Digit1', '2': 'Digit2', '3': 'Digit3',
+        '4': 'Digit4', '5': 'Digit5', '6': 'Digit6', '7': 'Digit7',
+        '8': 'Digit8', '9': 'Digit9'
+      };
+      
+      // Check for matching key code
+      const lowerChar = char.toLowerCase();
+      if (keyCodes[lowerChar]) {
+        return keyCodes[lowerChar];
+      }
+      
+      // Default to a generic code
+      return 'Unidentified';
     }
     
     /**
@@ -293,7 +347,16 @@ interface Point {
     private async simulateBackspace(
       element: HTMLElement | HTMLInputElement
     ): Promise<void> {
-      // Example implementation: manually update input value
+      // Create and dispatch backspace keydown event
+      const keydownEvent = new KeyboardEvent('keydown', {
+        key: 'Backspace',
+        code: 'Backspace',
+        bubbles: true,
+        cancelable: true
+      });
+      element.dispatchEvent(keydownEvent);
+      
+      // Update input value
       if (element && 'value' in element) {
         const inputElement = element as HTMLInputElement;
         inputElement.value = inputElement.value.slice(0, -1);
@@ -301,14 +364,39 @@ interface Point {
         // Dispatch events
         this.dispatchInputEvent(element);
       }
+      
+      // Simulate delay between keydown and keyup
+      await this.delay(this.getRandomBetween(10, 30));
+      
+      // Create and dispatch keyup event
+      const keyupEvent = new KeyboardEvent('keyup', {
+        key: 'Backspace',
+        code: 'Backspace',
+        bubbles: true,
+        cancelable: true
+      });
+      element.dispatchEvent(keyupEvent);
     }
     
     /**
      * Dispatch appropriate events for input changes
      */
     private dispatchInputEvent(element: HTMLElement): void {
-      const event = new Event('input', { bubbles: true });
-      element.dispatchEvent(event);
+      // Create and dispatch input event
+      const inputEvent = new Event('input', { bubbles: true });
+      element.dispatchEvent(inputEvent);
+      
+      // Create and dispatch composition events for IME-like behavior
+      const compositionStartEvent = new Event('compositionstart', { bubbles: true });
+      const compositionUpdateEvent = new Event('compositionupdate', { bubbles: true });
+      const compositionEndEvent = new Event('compositionend', { bubbles: true });
+      
+      // Only sometimes simulate composition events (like IME input)
+      if (this.random() < 0.1) {
+        element.dispatchEvent(compositionStartEvent);
+        element.dispatchEvent(compositionUpdateEvent);
+        element.dispatchEvent(compositionEndEvent);
+      }
       
       // Also dispatch change event for some form elements
       if (element.tagName === 'SELECT' || 
@@ -383,6 +471,84 @@ interface Point {
       // If not found in layout, just return a random letter
       const alphabet = 'abcdefghijklmnopqrstuvwxyz';
       return alphabet[Math.floor(this.random() * alphabet.length)];
+    }
+    
+    /**
+     * Dispatch mouse movement events
+     */
+    private dispatchMouseMoveEvent(x: number, y: number): void {
+      // Create and dispatch actual mousemove event
+      const moveEvent = new MouseEvent('mousemove', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: x,
+        clientY: y
+      });
+      
+      // Dispatch on the element at these coordinates if possible
+      const targetElement = document.elementFromPoint(x, y);
+      if (targetElement) {
+        targetElement.dispatchEvent(moveEvent);
+        
+        // Dispatch mouseenter and mouseover events when entering new elements
+        const previousElement = document.elementFromPoint(
+          this.state.mouseState.lastPosition.x,
+          this.state.mouseState.lastPosition.y
+        );
+        
+        if (previousElement !== targetElement) {
+          // Mouse leaving previous element
+          if (previousElement) {
+            const mouseLeaveEvent = new MouseEvent('mouseleave', {
+              bubbles: false,
+              cancelable: true,
+              view: window,
+              clientX: x,
+              clientY: y,
+              relatedTarget: targetElement
+            });
+            previousElement.dispatchEvent(mouseLeaveEvent);
+            
+            const mouseOutEvent = new MouseEvent('mouseout', {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              clientX: x,
+              clientY: y,
+              relatedTarget: targetElement
+            });
+            previousElement.dispatchEvent(mouseOutEvent);
+          }
+          
+          // Mouse entering new element
+          const mouseEnterEvent = new MouseEvent('mouseenter', {
+            bubbles: false,
+            cancelable: true,
+            view: window,
+            clientX: x,
+            clientY: y,
+            relatedTarget: previousElement
+          });
+          targetElement.dispatchEvent(mouseEnterEvent);
+          
+          const mouseOverEvent = new MouseEvent('mouseover', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            clientX: x,
+            clientY: y,
+            relatedTarget: previousElement
+          });
+          targetElement.dispatchEvent(mouseOverEvent);
+        }
+      } else {
+        // Fall back to document if no element at that point
+        document.dispatchEvent(moveEvent);
+      }
+      
+      // Update the state
+      this.state.mouseState.lastPosition = { x, y };
     }
     
     /**
@@ -496,8 +662,6 @@ interface Point {
       const baseSteps = Math.min(Math.max(Math.floor(distance / 10), 5), 100);
       const steps = Math.floor(baseSteps * (1 + this.getRandomBetween(-0.2, 0.2)));
       
-      // This is where you would call your automation library's moveMouseTo function
-      // or manually implement the mouse movement logic
       return new Promise<void>((resolve) => {
         let currentStep = 0;
         
@@ -533,8 +697,8 @@ interface Point {
             nextY += this.getRandomBetween(-jitterAmount, jitterAmount);
           }
           
-          // Here you would update the mouse position using your automation library
-          // For example: automationLib.setMousePosition(nextX, nextY);
+          // Actually dispatch mouse movement event
+          this.dispatchMouseMoveEvent(nextX, nextY);
           
           // Calculate delay before next step - this varies the speed
           // Start slow, accelerate, then decelerate as we approach the target
@@ -616,8 +780,11 @@ interface Point {
           // Random delay before clicking
           await this.delay(this.getRandomBetween(50, 350));
           
-          // Here you would call your automation library's click function
-          // For example: automationLib.click(config.rightClick ? 'right' : 'left');
+          // Perform the actual click events
+          await this.performClickEvents(element, {
+            x: targetPosition.x, 
+            y: targetPosition.y
+          }, config);
           
           // Random delay between clicks if multiple
           if (i < config.clickCount - 1) {
@@ -626,8 +793,15 @@ interface Point {
         }
       } else {
         // Just click at current position
-        // Here you would call your automation library's click function
-        // For example: automationLib.click(config.rightClick ? 'right' : 'left');
+        const currentPosition = this.state.mouseState.lastPosition;
+        const targetElement = document.elementFromPoint(currentPosition.x, currentPosition.y);
+        
+        if (targetElement) {
+          await this.performClickEvents(targetElement as HTMLElement, currentPosition, config);
+        } else {
+          // If no element found, click on document body
+          await this.performClickEvents(document.body, currentPosition, config);
+        }
       }
       
       // Update last interaction time
@@ -635,6 +809,79 @@ interface Point {
       
       // Add a slight delay after clicking
       return this.delay(this.getRandomBetween(50, 150));
+    }
+    
+    /**
+     * Helper method to perform the actual click events
+     */
+    private async performClickEvents(
+      element: HTMLElement, 
+      position: Point, 
+      options: ClickOptions
+    ): Promise<void> {
+      const button = options.rightClick ? 2 : 0;
+      
+      // Create and dispatch mouse events
+      const mouseDownEvent = new MouseEvent('mousedown', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: position.x,
+        clientY: position.y,
+        button: button
+      });
+      element.dispatchEvent(mouseDownEvent);
+      
+      // Small delay between mousedown and mouseup (like a real click)
+      await this.delay(this.getRandomBetween(10, 30));
+      
+      const mouseUpEvent = new MouseEvent('mouseup', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: position.x,
+        clientY: position.y,
+        button: button
+      });
+      element.dispatchEvent(mouseUpEvent);
+      
+      // Dispatch actual click event
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        clientX: position.x,
+        clientY: position.y,
+        button: button
+      });
+      element.dispatchEvent(clickEvent);
+      
+      // Handle right click context menu
+      if (options.rightClick) {
+        const contextMenuEvent = new MouseEvent('contextmenu', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: position.x,
+          clientY: position.y,
+          button: button
+        });
+        element.dispatchEvent(contextMenuEvent);
+      }
+      
+      // Handle double click if needed
+      if (options.doubleClick) {
+        await this.delay(this.getRandomBetween(40, 120));
+        const dblClickEvent = new MouseEvent('dblclick', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+          clientX: position.x,
+          clientY: position.y,
+          button: button
+        });
+        element.dispatchEvent(dblClickEvent);
+      }
     }
     
     /**
@@ -787,10 +1034,9 @@ interface Point {
           y: currentPos.y + this.getRandomBetween(-jitterAmount, jitterAmount)
         };
         
-        // Here you would update the mouse position using your automation library
-        // For example: automationLib.setMousePosition(newPos.x, newPos.y);
+        // Actually dispatch mouse movement
+        this.dispatchMouseMoveEvent(newPos.x, newPos.y);
         
-        this.state.mouseState.lastPosition = newPos;
       }, 500);
       
       // Wait for the thinking time
@@ -853,7 +1099,7 @@ interface Point {
       await this.moveMouseTo(targetPoint);
       
       // Click the input field
-      await this.click();
+      await this.click(inputElement);
       
       // Add a small thinking delay before typing
       await this.delay(this.getRandomBetween(300, 800));
@@ -979,8 +1225,8 @@ interface Point {
       // Small delay before clicking
       await this.delay(this.getRandomBetween(50, 350));
       
-      // Perform the click
-      return this.click();
+      // Perform the click (uses our updated click method)
+      return this.click(buttonElement);
     }
     
     /**
@@ -1014,6 +1260,234 @@ interface Point {
       }
       
       return this.clickButton(matchingButton, options);
+    }
+  
+    /**
+     * Simulate copying and pasting text into an input element with human-like patterns
+     * @param element - The DOM element to paste text into
+     * @param text - The text to paste
+     * @param options - Optional configuration for this copy-paste operation
+     * @returns Promise that resolves when pasting is complete
+     */
+    async copyPasteText(
+      element: HTMLElement | HTMLInputElement, 
+      text: string, 
+      options: Partial<CopyPasteConfig> = {}
+    ): Promise<void> {
+      const config = { 
+        copyDelay: 300,         // Default delay before pressing Ctrl+C
+        pasteDelay: 200,        // Default delay before pressing Ctrl+V
+        thinkingTime: 0,        // Disabled thinking time between copy and paste
+        variancePercent: 0.3,   // Default 30% variation in timing
+        selectDelay: 500,       // Default delay for text selection
+        errorProbability: 0.15, // 15% chance of making an error during copy-paste
+        recoveryDelay: 800,     // Time before recovering from an error
+        ...options 
+      };
+      
+      // First move mouse to the input field with natural movement
+      const rect = (element as HTMLElement).getBoundingClientRect();
+      const targetPoint = {
+        x: rect.left + this.getRandomBetween(5, rect.width - 5),
+        y: rect.top + this.getRandomBetween(5, rect.height - 5)
+      };
+      
+      await this.moveMouseTo(targetPoint, {
+        useHumanCurve: true,
+        turbulence: this.getRandomBetween(0.3, 0.6),
+        microJitter: this.random() < 0.7
+      });
+      
+      // Click the input field
+      await this.click(element);
+      
+      // Add variance to all timings
+      const applyVariance = (value: number): number => {
+        const variance = value * config.variancePercent;
+        return value + this.getRandomBetween(-variance, variance);
+      };
+      
+      // Simulate selecting existing text (if any)
+      const hasExistingText = element && 'value' in element && 
+        (element as HTMLInputElement).value.length > 0;
+        
+      if (hasExistingText) {
+        // Wait a bit before selection (like a human would)
+        await this.delay(applyVariance(config.selectDelay));
+        
+        // Simulate Ctrl+A to select all text with actual events
+        if (element && 'select' in element) {
+          // Simulate ctrl key down
+          const ctrlKeyDownEvent = new KeyboardEvent('keydown', {
+            key: 'Control',
+            code: 'ControlLeft',
+            ctrlKey: true,
+            bubbles: true
+          });
+          element.dispatchEvent(ctrlKeyDownEvent);
+          
+          // Simulate 'A' key with ctrl
+          const aKeyDownEvent = new KeyboardEvent('keydown', {
+            key: 'a',
+            code: 'KeyA',
+            ctrlKey: true,
+            bubbles: true
+          });
+          element.dispatchEvent(aKeyDownEvent);
+          
+          // Select all text
+          (element as HTMLInputElement).select();
+          
+          // Release keys
+          const aKeyUpEvent = new KeyboardEvent('keyup', {
+            key: 'a',
+            code: 'KeyA',
+            ctrlKey: true,
+            bubbles: true
+          });
+          element.dispatchEvent(aKeyUpEvent);
+          
+          const ctrlKeyUpEvent = new KeyboardEvent('keyup', {
+            key: 'Control',
+            code: 'ControlLeft',
+            bubbles: true
+          });
+          element.dispatchEvent(ctrlKeyUpEvent);
+          
+          // Dispatch a select event for realism
+          const selectEvent = new Event('select', { bubbles: true });
+          element.dispatchEvent(selectEvent);
+        }
+      }
+      
+      // Simulate potential errors during copy-paste process
+      const makeError = this.random() < config.errorProbability;
+      
+      if (makeError) {
+        // Simulate common copy-paste errors:
+        
+        // 1. Accidentally pressing the wrong key combination
+        await this.delay(300);
+        
+        // Simulate user noticing the error
+        await this.delay(applyVariance(config.recoveryDelay));
+        
+        // Try again with the correct action
+        await this.delay(300);
+      }
+      
+      // Simulate Ctrl+V (paste) operation with actual events
+      await this.delay(applyVariance(config.pasteDelay));
+      
+      // Simulate paste keyboard shortcut
+      const ctrlKeyDownEvent = new KeyboardEvent('keydown', {
+        key: 'Control',
+        code: 'ControlLeft',
+        ctrlKey: true,
+        bubbles: true
+      });
+      element.dispatchEvent(ctrlKeyDownEvent);
+      
+      const vKeyDownEvent = new KeyboardEvent('keydown', {
+        key: 'v',
+        code: 'KeyV',
+        ctrlKey: true,
+        bubbles: true
+      });
+      element.dispatchEvent(vKeyDownEvent);
+      
+      // SOLUTION: Always try multiple approaches to set the text value
+      try {
+        // Method 1: Direct value assignment - works for most input elements
+        if (element && 'value' in element) {
+          (element as HTMLInputElement).value = text;
+          this.dispatchInputEvent(element as HTMLElement);
+        }
+        
+        // Method 2: Set via execCommand and selection - more compatible with rich text editors
+        // Create a focused range for insertion
+        if (document.activeElement === element) {
+          document.execCommand('insertText', false, text);
+        }
+        
+        // Method 3: Use clipboard API if available (requires permissions)
+        try {
+          const originalClipboard = await navigator.clipboard.readText().catch(() => '');
+          await navigator.clipboard.writeText(text);
+          
+          // Dispatch a paste event for completeness
+          try {
+            // Create a proper ClipboardEvent with clipboardData
+            const pasteEvent = new ClipboardEvent('paste', {
+              bubbles: true,
+              cancelable: true,
+              clipboardData: new DataTransfer()
+            });
+            
+            // Try to set the clipboard data
+            pasteEvent.clipboardData?.setData('text/plain', text);
+            element.dispatchEvent(pasteEvent);
+          } catch (e) {
+            // Fallback for browsers that don't support clipboardData properly
+            const simplePasteEvent = new Event('paste', { bubbles: true });
+            element.dispatchEvent(simplePasteEvent);
+          }
+          
+          // Restore original clipboard
+          setTimeout(() => {
+            navigator.clipboard.writeText(originalClipboard).catch(() => {});
+          }, 500);
+        } catch (e) {
+          // Clipboard API not available or permission denied
+        }
+        
+        // Method 4: Use input event with data
+        const inputEvent = new InputEvent('input', {
+          bubbles: true,
+          cancelable: true,
+          data: text,
+          inputType: 'insertText'
+        });
+        element.dispatchEvent(inputEvent);
+        
+        // Method 5: For contentEditable elements
+        if (element.getAttribute('contenteditable') === 'true') {
+          element.textContent = text;
+          
+          // Create a change and input event
+          const changeEvent = new Event('change', { bubbles: true });
+          element.dispatchEvent(changeEvent);
+        }
+      } catch (error) {
+        console.error('Error in copyPasteText:', error);
+      }
+      
+      // Release keys
+      const vKeyUpEvent = new KeyboardEvent('keyup', {
+        key: 'v',
+        code: 'KeyV',
+        ctrlKey: true,
+        bubbles: true
+      });
+      element.dispatchEvent(vKeyUpEvent);
+      
+      const ctrlKeyUpEvent = new KeyboardEvent('keyup', {
+        key: 'Control',
+        code: 'ControlLeft',
+        bubbles: true
+      });
+      element.dispatchEvent(ctrlKeyUpEvent);
+      
+      // Sometimes simulate a click after pasting to deselect text (natural behavior)
+      if (this.random() < 0.7) {
+        await this.delay(this.getRandomBetween(200, 600));
+        await this.click(element);
+      }
+      
+      // Update last interaction time
+      this.state.lastInteractionTime = Date.now();
+      
+      return Promise.resolve();
     }
     
     /**
@@ -1109,6 +1583,7 @@ interface Point {
       includeHovers: true,
       includeClicks: true
     });
+    
   }
   
   // Export the main class

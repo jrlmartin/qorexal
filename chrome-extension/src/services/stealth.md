@@ -161,6 +161,16 @@ async function fillLoginForm() {
     document.getElementById('password-field'), 
     'SecurePassword123'
   );
+
+  // Paste large text into an input
+await simulator.copyPasteText(
+  document.getElementById('large-text-field'),
+  'Your very large text content here...',
+  {
+    thinkingTime: 1500,   // Longer thinking time for complex text
+    errorProbability: 0.1 // Slightly lower error rate
+  }
+);
   
   // Think before clicking login
   await simulator.simulateThinking();

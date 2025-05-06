@@ -91,6 +91,7 @@ export class DOMManipulationService {
    * @throws Error if any element is missing
    */
   verifyDOMElements(): boolean {
+    console.log("[DEBUG] Verifying DOM elements");
     const selectors = {
       "Prompt textarea": this.PROMPT_TEXTAREA_SELECTOR,
       // "Submit button": this.SUBMIT_BUTTON_SELECTOR,
@@ -99,21 +100,31 @@ export class DOMManipulationService {
       "New chat button": this.NEW_CHAT_BUTTON_SELECTOR,
     };
 
+    let allElementsFound = true;
+
     for (const [elementName, selector] of Object.entries(selectors)) {
       const $element = $(selector);
-      if ($element.length === 0) {
-        this.handleError(
-          `Required DOM element not found: ${elementName}`,
-          DOMErrorCode.ELEMENT_NOT_FOUND,
-          {
-            selector,
-            page: window.location.href,
-          }
-        );
+      const found = $element.length > 0;
+      console.log(`[DEBUG] Checking for ${elementName} (${selector}): ${found ? 'FOUND' : 'NOT FOUND'}`);
+      
+      if (!found) {
+        allElementsFound = false;
+        console.error(`[DEBUG] Required DOM element not found: ${elementName} with selector ${selector}`);
+        // Only throw error for critical elements like submit button and text area
+        if (elementName === "Prompt textarea" || elementName === "Submit button") {
+          this.handleError(
+            `Required DOM element not found: ${elementName}`,
+            DOMErrorCode.ELEMENT_NOT_FOUND,
+            {
+              selector,
+              page: window.location.href,
+            }
+          );
+        }
       }
     }
 
-    console.log("All required DOM elements verified");
+    console.log("[DEBUG] All required DOM elements verified:", allElementsFound);
     return true;
   }
 
@@ -138,9 +149,16 @@ export class DOMManipulationService {
       // Add human-like thinking delay before typing
       await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
 
-      // Use simulator to type the prompt with human-like patterns
-      await this.simulator.typeText(textareaElement, prompt);
-
+      // Paste large text into an input
+      await this.simulator.copyPasteText(
+        textareaElement,
+        prompt,
+        {
+          thinkingTime: 1500,   // Longer thinking time for complex text
+          errorProbability: 0.1 // Slightly lower error rate
+        }
+      );
+      
       return true;
     } catch (error) {
       this.handleError(
@@ -153,9 +171,65 @@ export class DOMManipulationService {
   }
 
   async runPrompt() {
+    console.log("[DEBUG] runPrompt started - looking for submit button with selector:", this.SUBMIT_BUTTON_SELECTOR);
+    
     // Find the submit button
-    const $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
+    let $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
+    
+    // Log detailed info about current DOM state
+    console.log("[DEBUG] Submit button found?", $submitButton.length > 0);
+    console.log("[DEBUG] Page URL:", window.location.href);
+    
+    // If the primary selector fails, try alternative selectors that might work
     if ($submitButton.length === 0) {
+      console.log("[DEBUG] Primary submit button selector failed, trying fallbacks");
+      
+      // Common alternative selectors for submit buttons
+      const fallbackSelectors = [
+        "button[data-testid='submit']",
+        "button[type='submit']",
+        "button.submit-btn",
+        "button:contains('Send')",
+        "button:contains('Submit')",
+        "button.send-button",
+        "button.primary-action",
+        "[aria-label='Send message']",
+        "[data-testid='send-button']"
+      ];
+      
+      for (const selector of fallbackSelectors) {
+        const $fallbackButton = $(selector);
+        console.log(`[DEBUG] Trying fallback selector: ${selector} - Found: ${$fallbackButton.length > 0}`);
+        
+        if ($fallbackButton.length > 0) {
+          console.log(`[DEBUG] Found working fallback selector: ${selector}`);
+          $submitButton = $fallbackButton;
+          break;
+        }
+      }
+    }
+    
+    // Log details about nearby elements to help debug selector issues
+    console.log("[DEBUG] Parent container HTML:", $submitButton.parent().html());
+    
+    // List all buttons on the page to help find the right selector
+    const allButtons = $("button");
+    console.log("[DEBUG] Total buttons found on page:", allButtons.length);
+    console.log("[DEBUG] Button elements:", Array.from(allButtons).map(el => ({
+      id: el.id,
+      class: el.className,
+      text: $(el).text().trim().substring(0, 20),
+      visible: $(el).is(":visible"),
+      attributes: Array.from(el.attributes).map(attr => `${attr.name}="${attr.value}"`).join(', ')
+    })));
+    
+    if ($submitButton.length === 0) {
+      console.error("[DEBUG] Submit button not found. DOM structure may have changed.");
+      
+      // Capture a snapshot of form elements to help identify the correct selector
+      console.log("[DEBUG] Form elements:", $("form").html());
+      console.log("[DEBUG] Text input elements:", $("input[type='text'], textarea").length);
+      
       this.handleError(
         "Submit button not found",
         DOMErrorCode.ELEMENT_NOT_FOUND,
@@ -170,13 +244,24 @@ export class DOMManipulationService {
     await this.simulator.delay(this.randomBetween(300, 1000));
 
     // Use simulator to click the button with natural movement
-    await this.simulator.clickButton(submitButtonElement, {
-      clickPattern: 'natural',
-      thinkBeforeClick: true,
-      turbulence: 0.4
-    });
-
-    return true;
+    console.log("[DEBUG] About to click submit button");
+    try {
+      await this.simulator.clickButton(submitButtonElement, {
+        clickPattern: 'natural',
+        thinkBeforeClick: true,
+        turbulence: 0.4
+      });
+      console.log("[DEBUG] Submit button clicked successfully");
+      return true;
+    } catch (error) {
+      console.error("[DEBUG] Error clicking submit button:", error);
+      this.handleError(
+        "Error clicking submit button",
+        DOMErrorCode.ELEMENT_NOT_INTERACTIVE,
+        { error, buttonElement: submitButtonElement }
+      );
+      return false;
+    }
   }
 
   /**
@@ -336,6 +421,7 @@ export class DOMManipulationService {
   async runWorkflow(
     message: LLMMessage
   ): Promise<{ success: boolean; response: string | null }> {
+    console.log("[DEBUG] runWorkflow started with message:", JSON.stringify(message, null, 2));
     try {
       // Verify DOM elements before proceeding with workflow
       this.verifyDOMElements();
@@ -349,12 +435,27 @@ export class DOMManipulationService {
       // Randomized delay between setting selection and typing prompt
       await this.simulator.randomDelay();
 
-      await this.injectPrompt(message.prompt);
+      console.log("[DEBUG] About to inject prompt");
+      const injectionResult = await this.injectPrompt(message.prompt);
+      
+      if (!injectionResult) {
+        this.handleError(
+          "Failed to inject prompt",
+          DOMErrorCode.PROMPT_SUBMISSION_FAILED,
+          {
+            step: "injectPrompt",
+            workflow: "runWorkflow",
+          }
+        );
+        return { success: false, response: null };
+      }
       
       // Randomized thinking time before submitting prompt
       await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
 
+      console.log("[DEBUG] About to call runPrompt");
       const promptSuccess = await this.runPrompt();
+      console.log("[DEBUG] runPrompt result:", promptSuccess);
 
       if (!promptSuccess) {
         this.handleError(
@@ -374,7 +475,19 @@ export class DOMManipulationService {
         // Randomized thinking delay before continuing with fallback prompt
         await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(3000, 7000) });
         
-        await this.injectPrompt(message.fallbackPrompt);
+        const fallbackInjectionResult = await this.injectPrompt(message.fallbackPrompt);
+        
+        if (!fallbackInjectionResult) {
+          this.handleError(
+            "Failed to inject fallback prompt",
+            DOMErrorCode.PROMPT_SUBMISSION_FAILED,
+            {
+              step: "injectPrompt (fallback)",
+              workflow: "runWorkflow",
+            }
+          );
+          return { success: false, response: null };
+        }
         
         // Randomized delay before submitting the fallback prompt
         await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 2000) });
@@ -446,7 +559,20 @@ export class DOMManipulationService {
     errorCode: DOMErrorCode,
     details?: Record<string, any>
   ): never {
-    console.error(`ERROR [${errorCode}]: ${message}`, details || {});
+    // Add more context for debuggability
+    const debugInfo = {
+      url: window.location.href,
+      timestamp: new Date().toISOString(),
+      htmlState: {
+        promptTextareaExists: $(this.PROMPT_TEXTAREA_SELECTOR).length > 0,
+        submitButtonExists: $(this.SUBMIT_BUTTON_SELECTOR).length > 0,
+        newChatButtonExists: $(this.NEW_CHAT_BUTTON_SELECTOR).length > 0,
+      },
+      selector: details?.selector || 'N/A',
+      ...details
+    };
+    
+    console.error(`[DEBUG] ERROR [${errorCode}]: ${message}`, debugInfo);
     throw new Error(`[${errorCode}] ${message}`);
   }
 }
