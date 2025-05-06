@@ -130,11 +130,11 @@ export class TopDogV1Workflow {
    * - Filter on news items with tickers in medium cap tier or no tickers
    * - Return the filtered news items
    */
-  async process(step: number, payload?: any) {
+  async process(ticker: string, step: number, payload?: any) {
  
     
-    const longProfile = await this.companyDatasetService.longProfile('NVDA');
-    const newsBlocks = await this.benzingaService.getNewsBlocks(60*24*5, { tickers: 'NVDA' });
+    const longProfile = await this.companyDatasetService.longProfile(ticker);
+    const newsBlocks = await this.benzingaService.getNewsBlocks(60*24*5, { tickers: ticker });
     
     const newsMarkdown = this.prepNewsItemsForLLM(newsBlocks);
 
@@ -185,6 +185,12 @@ Follow these guidelines:
    - Consider growth opportunities mentioned in news articles
    - Discuss potential catalysts for price movement
    - Address analyst ratings and price targets when available
+
+5. PREDICT PRICE MOVEMENT:
+   - Predict price at opening tomorrow. 
+   - Predict price at noon EST tomorrow.
+   - Predict price at closing tomorrow.
+   
 </instructions>
 
 Present your analysis in a clear, structured format with appropriate headings and bullet points where necessary. Use visualizations to illustrate key points if helpful. Avoid making definitive investment recommendations, but rather present evidence-based analysis that enables informed decision-making.

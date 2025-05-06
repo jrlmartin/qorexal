@@ -47,7 +47,7 @@ export class CompanyDatasetService {
     ticker: string,
     markdown: boolean = true,
   ): Promise<string> {
-    const overview = await this.alpha.fundamental.company_overview(ticker);
+    const overview = await this.alpha.fundamental.company_overview(`${ticker}&entitlement=delayed`,);
     return markdown
       ? MarkdownFormatter.convertCompanyOverviewToMarkdown(overview)
       : overview;
@@ -61,10 +61,11 @@ export class CompanyDatasetService {
    */
   async dailyAdjustedTimeSeries(
     ticker: string,
+    // @ts-ignore
     outputSize: OutputSizeType = 'compact',
     markdown: boolean = true,
   ): Promise<any> {
-    const data = await this.alpha.data.daily_adjusted(ticker, outputSize);
+    const data = await this.alpha.data.daily_adjusted(`${ticker}&entitlement=delayed`, outputSize);
     return markdown
       ? MarkdownFormatter.convertIntradayTimeSeriesToMarkdown(data)
       : data;
@@ -93,6 +94,7 @@ export class CompanyDatasetService {
             symbol: ticker,
             interval: interval,
             apikey: ALPHA_VANTAGE_API_KEY,
+            entitlement: 'delayed',
           },
         });
   
@@ -119,10 +121,10 @@ export class CompanyDatasetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.rsi(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       timePeriod,
       seriesType,
@@ -149,10 +151,10 @@ export class CompanyDatasetService {
     fastPeriod: number = 12,
     slowPeriod: number = 26,
     signalPeriod: number = 9,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.macd(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       seriesType,
       fastPeriod,
@@ -181,10 +183,10 @@ export class CompanyDatasetService {
     interval: TimeIntervalType = '5min',
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2
   ): Promise<any> {
     let data = await this.alpha.technical.obv(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       null,
       seriesType,
@@ -207,10 +209,10 @@ export class CompanyDatasetService {
     timePeriod: number = 20, // Common default
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.ema(
-      ticker,
+    `${ticker}&entitlement=delayed`,
       interval,
       timePeriod,
       seriesType,
@@ -235,10 +237,10 @@ export class CompanyDatasetService {
     nbdevup: number = 2, // Standard dev up
     nbdevdn: number = 2, // Standard dev down
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.bbands(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       timePeriod,
       seriesType,
@@ -268,10 +270,10 @@ export class CompanyDatasetService {
     slowkmatype: number = 0,
     slowdmatype: number = 0,
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.stoch(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       fastkperiod,
       slowkperiod,
@@ -299,10 +301,10 @@ export class CompanyDatasetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.adx(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       timePeriod,
       seriesType,
@@ -325,11 +327,11 @@ export class CompanyDatasetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     // Access the technical endpoint with the specific indicator function
     let data = await this.alpha.technical.atr(
-      ticker,
+     `${ticker}&entitlement=delayed`,
       interval,
       timePeriod,
       seriesType,
@@ -352,7 +354,7 @@ export class CompanyDatasetService {
     ticker: string,
     interval: TimeIntervalType = '5min',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     try {
       // Missing from Alpha Vantage sdk
@@ -362,6 +364,7 @@ export class CompanyDatasetService {
           symbol: ticker,
           interval: interval,
           apikey: ALPHA_VANTAGE_API_KEY,
+          entitlement: 'delayed',
         },
       });
 
@@ -388,10 +391,10 @@ export class CompanyDatasetService {
     timePeriod: number = 14,
     seriesType: SeriesType = 'close',
     markdown: boolean = true,
-    numElements: number = 100,
+    numElements: number = 2,
   ): Promise<any> {
     let data = await this.alpha.technical.sma(
-      ticker,
+      `${ticker}&entitlement=delayed`,
       interval,
       timePeriod,
       seriesType,
@@ -441,7 +444,7 @@ ${companyOverview}
 ## Stock Price Data
 
 ### Daily Adjusted Time Series
-${dailyData}
+
 
 ### Intraday Time Series (5-min)
 ${intradayData}
