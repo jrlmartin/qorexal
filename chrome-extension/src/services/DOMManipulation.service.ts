@@ -25,10 +25,23 @@ enum DOMErrorCode {
   GENERAL_ERROR = 900,
 }
 
+/**
+ * Log levels for debugging
+ */
+enum LogLevel {
+  DEBUG = 'debug',
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error'
+}
+
 @Injectable({
   providedIn: "root",
 })
 export class DOMManipulationService {
+  // Logging configuration
+  private debugMode = true;
+
   // Selectors
   private readonly PROMPT_TEXTAREA_SELECTOR = "#prompt-textarea";
   private readonly SUBMIT_BUTTON_SELECTOR = "#composer-submit-button";
@@ -57,24 +70,24 @@ export class DOMManipulationService {
     // Initialize the human interaction simulator with custom settings
     this.simulator = new HumanInteractionSimulator({
       typingSpeed: {
-        min: 50,  // Minimum ms between keystrokes
+        min: 50, // Minimum ms between keystrokes
         max: 150, // Maximum ms between keystrokes
       },
       typingVariance: {
-        wordPause: 200,       // Additional pause at word endings (space, period)
-        sentencePause: 500,   // Additional pause at end of sentences
-        errorRate: 0.05,      // 5% chance of making a typo
+        wordPause: 200, // Additional pause at word endings (space, period)
+        sentencePause: 500, // Additional pause at end of sentences
+        errorRate: 0.05, // 5% chance of making a typo
         correctionDelay: 300, // Time before correcting typo
       },
       mouseMovement: {
-        useHumanCurve: true,  // Use bezier curves for mouse movement
-        turbulence: 0.5,      // Random turbulence in mouse path (0-1)
-        speedVariance: 0.3,   // Variance in speed during movement (0-1)
+        useHumanCurve: true, // Use bezier curves for mouse movement
+        turbulence: 0.5, // Random turbulence in mouse path (0-1)
+        speedVariance: 0.3, // Variance in speed during movement (0-1)
       },
       interactionTiming: {
-        minDelay: 500,        // Minimum delay between interactions
-        maxDelay: 2000,       // Maximum delay between interactions
-        idleTimeout: 30000,   // Time before simulated "idle" behavior
+        minDelay: 500, // Minimum delay between interactions
+        maxDelay: 2000, // Maximum delay between interactions
+        idleTimeout: 30000, // Time before simulated "idle" behavior
         idleProbability: 0.1, // Probability of triggering idle behavior
       },
     });
@@ -91,12 +104,12 @@ export class DOMManipulationService {
     this.visualization = new HumanInteractionVisualization(this.simulator, {
       cursorSize: 15,
       trailLength: 50,
-      trailColor: 'rgba(255, 0, 0, 0.4)',
-      cursorColor: 'rgba(255, 0, 0, 0.7)',
+      trailColor: "rgba(255, 0, 0, 0.4)",
+      cursorColor: "rgba(255, 0, 0, 0.7)",
       showTrail: true,
       fadeTrail: true,
       showSpeed: true,
-      trailThickness: 3
+      trailThickness: 3,
     });
 
     // Create visualization control panel
@@ -110,28 +123,28 @@ export class DOMManipulationService {
     if (!this.visualization) return;
 
     // Create control panel container
-    const controlPanel = document.createElement('div');
-    controlPanel.style.position = 'fixed';
-    controlPanel.style.bottom = '20px';
-    controlPanel.style.right = '20px';
-    controlPanel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-    controlPanel.style.padding = '10px';
-    controlPanel.style.borderRadius = '5px';
-    controlPanel.style.zIndex = '10000';
-    controlPanel.style.color = 'white';
-    controlPanel.style.fontFamily = 'Arial, sans-serif';
-    controlPanel.style.fontSize = '12px';
+    const controlPanel = document.createElement("div");
+    controlPanel.style.position = "fixed";
+    controlPanel.style.bottom = "20px";
+    controlPanel.style.right = "20px";
+    controlPanel.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+    controlPanel.style.padding = "10px";
+    controlPanel.style.borderRadius = "5px";
+    controlPanel.style.zIndex = "10000";
+    controlPanel.style.color = "white";
+    controlPanel.style.fontFamily = "Arial, sans-serif";
+    controlPanel.style.fontSize = "12px";
 
     // Add title
-    const title = document.createElement('div');
-    title.textContent = 'Visualization Controls';
-    title.style.fontWeight = 'bold';
-    title.style.marginBottom = '8px';
+    const title = document.createElement("div");
+    title.textContent = "Visualization Controls";
+    title.style.fontWeight = "bold";
+    title.style.marginBottom = "8px";
     controlPanel.appendChild(title);
 
     // Show trail checkbox
     const showTrailLabel = this.createCheckboxControl(
-      'Show Trail', 
+      "Show Trail",
       this.visualization.options.showTrail,
       (checked) => {
         if (this.visualization) {
@@ -146,7 +159,7 @@ export class DOMManipulationService {
 
     // Fade trail checkbox
     const fadeTrailLabel = this.createCheckboxControl(
-      'Fade Trail', 
+      "Fade Trail",
       this.visualization.options.fadeTrail,
       (checked) => {
         if (this.visualization) {
@@ -158,30 +171,32 @@ export class DOMManipulationService {
 
     // Show speed checkbox
     const showSpeedLabel = this.createCheckboxControl(
-      'Show Speed', 
+      "Show Speed",
       this.visualization.options.showSpeed,
       (checked) => {
         if (this.visualization && this.visualization.speedIndicator) {
           this.visualization.options.showSpeed = checked;
-          this.visualization.speedIndicator.style.display = checked ? 'block' : 'none';
+          this.visualization.speedIndicator.style.display = checked
+            ? "block"
+            : "none";
         }
       }
     );
     controlPanel.appendChild(showSpeedLabel);
 
     // Clear trail button
-    const clearButton = document.createElement('button');
-    clearButton.textContent = 'Clear Trail';
-    clearButton.style.backgroundColor = '#4a90e2';
-    clearButton.style.color = 'white';
-    clearButton.style.border = 'none';
-    clearButton.style.padding = '5px 10px';
-    clearButton.style.borderRadius = '3px';
-    clearButton.style.marginTop = '8px';
-    clearButton.style.cursor = 'pointer';
-    clearButton.style.display = 'block';
-    clearButton.style.width = '100%';
-    clearButton.addEventListener('click', () => {
+    const clearButton = document.createElement("button");
+    clearButton.textContent = "Clear Trail";
+    clearButton.style.backgroundColor = "#4a90e2";
+    clearButton.style.color = "white";
+    clearButton.style.border = "none";
+    clearButton.style.padding = "5px 10px";
+    clearButton.style.borderRadius = "3px";
+    clearButton.style.marginTop = "8px";
+    clearButton.style.cursor = "pointer";
+    clearButton.style.display = "block";
+    clearButton.style.width = "100%";
+    clearButton.addEventListener("click", () => {
       if (this.visualization) {
         this.visualization.clearTrail();
       }
@@ -196,24 +211,24 @@ export class DOMManipulationService {
    * Create a checkbox control with label
    */
   private createCheckboxControl(
-    labelText: string, 
-    initialValue: boolean, 
+    labelText: string,
+    initialValue: boolean,
     onChange: (checked: boolean) => void
   ): HTMLLabelElement {
-    const label = document.createElement('label');
-    label.style.display = 'block';
-    label.style.marginBottom = '5px';
-    label.style.cursor = 'pointer';
+    const label = document.createElement("label");
+    label.style.display = "block";
+    label.style.marginBottom = "5px";
+    label.style.cursor = "pointer";
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
     checkbox.checked = initialValue;
-    checkbox.style.marginRight = '5px';
-    checkbox.addEventListener('change', () => onChange(checkbox.checked));
+    checkbox.style.marginRight = "5px";
+    checkbox.addEventListener("change", () => onChange(checkbox.checked));
 
     label.appendChild(checkbox);
     label.appendChild(document.createTextNode(labelText));
-    
+
     return label;
   }
 
@@ -225,12 +240,49 @@ export class DOMManipulationService {
   }
 
   /**
+   * Log a message to the console if debug mode is enabled
+   * @param message The message to log
+   * @param level The log level (debug, info, warn, error)
+   * @param details Optional details to include in the log
+   */
+  private log(message: string, level: LogLevel = LogLevel.DEBUG, details?: any): void {
+    if (!this.debugMode) return;
+    
+    const timestamp = new Date().toISOString();
+    const prefix = `[${timestamp}] [${level.toUpperCase()}]`;
+    
+    switch (level) {
+      case LogLevel.DEBUG:
+        console.log(`${prefix} ${message}`, details || '');
+        break;
+      case LogLevel.INFO:
+        console.info(`${prefix} ${message}`, details || '');
+        break;
+      case LogLevel.WARN:
+        console.warn(`${prefix} ${message}`, details || '');
+        break;
+      case LogLevel.ERROR:
+        console.error(`${prefix} ${message}`, details || '');
+        break;
+    }
+  }
+
+  /**
+   * Enable or disable debug logging
+   * @param enable Whether to enable debug logging
+   */
+  public setDebugMode(enable: boolean): void {
+    this.debugMode = enable;
+    this.log(`Debug mode ${enable ? 'enabled' : 'disabled'}`, LogLevel.INFO);
+  }
+
+  /**
    * Verifies that all required DOM elements exist in the page
    * @returns True if all elements exist
    * @throws Error if any element is missing
    */
   verifyDOMElements(): boolean {
-    console.log("[DEBUG] Verifying DOM elements");
+    this.log("Verifying DOM elements");
     const selectors = {
       "Prompt textarea": this.PROMPT_TEXTAREA_SELECTOR,
       // "Submit button": this.SUBMIT_BUTTON_SELECTOR,
@@ -244,13 +296,23 @@ export class DOMManipulationService {
     for (const [elementName, selector] of Object.entries(selectors)) {
       const $element = $(selector);
       const found = $element.length > 0;
-      console.log(`[DEBUG] Checking for ${elementName} (${selector}): ${found ? 'FOUND' : 'NOT FOUND'}`);
-      
+      this.log(
+        `Checking for ${elementName} (${selector}): ${
+          found ? "FOUND" : "NOT FOUND"
+        }`
+      );
+
       if (!found) {
         allElementsFound = false;
-        console.error(`[DEBUG] Required DOM element not found: ${elementName} with selector ${selector}`);
+        this.log(
+          `Required DOM element not found: ${elementName} with selector ${selector}`,
+          LogLevel.ERROR
+        );
         // Only throw error for critical elements like submit button and text area
-        if (elementName === "Prompt textarea" || elementName === "Submit button") {
+        if (
+          elementName === "Prompt textarea" ||
+          elementName === "Submit button"
+        ) {
           this.handleError(
             `Required DOM element not found: ${elementName}`,
             DOMErrorCode.ELEMENT_NOT_FOUND,
@@ -263,7 +325,11 @@ export class DOMManipulationService {
       }
     }
 
-    console.log("[DEBUG] All required DOM elements verified:", allElementsFound);
+    this.log(
+      "All required DOM elements verified:",
+      LogLevel.INFO,
+      allElementsFound
+    );
     return true;
   }
 
@@ -286,18 +352,16 @@ export class DOMManipulationService {
       const textareaElement = $textarea[0] as HTMLInputElement;
 
       // Add human-like thinking delay before typing
-      await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
+      await this.simulator.simulateThinking({
+        idleTimeout: this.randomBetween(1000, 3000),
+      });
 
       // Paste large text into an input
-      await this.simulator.copyPasteText(
-        textareaElement,
-        prompt,
-        {
-          thinkingTime: 1500,   // Longer thinking time for complex text
-          errorProbability: 0.1 // Slightly lower error rate
-        }
-      );
-      
+      await this.simulator.copyPasteText(textareaElement, prompt, {
+        thinkingTime: 1500, // Longer thinking time for complex text
+        errorProbability: 0.1, // Slightly lower error rate
+      });
+
       return true;
     } catch (error) {
       this.handleError(
@@ -310,19 +374,26 @@ export class DOMManipulationService {
   }
 
   async runPrompt() {
-    console.log("[DEBUG] runPrompt started - looking for submit button with selector:", this.SUBMIT_BUTTON_SELECTOR);
-    
+    this.log(
+      "runPrompt started - looking for submit button with selector:",
+      LogLevel.DEBUG,
+      this.SUBMIT_BUTTON_SELECTOR
+    );
+
     // Find the submit button
     let $submitButton = $(this.SUBMIT_BUTTON_SELECTOR);
-    
+
     // Log detailed info about current DOM state
-    console.log("[DEBUG] Submit button found?", $submitButton.length > 0);
-    console.log("[DEBUG] Page URL:", window.location.href);
-    
+    this.log("Submit button found?", LogLevel.DEBUG, $submitButton.length > 0);
+    this.log("Page URL:", LogLevel.DEBUG, window.location.href);
+
     // If the primary selector fails, try alternative selectors that might work
     if ($submitButton.length === 0) {
-      console.log("[DEBUG] Primary submit button selector failed, trying fallbacks");
-      
+      this.log(
+        "Primary submit button selector failed, trying fallbacks",
+        LogLevel.INFO
+      );
+
       // Common alternative selectors for submit buttons
       const fallbackSelectors = [
         "button[data-testid='submit']",
@@ -333,42 +404,64 @@ export class DOMManipulationService {
         "button.send-button",
         "button.primary-action",
         "[aria-label='Send message']",
-        "[data-testid='send-button']"
+        "[data-testid='send-button']",
       ];
-      
+
       for (const selector of fallbackSelectors) {
         const $fallbackButton = $(selector);
-        console.log(`[DEBUG] Trying fallback selector: ${selector} - Found: ${$fallbackButton.length > 0}`);
-        
+        this.log(
+          `Trying fallback selector: ${selector} - Found: ${
+            $fallbackButton.length > 0
+          }`,
+          LogLevel.DEBUG
+        );
+
         if ($fallbackButton.length > 0) {
-          console.log(`[DEBUG] Found working fallback selector: ${selector}`);
+          this.log(`Found working fallback selector: ${selector}`, LogLevel.INFO);
           $submitButton = $fallbackButton;
           break;
         }
       }
     }
-    
+
     // Log details about nearby elements to help debug selector issues
-    console.log("[DEBUG] Parent container HTML:", $submitButton.parent().html());
-    
+    this.log(
+      "Parent container HTML:",
+      LogLevel.DEBUG,
+      $submitButton.parent().html()
+    );
+
     // List all buttons on the page to help find the right selector
     const allButtons = $("button");
-    console.log("[DEBUG] Total buttons found on page:", allButtons.length);
-    console.log("[DEBUG] Button elements:", Array.from(allButtons).map(el => ({
-      id: el.id,
-      class: el.className,
-      text: $(el).text().trim().substring(0, 20),
-      visible: $(el).is(":visible"),
-      attributes: Array.from(el.attributes).map(attr => `${attr.name}="${attr.value}"`).join(', ')
-    })));
-    
+    this.log("Total buttons found on page:", LogLevel.DEBUG, allButtons.length);
+    this.log(
+      "Button elements:",
+      LogLevel.DEBUG,
+      Array.from(allButtons).map((el) => ({
+        id: el.id,
+        class: el.className,
+        text: $(el).text().trim().substring(0, 20),
+        visible: $(el).is(":visible"),
+        attributes: Array.from(el.attributes)
+          .map((attr) => `${attr.name}="${attr.value}"`)
+          .join(", "),
+      }))
+    );
+
     if ($submitButton.length === 0) {
-      console.error("[DEBUG] Submit button not found. DOM structure may have changed.");
-      
+      this.log(
+        "Submit button not found. DOM structure may have changed.",
+        LogLevel.ERROR
+      );
+
       // Capture a snapshot of form elements to help identify the correct selector
-      console.log("[DEBUG] Form elements:", $("form").html());
-      console.log("[DEBUG] Text input elements:", $("input[type='text'], textarea").length);
-      
+      this.log("Form elements:", LogLevel.DEBUG, $("form").html());
+      this.log(
+        "Text input elements:",
+        LogLevel.DEBUG,
+        $("input[type='text'], textarea").length
+      );
+
       this.handleError(
         "Submit button not found",
         DOMErrorCode.ELEMENT_NOT_FOUND,
@@ -383,17 +476,17 @@ export class DOMManipulationService {
     await this.simulator.delay(this.randomBetween(300, 1000));
 
     // Use simulator to click the button with natural movement
-    console.log("[DEBUG] About to click submit button");
+    this.log("About to click submit button", LogLevel.INFO);
     try {
       await this.simulator.clickButton(submitButtonElement, {
-        clickPattern: 'natural',
+        clickPattern: "natural",
         thinkBeforeClick: true,
-        turbulence: 0.4
+        turbulence: 0.4,
       });
-      console.log("[DEBUG] Submit button clicked successfully");
+      this.log("Submit button clicked successfully", LogLevel.INFO);
       return true;
     } catch (error) {
-      console.error("[DEBUG] Error clicking submit button:", error);
+      this.log("Error clicking submit button:", LogLevel.ERROR, error);
       this.handleError(
         "Error clicking submit button",
         DOMErrorCode.ELEMENT_NOT_INTERACTIVE,
@@ -410,7 +503,8 @@ export class DOMManipulationService {
     try {
       for (let attempt = 0; attempt < this.MAX_POLLING_ATTEMPTS; attempt++) {
         // Wait for the polling interval with slight randomization
-        const randomizedInterval = this.POLLING_INTERVAL + this.randomBetween(-500, 500);
+        const randomizedInterval =
+          this.POLLING_INTERVAL + this.randomBetween(-500, 500);
         await this.simulator.delay(randomizedInterval);
 
         // Check if there's a completed response (last message from assistant)
@@ -421,7 +515,7 @@ export class DOMManipulationService {
           lastAssistantMessage.length > 0 &&
           !lastAssistantMessage.find(this.LOADING_INDICATOR_SELECTOR).length
         ) {
-          console.log(`Response found after ${attempt + 1} attempts`);
+          this.log(`Response found after ${attempt + 1} attempts`, LogLevel.INFO);
 
           // Simulate human reading time - longer for more content
           const contentLength = lastAssistantMessage.text().length;
@@ -442,7 +536,7 @@ export class DOMManipulationService {
           return jsonText;
         }
 
-        console.log(`Polling for response: attempt ${attempt + 1}`);
+        this.log(`Polling for response: attempt ${attempt + 1}`, LogLevel.INFO);
       }
 
       this.handleError(
@@ -475,15 +569,17 @@ export class DOMManipulationService {
 
       if (newChatButton) {
         // Simulate human thinking before starting a new chat
-        await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
+        await this.simulator.simulateThinking({
+          idleTimeout: this.randomBetween(1000, 3000),
+        });
 
         // Use simulator to click the new chat button
         await this.simulator.clickButton(newChatButton, {
-          clickPattern: 'natural',
-          thinkBeforeClick: true
+          clickPattern: "natural",
+          thinkBeforeClick: true,
         });
 
-        console.log("New chat created successfully");
+        this.log("New chat created successfully", LogLevel.INFO);
         return true;
       } else {
         this.handleError(
@@ -524,11 +620,11 @@ export class DOMManipulationService {
 
       // Use simulator to click the button with natural movement
       await this.simulator.clickButton(searchButtonElement, {
-        clickPattern: 'natural',
-        thinkBeforeClick: true
+        clickPattern: "natural",
+        thinkBeforeClick: true,
       });
 
-      console.log("Search button clicked");
+      this.log("Search button clicked", LogLevel.INFO);
     } else if (deepResearch) {
       // If deepResearch is enabled, click the deep research button
       const $deepResearchButton = $(this.DEEP_RESEARCH_BUTTON_SELECTOR);
@@ -545,14 +641,14 @@ export class DOMManipulationService {
 
       // Use simulator to click the button with natural movement
       await this.simulator.clickButton(deepResearchButtonElement, {
-        clickPattern: 'natural',
-        thinkBeforeClick: true
+        clickPattern: "natural",
+        thinkBeforeClick: true,
       });
 
-      console.log("Deep research button clicked");
+      this.log("Deep research button clicked", LogLevel.INFO);
       return true;
     }
-  } 
+  }
 
   /**
    * Run the complete workflow: prompt, capture, process
@@ -560,7 +656,11 @@ export class DOMManipulationService {
   async runWorkflow(
     message: LLMMessage
   ): Promise<{ success: boolean; response: string | null }> {
-    console.log("[DEBUG] runWorkflow started with message:", JSON.stringify(message, null, 2));
+    this.log(
+      "runWorkflow started with message:",
+      LogLevel.INFO,
+      JSON.stringify(message, null, 2)
+    );
     try {
       // Verify DOM elements before proceeding with workflow
       this.verifyDOMElements();
@@ -569,14 +669,14 @@ export class DOMManipulationService {
       // Use randomized delays instead of fixed delays
       await this.simulator.randomDelay();
 
-      await this.setSettings(message);
-      
+      // await this.setSettings(message);
+
       // Randomized delay between setting selection and typing prompt
       await this.simulator.randomDelay();
 
-      console.log("[DEBUG] About to inject prompt");
+      this.log("About to inject prompt", LogLevel.INFO);
       const injectionResult = await this.injectPrompt(message.prompt);
-      
+
       if (!injectionResult) {
         this.handleError(
           "Failed to inject prompt",
@@ -588,13 +688,15 @@ export class DOMManipulationService {
         );
         return { success: false, response: null };
       }
-      
-      // Randomized thinking time before submitting prompt
-      await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 3000) });
 
-      console.log("[DEBUG] About to call runPrompt");
+      // Randomized thinking time before submitting prompt
+      await this.simulator.simulateThinking({
+        idleTimeout: this.randomBetween(1000, 3000),
+      });
+
+      this.log("About to call runPrompt", LogLevel.INFO);
       const promptSuccess = await this.runPrompt();
-      console.log("[DEBUG] runPrompt result:", promptSuccess);
+      this.log("runPrompt result:", LogLevel.INFO, promptSuccess);
 
       if (!promptSuccess) {
         this.handleError(
@@ -608,14 +710,47 @@ export class DOMManipulationService {
         return { success: false, response: null };
       }
 
+      await this.simulator.simulateThinking({
+        idleTimeout: this.randomBetween(1000, 3000),
+      });
+
+      await this.simulator.simulateThinking({
+        idleTimeout: this.randomBetween(2000, 4000),
+      });
+
+      // Find the copy button element
+      const copyButtonSelector =
+        "button.flex.gap-1.items-center[aria-label='Copy']";
+      const $copyButton = $(copyButtonSelector);
+
+      this.log("Copy button:", LogLevel.DEBUG, { button: $copyButton, selector: copyButtonSelector });
+
+      if (!$copyButton) {
+        this.log("Copy button not found", LogLevel.INFO);
+        // Proceed without clicking the copy button
+      } else {
+        this.log("About to click copy button", LogLevel.INFO);
+        const submitButtonElement = $copyButton[0] as HTMLElement;
+        await this.simulator.clickButton(submitButtonElement, {
+          clickPattern: "natural",
+          thinkBeforeClick: true,
+          turbulence: 0.4,
+        });
+        this.log("Copy button clicked", LogLevel.INFO);
+      }
+
       let responseData = await this.captureText();
 
-      if (responseData && message.deepResearch) {
+      if (!responseData && message.deepResearch) {
         // Randomized thinking delay before continuing with fallback prompt
-        await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(3000, 7000) });
-        
-        const fallbackInjectionResult = await this.injectPrompt(message.fallbackPrompt);
-        
+        await this.simulator.simulateThinking({
+          idleTimeout: this.randomBetween(3000, 7000),
+        });
+
+        const fallbackInjectionResult = await this.injectPrompt(
+          message.fallbackPrompt
+        );
+
         if (!fallbackInjectionResult) {
           this.handleError(
             "Failed to inject fallback prompt",
@@ -627,9 +762,11 @@ export class DOMManipulationService {
           );
           return { success: false, response: null };
         }
-        
+
         // Randomized delay before submitting the fallback prompt
-        await this.simulator.simulateThinking({ idleTimeout: this.randomBetween(1000, 2000) });
+        await this.simulator.simulateThinking({
+          idleTimeout: this.randomBetween(1000, 2000),
+        });
 
         const promptSuccess = await this.runPrompt();
 
@@ -645,7 +782,29 @@ export class DOMManipulationService {
           return { success: false, response: null };
         }
 
-        responseData = await this.captureText();
+        await this.simulator.simulateThinking({
+          idleTimeout: this.randomBetween(2000, 4000),
+        });
+
+        // Find the copy button element
+        const copyButtonSelector =
+          "button.flex.gap-1.items-center[aria-label='Copy']";
+        const $copyButton = $(copyButtonSelector);
+
+        if ($copyButton.length === 0) {
+          this.log("Copy button not found", LogLevel.INFO);
+          // Proceed without clicking the copy button
+        } else {
+          this.log("About to click copy button", LogLevel.INFO);
+          const submitButtonElement = $copyButton[0] as HTMLElement;
+          await this.simulator.clickButton(submitButtonElement, {
+            clickPattern: "natural",
+            thinkBeforeClick: true,
+            turbulence: 0.4,
+          });
+          responseData = await this.captureText();
+          this.log("Copy button clicked", LogLevel.INFO);
+        }
       }
 
       if (!responseData) {
@@ -681,10 +840,7 @@ export class DOMManipulationService {
    * Generates a random delay between MIN_RANDOM_DELAY and MAX_RANDOM_DELAY
    */
   private getRandomDelay(): number {
-    return this.randomBetween(
-      this.MIN_RANDOM_DELAY,
-      this.MAX_RANDOM_DELAY
-    );
+    return this.randomBetween(this.MIN_RANDOM_DELAY, this.MAX_RANDOM_DELAY);
   }
 
   /**
@@ -707,11 +863,11 @@ export class DOMManipulationService {
         submitButtonExists: $(this.SUBMIT_BUTTON_SELECTOR).length > 0,
         newChatButtonExists: $(this.NEW_CHAT_BUTTON_SELECTOR).length > 0,
       },
-      selector: details?.selector || 'N/A',
-      ...details
+      selector: details?.selector || "N/A",
+      ...details,
     };
-    
-    console.error(`[DEBUG] ERROR [${errorCode}]: ${message}`, debugInfo);
+
+    this.log(`ERROR [${errorCode}]: ${message}`, LogLevel.ERROR, debugInfo);
     throw new Error(`[${errorCode}] ${message}`);
   }
 }
