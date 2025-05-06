@@ -313,6 +313,20 @@ interface VisualizationOptions {
       }
     }
     
+    // Hide the visualization
+    public hide(): void {
+      if (this.overlay) {
+        this.overlay.style.display = 'none';
+      }
+    }
+    
+    // Show the visualization
+    public show(): void {
+      if (this.overlay) {
+        this.overlay.style.display = 'block';
+      }
+    }
+    
     // Clear all trail elements
     public clearTrail(): void {
       this.trailElements.forEach(element => element.remove());

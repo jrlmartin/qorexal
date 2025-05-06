@@ -2,14 +2,13 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { ContentAppComponent } from './app/content-app.component';
 import { importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-console.log('[QOREXAL CONTENT SCRIPT] Content script loaded');
-
+ 
 // Add type declarations for global variables
 declare global {
   interface Window {
     qorexalReady: boolean;
     showQorexalUI: () => void;
+    qorexalDebug: boolean;
   }
 }
 
@@ -18,15 +17,25 @@ let isInitialized = false;
 
 // Create a global variable for UI initialization
 window.qorexalReady = false;
+window.qorexalDebug = false; // Debug flag - set to true to enable logging
+
+/**
+ * Utility function for logging that only outputs when debug flag is enabled
+ */
+function qorexalLog(...args: any[]): void {
+  if (window.qorexalDebug) {
+    console.log('[QOREXAL CONTENT SCRIPT]', ...args);
+  }
+}
 
 function initContentScript() {
   // Only initialize once
   if (isInitialized) {
-    console.log('[QOREXAL CONTENT SCRIPT] Already initialized');
+    qorexalLog('Already initialized');
     return;
   }
   
-  console.log('[QOREXAL CONTENT SCRIPT] Beginning initialization');
+  qorexalLog('Beginning initialization');
   
   // Create container (initially hidden)
   const container = document.createElement('div');
@@ -56,13 +65,13 @@ function initContentScript() {
     ]
   })
   .then(() => {
-    console.log('[QOREXAL CONTENT SCRIPT] Angular bootstrapped successfully');
+    qorexalLog('Angular bootstrapped successfully');
     
     // Add a global method that components can call when they're fully rendered
     window.showQorexalUI = function() {
       if (window.qorexalReady) return; // Only do this once
       
-      console.log('[QOREXAL CONTENT SCRIPT] UI now visible');
+      qorexalLog('UI now visible');
       window.qorexalReady = true;
       
       // Show the UI with a fade-in effect
@@ -77,7 +86,7 @@ function initContentScript() {
       setTimeout(() => {
         try {
           chrome.runtime.sendMessage({ type: "CONTENT_SCRIPT_READY" });
-          console.log('[QOREXAL CONTENT SCRIPT] Sent ready message to background');
+          qorexalLog('Sent ready message to background');
         } catch (err) {
           console.error('[QOREXAL CONTENT SCRIPT] Failed to send ready message:', err);
         }
@@ -87,7 +96,7 @@ function initContentScript() {
     // Set a fallback timer in case the component doesn't call showQorexalUI
     setTimeout(() => {
       if (!window.qorexalReady) {
-        console.log('[QOREXAL CONTENT SCRIPT] Using fallback timer to show UI');
+        qorexalLog('Using fallback timer to show UI');
         window.showQorexalUI();
       }
     }, 500);

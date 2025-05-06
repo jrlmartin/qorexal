@@ -1162,7 +1162,7 @@ interface Point {
         : button;
         
       if (!buttonElement) {
-        console.error('Button element not found');
+       // console.error('Button element not found');
         return;
       }
       

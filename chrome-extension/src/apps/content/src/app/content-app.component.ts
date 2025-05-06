@@ -25,22 +25,44 @@ export class ContentAppComponent implements OnInit, OnDestroy, AfterViewInit {
     | null = null;
   isRunning = false;
   errorMessage: string | null = null;
+  private debugMode = false;
 
   constructor(private domManipulationService: DOMManipulationService) {}
+
+  /**
+   * Conditionally logs to console only when debug mode is enabled
+   * @param message Message to log
+   * @param data Optional data to log
+   */
+  log(message: string, ...data: any[]): void {
+    if (this.debugMode) {
+      if (data.length > 0) {
+        console.log(`[QOREXAL COMPONENT] ${message}`, ...data);
+      } else {
+        console.log(`[QOREXAL COMPONENT] ${message}`);
+      }
+    }
+  }
+
+  /**
+   * Sets debug mode to enable or disable logging
+   * @param enabled Whether logging should be enabled
+   */
+  setDebugMode(enabled: boolean): void {
+    this.debugMode = enabled;
+    this.log(`Debug mode ${enabled ? 'enabled' : 'disabled'}`);
+  }
 
   ngOnInit() {
     // Listen for events from background (triggered by NestJS)
     chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       if (msg.type === "llmExtEvent") {
-        console.log(
-          "[QOREXAL COMPONENT] Received llmExtEvent from background:",
-          msg.payload
-        );
+        this.log("Received llmExtEvent from background:", msg.payload);
 
         this.domManipulationService
           .runWorkflow(msg.payload)
           .then((result) => {
-            console.log("[QOREXAL COMPONENT] Result from runWorkflow:", result);
+            this.log("Result from runWorkflow:", result);
             this.errorMessage = null; // Clear any previous errors on success
 
             // Send final result to background script

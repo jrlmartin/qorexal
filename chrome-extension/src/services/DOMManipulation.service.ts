@@ -29,10 +29,10 @@ enum DOMErrorCode {
  * Log levels for debugging
  */
 enum LogLevel {
-  DEBUG = 'debug',
-  INFO = 'info',
-  WARN = 'warn',
-  ERROR = 'error'
+  DEBUG = "debug",
+  INFO = "info",
+  WARN = "warn",
+  ERROR = "error",
 }
 
 @Injectable({
@@ -40,7 +40,10 @@ enum LogLevel {
 })
 export class DOMManipulationService {
   // Logging configuration
-  private debugMode = true;
+  private debugMode = false;
+
+  // Visualization flag
+  private visualizationEnabled = true;
 
   // Selectors
   private readonly PROMPT_TEXTAREA_SELECTOR = "#prompt-textarea";
@@ -92,8 +95,10 @@ export class DOMManipulationService {
       },
     });
 
-    // Initialize visualization
-    this.initVisualization();
+    // Initialize visualization if enabled
+    if (this.visualizationEnabled) {
+      this.initVisualization();
+    }
   }
 
   /**
@@ -141,6 +146,28 @@ export class DOMManipulationService {
     title.style.fontWeight = "bold";
     title.style.marginBottom = "8px";
     controlPanel.appendChild(title);
+
+    // Show/hide visualization button
+    const toggleButton = document.createElement("button");
+    toggleButton.textContent = this.visualizationEnabled
+      ? "Hide Cursor"
+      : "Show Cursor";
+    toggleButton.style.backgroundColor = "#4a90e2";
+    toggleButton.style.color = "white";
+    toggleButton.style.border = "none";
+    toggleButton.style.padding = "5px 10px";
+    toggleButton.style.borderRadius = "3px";
+    toggleButton.style.marginBottom = "8px";
+    toggleButton.style.cursor = "pointer";
+    toggleButton.style.display = "block";
+    toggleButton.style.width = "100%";
+    toggleButton.addEventListener("click", () => {
+      this.toggleVisualization();
+      toggleButton.textContent = this.visualizationEnabled
+        ? "Hide Cursor"
+        : "Show Cursor";
+    });
+    controlPanel.appendChild(toggleButton);
 
     // Show trail checkbox
     const showTrailLabel = this.createCheckboxControl(
@@ -245,24 +272,28 @@ export class DOMManipulationService {
    * @param level The log level (debug, info, warn, error)
    * @param details Optional details to include in the log
    */
-  private log(message: string, level: LogLevel = LogLevel.DEBUG, details?: any): void {
+  private log(
+    message: string,
+    level: LogLevel = LogLevel.DEBUG,
+    details?: any
+  ): void {
     if (!this.debugMode) return;
-    
+
     const timestamp = new Date().toISOString();
     const prefix = `[${timestamp}] [${level.toUpperCase()}]`;
-    
+
     switch (level) {
       case LogLevel.DEBUG:
-        console.log(`${prefix} ${message}`, details || '');
+        console.log(`${prefix} ${message}`, details || "");
         break;
       case LogLevel.INFO:
-        console.info(`${prefix} ${message}`, details || '');
+        console.info(`${prefix} ${message}`, details || "");
         break;
       case LogLevel.WARN:
-        console.warn(`${prefix} ${message}`, details || '');
+        console.warn(`${prefix} ${message}`, details || "");
         break;
       case LogLevel.ERROR:
-        console.error(`${prefix} ${message}`, details || '');
+        console.error(`${prefix} ${message}`, details || "");
         break;
     }
   }
@@ -273,7 +304,7 @@ export class DOMManipulationService {
    */
   public setDebugMode(enable: boolean): void {
     this.debugMode = enable;
-    this.log(`Debug mode ${enable ? 'enabled' : 'disabled'}`, LogLevel.INFO);
+    this.log(`Debug mode ${enable ? "enabled" : "disabled"}`, LogLevel.INFO);
   }
 
   /**
@@ -417,7 +448,10 @@ export class DOMManipulationService {
         );
 
         if ($fallbackButton.length > 0) {
-          this.log(`Found working fallback selector: ${selector}`, LogLevel.INFO);
+          this.log(
+            `Found working fallback selector: ${selector}`,
+            LogLevel.INFO
+          );
           $submitButton = $fallbackButton;
           break;
         }
@@ -515,7 +549,10 @@ export class DOMManipulationService {
           lastAssistantMessage.length > 0 &&
           !lastAssistantMessage.find(this.LOADING_INDICATOR_SELECTOR).length
         ) {
-          this.log(`Response found after ${attempt + 1} attempts`, LogLevel.INFO);
+          this.log(
+            `Response found after ${attempt + 1} attempts`,
+            LogLevel.INFO
+          );
 
           // Simulate human reading time - longer for more content
           const contentLength = lastAssistantMessage.text().length;
@@ -718,26 +755,26 @@ export class DOMManipulationService {
         idleTimeout: this.randomBetween(2000, 4000),
       });
 
-      // Find the copy button element
-      const copyButtonSelector =
-        "button.flex.gap-1.items-center[aria-label='Copy']";
-      const $copyButton = $(copyButtonSelector);
+      // // Find the copy button element
+      // const copyButtonSelector =
+      //   "button.flex.gap-1.items-center[aria-label='Copy']";
+      // const $copyButton = $(copyButtonSelector);
 
-      this.log("Copy button:", LogLevel.DEBUG, { button: $copyButton, selector: copyButtonSelector });
+      // this.log("Copy button:", LogLevel.DEBUG, { button: $copyButton, selector: copyButtonSelector });
 
-      if (!$copyButton) {
-        this.log("Copy button not found", LogLevel.INFO);
-        // Proceed without clicking the copy button
-      } else {
-        this.log("About to click copy button", LogLevel.INFO);
-        const submitButtonElement = $copyButton[0] as HTMLElement;
-        await this.simulator.clickButton(submitButtonElement, {
-          clickPattern: "natural",
-          thinkBeforeClick: true,
-          turbulence: 0.4,
-        });
-        this.log("Copy button clicked", LogLevel.INFO);
-      }
+      // if (!$copyButton) {
+      //   this.log("Copy button not found", LogLevel.INFO);
+      //   // Proceed without clicking the copy button
+      // } else {
+      //   this.log("About to click copy button", LogLevel.INFO);
+      //   const submitButtonElement = $copyButton[0] as HTMLElement;
+      //   await this.simulator.clickButton(submitButtonElement, {
+      //     clickPattern: "natural",
+      //     thinkBeforeClick: true,
+      //     turbulence: 0.4,
+      //   });
+      //   this.log("Copy button clicked", LogLevel.INFO);
+      // }
 
       let responseData = await this.captureText();
 
@@ -786,25 +823,25 @@ export class DOMManipulationService {
           idleTimeout: this.randomBetween(2000, 4000),
         });
 
-        // Find the copy button element
-        const copyButtonSelector =
-          "button.flex.gap-1.items-center[aria-label='Copy']";
-        const $copyButton = $(copyButtonSelector);
+        //   // Find the copy button element
+        //   const copyButtonSelector =
+        //     "button.flex.gap-1.items-center[aria-label='Copy']";
+        //   const $copyButton = $(copyButtonSelector);
 
-        if ($copyButton.length === 0) {
-          this.log("Copy button not found", LogLevel.INFO);
-          // Proceed without clicking the copy button
-        } else {
-          this.log("About to click copy button", LogLevel.INFO);
-          const submitButtonElement = $copyButton[0] as HTMLElement;
-          await this.simulator.clickButton(submitButtonElement, {
-            clickPattern: "natural",
-            thinkBeforeClick: true,
-            turbulence: 0.4,
-          });
-          responseData = await this.captureText();
-          this.log("Copy button clicked", LogLevel.INFO);
-        }
+        //   if ($copyButton.length === 0) {
+        //     this.log("Copy button not found", LogLevel.INFO);
+        //     // Proceed without clicking the copy button
+        //   } else {
+        //     this.log("About to click copy button", LogLevel.INFO);
+        //     const submitButtonElement = $copyButton[0] as HTMLElement;
+        //     await this.simulator.clickButton(submitButtonElement, {
+        //       clickPattern: "natural",
+        //       thinkBeforeClick: true,
+        //       turbulence: 0.4,
+        //     });
+        //     responseData = await this.captureText();
+        //     this.log("Copy button clicked", LogLevel.INFO);
+        //   }
       }
 
       if (!responseData) {
@@ -869,5 +906,36 @@ export class DOMManipulationService {
 
     this.log(`ERROR [${errorCode}]: ${message}`, LogLevel.ERROR, debugInfo);
     throw new Error(`[${errorCode}] ${message}`);
+  }
+
+  /**
+   * Toggle visualization cursor on or off
+   * @param enable Whether to enable the visualization
+   * @returns The new state of the visualization
+   */
+  public toggleVisualization(enable?: boolean): boolean {
+    // If a value is provided, use it; otherwise toggle the current value
+    this.visualizationEnabled =
+      enable !== undefined ? enable : !this.visualizationEnabled;
+
+    this.log(
+      `Visualization ${this.visualizationEnabled ? "enabled" : "disabled"}`,
+      LogLevel.INFO
+    );
+
+    if (this.visualizationEnabled) {
+      // Initialize visualization if it doesn't exist
+      if (!this.visualization) {
+        this.initVisualization();
+      } else {
+        // Show existing visualization
+        this.visualization.show();
+      }
+    } else if (this.visualization) {
+      // Hide visualization if it exists
+      this.visualization.hide();
+    }
+
+    return this.visualizationEnabled;
   }
 }
