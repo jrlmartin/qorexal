@@ -10,12 +10,13 @@ import { StockService } from './serivces/stock.service';
 import { BenzingaService } from './serivces/market-api/benzinga';
 import { TopDogV1Workflow } from './workflows/topDogV1/topDogV1.workflow';
 import { CompanyDatasetService } from './serivces/company-dataset.service';
+import { TopDogV2Workflow } from './workflows/topDogV2/workflow.service';
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig(__dirname)),
     TypeOrmModule.forFeature([StockCapTierEntity]),
   ],
   controllers: [AppController],
-  providers: [AppGateway, LLMService, TopDogV1Workflow, BenzingaService, StockService, CompanyDatasetService],
+  providers: [/*AppGateway*/, LLMService, TopDogV1Workflow, BenzingaService, StockService, CompanyDatasetService, TopDogV2Workflow],
 })
 export class AppModule {}
