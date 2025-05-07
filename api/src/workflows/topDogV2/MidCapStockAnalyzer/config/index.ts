@@ -1,7 +1,7 @@
 // src/config/index.ts
 export const config = {
     tradier: {
-      apiKey: process.env.TRADIER_API_KEY || 'your-tradier-api-key',
+      apiKey: process.env.TRADIER_API_KEY || 'RMWSde4gWI5cq0vR2wJgtRvfsIwy',
       baseUrl: 'https://api.tradier.com/v1'
     },
     eodhd: {

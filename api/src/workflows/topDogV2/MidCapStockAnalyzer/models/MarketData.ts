@@ -1,4 +1,4 @@
-import { MarketConditions, Stock } from "../../docs/MidCapStock/models/Stock";
+import { MarketConditions, Stock } from "./Stock";
 
 // src/models/MarketData.ts
 export interface MarketData {
