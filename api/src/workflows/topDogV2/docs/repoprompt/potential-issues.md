@@ -1,0 +1,5 @@
+- Pre-market data - The quality and availability of pre-market data can vary by broker API
+- Intraday VWAP calculation - May need minute-by-minute data for accurate calculation
+- Pattern recognition - The quality depends on the EODHD implementation
+- Options flow data - "Bullish flow percent" may require additional processing or premium data
+- Material news classification - Sentiment analysis is available but deeper news classification may require NLP
