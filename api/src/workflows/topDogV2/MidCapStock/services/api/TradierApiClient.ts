@@ -29,6 +29,11 @@ export class TradierApiClient {
     return `${formattedDate} 09:30`; // Regular market opens at 9:30 AM ET
   }
   
+  private getTodayMarketClose(date: Date = new Date()): string {
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    return `${formattedDate} 16:00`; // Regular market closes at 4:00 PM ET
+  }
+  
   // Get pre-market data
   async getPreMarketData(symbol: string, date: Date = new Date()): Promise<any> {
     try {
@@ -98,6 +103,64 @@ export class TradierApiClient {
     } catch (error) {
       console.error('Error fetching historical data:', error);
       throw error;
+    }
+  }
+  
+  // Get intraday minute-by-minute data for VWAP calculation
+  async getIntradayData(symbol: string, date: Date = new Date()): Promise<any> {
+    try {
+      // Set up time windows for regular market hours
+      const marketOpen = this.getTodayMarketOpen(date);
+      const marketClose = this.getTodayMarketClose(date);
+      
+      // Get minute-by-minute data for the entire trading day
+      const response = await axios.get(`${this.baseUrl}/markets/timesales`, {
+        params: {
+          symbol,
+          interval: '1min',
+          start: marketOpen,
+          end: marketClose,
+          session_filter: 'regular' // Only regular market hours
+        },
+        headers: this.headers
+      });
+      
+      // Process and return intraday data
+      let intradayData = {
+        vwap: null,
+        data: [] as any[]
+      };
+      
+      if (response.data && response.data.series && response.data.series.data) {
+        const dataPoints = response.data.series.data;
+        if (Array.isArray(dataPoints) && dataPoints.length > 0) {
+          // Calculate VWAP using proper minute-by-minute data
+          let priceVolumeSum = 0;
+          let volumeSum = 0;
+          
+          dataPoints.forEach((point: any) => {
+            // Use actual trade price instead of approximating with (high+low+close)/3
+            priceVolumeSum += point.price * point.volume;
+            volumeSum += point.volume;
+          });
+          
+          const vwap = volumeSum > 0 ? priceVolumeSum / volumeSum : null;
+          
+          intradayData = {
+            vwap: vwap ? parseFloat(vwap.toFixed(2)) : null,
+            data: dataPoints
+          };
+        }
+      }
+      
+      return intradayData;
+    } catch (error) {
+      console.error('Error fetching intraday data:', error);
+      // Return default structure if API call fails
+      return {
+        vwap: null,
+        data: []
+      };
     }
   }
   

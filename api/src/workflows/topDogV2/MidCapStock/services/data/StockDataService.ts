@@ -52,6 +52,7 @@ export class StockDataService {
     const [
       historicalData,
       preMarketData,
+      intradayData, // New: Get intraday minute-by-minute data for accurate VWAP
       rsiData,
       macdData,
       atrData,
@@ -66,6 +67,7 @@ export class StockDataService {
     ] = await Promise.all([
       this.tradierClient.getHistoricalData(ticker, tenDaysAgo, dateStr),
       this.tradierClient.getPreMarketData(ticker, today), // Passing the Date object
+      this.tradierClient.getIntradayData(ticker, today), // New: Get intraday data for VWAP
       this.eodhdClient.getRSI(ticker),
       this.eodhdClient.getMACD(ticker),
       this.eodhdClient.getATR(ticker),
@@ -85,6 +87,7 @@ export class StockDataService {
       quoteData,
       preMarketData,
       historicalData,
+      intradayData, // Pass the intradayData parameter
       sma20Data,
       sma50Data,
     );
@@ -149,6 +152,7 @@ export class StockDataService {
     quoteData: any,
     preMarketData: any,
     historicalData: any,
+    intradayData: any, // Add intradayData parameter
     sma20Data: any,
     sma50Data: any,
   ): PriceData {
@@ -179,9 +183,15 @@ export class StockDataService {
     // Determine if there's a breakout from opening range
     const openingRangeBreakout = quoteData.last > openingHighLow.high;
 
-    // Calculate VWAP
+    // Calculate VWAP using minute-by-minute intraday data
     let vwap = quoteData.last || 0;
-    if (historicalData?.history?.day) {
+    
+    // Use the VWAP calculated from minute-by-minute data if available
+    if (intradayData && intradayData.vwap !== null) {
+      vwap = intradayData.vwap;
+    } else if (historicalData?.history?.day) {
+      // Fallback to the old method if intraday data is not available
+      console.warn(`Falling back to approximate VWAP calculation for ${quoteData.symbol}`);
       const todayData = historicalData.history.day.filter((d: any) => {
         const dataDate = new Date(d.date);
         return dataDate.getDate() === day.getDate();
