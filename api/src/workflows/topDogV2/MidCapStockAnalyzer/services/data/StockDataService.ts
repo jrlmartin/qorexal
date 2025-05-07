@@ -40,13 +40,31 @@ export class StockDataService {
     const yesterday = format(subDays(today, 1), 'yyyy-MM-dd');
     const tenDaysAgo = format(subDays(today, 10), 'yyyy-MM-dd');
     const monthAgo = format(subMonths(today, 1), 'yyyy-MM-dd');
-    const nextWeek = format(addDays(today, 7), 'yyyy-MM-dd');
 
-    // Step 1: Get basic stock information
-    const [fundamentals, quote] = await Promise.all([
+    // Step 1: Get basic stock information and options expirations
+    const [fundamentals, quote, expirationDates] = await Promise.all([
       this.eodhdClient.getFundamentals(ticker),
       this.tradierClient.getQuotes([ticker]),
+      this.tradierClient.getOptionsExpirations(ticker),
     ]);
+
+    // Find the closest expiration date to today
+    let closestExpiration = dateStr; // Default to today if no dates available
+    
+    if (expirationDates.length > 0) {
+      // Sort dates by proximity to today (dates after today preferred)
+      const futureExpirations = expirationDates.filter(d => new Date(d) >= today);
+      
+      if (futureExpirations.length > 0) {
+        // Use the closest future date
+        futureExpirations.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+        closestExpiration = futureExpirations[0];
+      } else {
+        // If no future dates, use the most recent past date
+        expirationDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+        closestExpiration = expirationDates[0];
+      }
+    }
 
     // Extract quote data from response
     const quoteData = quote.quotes?.quote || {};
@@ -79,7 +97,7 @@ export class StockDataService {
       this.eodhdClient.getPatternRecognition(ticker),
       this.eodhdClient.getMovingAverage(ticker, 'sma', 20),
       this.eodhdClient.getMovingAverage(ticker, 'sma', 50),
-      this.tradierClient.getOptionsChains(ticker, nextWeek),
+      this.tradierClient.getOptionsChains(ticker, closestExpiration), // Use the valid expiration date
       this.eodhdClient.getEarnings(ticker, yesterday, dateStr),
       this.eodhdClient.getNews(ticker, 5, true),
     ]);
@@ -93,6 +111,7 @@ export class StockDataService {
       intradayData, // Pass the intradayData parameter
       sma20Data,
       sma50Data,
+      today, // Pass today parameter
     );
 
     // Process volume data
@@ -100,6 +119,7 @@ export class StockDataService {
       quoteData,
       preMarketData,
       historicalData,
+      today, // Pass today parameter
     );
 
     // Process technical indicators
@@ -159,30 +179,32 @@ export class StockDataService {
     intradayData: any, // Add intradayData parameter
     sma20Data: any,
     sma50Data: any,
+    today: Date, // Add today parameter
   ): PriceData {
     // Use the pre-market price from our enhanced pre-market data
     const preMarketPrice = preMarketData?.price || quoteData.open;
 
-    // Calculate opening range
-    const day = new Date();
-    const firstHourData = historicalData?.history?.day
-      ? historicalData.history.day.filter((d: any) => {
-          const dataDate = new Date(d.date);
-          return (
-            dataDate.getDate() === day.getDate() &&
-            dataDate.getHours() >= 9 &&
-            dataDate.getHours() <= 10
-          );
-        })
-      : [];
+    // Calculate opening range using intraday data (minute-by-minute)
+    let openingHighLow = { high: quoteData.high || 0, low: quoteData.low || 0 };
+    
+    if (intradayData && intradayData.data && Array.isArray(intradayData.data)) {
+      // Market opens at 9:30 AM ET, so we filter for the first hour (9:30 AM to 10:30 AM)
+      const firstHourData = intradayData.data.filter((d: any) => {
+        const dataDate = new Date(d.time || d.date);
+        const hours = dataDate.getHours();
+        const minutes = dataDate.getMinutes();
+        
+        // First trading hour: 9:30 AM to 10:30 AM
+        return (hours === 9 && minutes >= 30) || (hours === 10 && minutes < 30);
+      });
 
-    const openingHighLow =
-      firstHourData.length > 0
-        ? {
-            high: Math.max(...firstHourData.map((d: any) => d.high)),
-            low: Math.min(...firstHourData.map((d: any) => d.low)),
-          }
-        : { high: quoteData.high || 0, low: quoteData.low || 0 };
+      if (firstHourData.length > 0) {
+        openingHighLow = {
+          high: Math.max(...firstHourData.map((d: any) => d.high || d.price)),
+          low: Math.min(...firstHourData.map((d: any) => d.low || d.price)),
+        };
+      }
+    }
 
     // Determine if there's a breakout from opening range
     const openingRangeBreakout = quoteData.last > openingHighLow.high;
@@ -198,7 +220,9 @@ export class StockDataService {
       console.warn(`Falling back to approximate VWAP calculation for ${quoteData.symbol}`);
       const todayData = historicalData.history.day.filter((d: any) => {
         const dataDate = new Date(d.date);
-        return dataDate.getDate() === day.getDate();
+        return dataDate.getDate() === today.getDate() && 
+               dataDate.getMonth() === today.getMonth() && 
+               dataDate.getFullYear() === today.getFullYear();
       });
 
       if (todayData.length > 0) {
@@ -254,16 +278,18 @@ export class StockDataService {
     quoteData: any,
     preMarketData: any,
     historicalData: any,
+    today: Date, // Add today parameter
   ): VolumeData {
     // Use the accumulated pre-market volume from our enhanced pre-market data
     const preMarketVolume = preMarketData?.volume || 0;
 
     // Calculate first hour volume percentage
-    const day = new Date();
     const dailyData = historicalData?.history?.day
       ? historicalData.history.day.filter((d: any) => {
           const dataDate = new Date(d.date);
-          return dataDate.getDate() === day.getDate();
+          return dataDate.getDate() === today.getDate() && 
+                 dataDate.getMonth() === today.getMonth() && 
+                 dataDate.getFullYear() === today.getFullYear();
         })
       : [];
 

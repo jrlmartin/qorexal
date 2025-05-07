@@ -8,5 +8,13 @@ export const config = {
       apiKey: process.env.EODHD_API_KEY || 'your-eodhd-api-key',
       baseUrl: 'https://eodhistoricaldata.com/api'
     },
+    app: {
+      stockUniverseLimit: 20, // Maximum number of stocks to include
+      defaultStocks: ['AAPL', 'MSFT', 'AMZN', 'GOOGL', 'META'],
+      midCapRange: {
+        min: 2000000000, // $2B
+        max: 10000000000 // $10B
+      }
+    }
   };
   

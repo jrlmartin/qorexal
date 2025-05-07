@@ -199,4 +199,34 @@ export class TradierApiClient {
       throw error;
     }
   }
+  
+  // Get available options expiration dates
+  async getOptionsExpirations(symbol: string): Promise<string[]> {
+    try {
+      const response = await axios.get(`${this.baseUrl}/markets/options/expirations`, {
+        params: {
+          symbol,
+          includeAllRoots: true
+        },
+        headers: this.headers
+      });
+      
+      // Extract dates from response
+      const expirations: string[] = [];
+      if (response.data && response.data.expirations &&
+          response.data.expirations.date) {
+        // Handle both array and single date responses
+        if (Array.isArray(response.data.expirations.date)) {
+          expirations.push(...response.data.expirations.date);
+        } else {
+          expirations.push(response.data.expirations.date);
+        }
+      }
+      
+      return expirations;
+    } catch (error) {
+      console.error('Error fetching options expiration dates:', error);
+      return [];
+    }
+  }
 }

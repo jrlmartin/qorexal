@@ -27,4 +27,17 @@ export class TopDogV1Workflow {
     this.turndownService = new TurndownService();
   }
 
+  async processStockData(stockData: any) {
+   
+    const date = '2025-05-07';
+    const time = '09:30:00';
+
+    const data = await midCapScreener.runAnalysis(
+      date as string, 
+      time as string
+    );
+    
+    return data;
+  }
+
 }
