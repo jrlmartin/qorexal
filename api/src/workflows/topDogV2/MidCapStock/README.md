@@ -66,6 +66,7 @@ Services that implement scoring and analysis algorithms:
 - `ScoringService`: Calculates volatility and technical setup scores based on various indicators
 - `OptionsService`: Processes options data to extract sentiment and unusual activity
 - `SectorRotationService`: Identifies sectors receiving inflows and outflows
+- `PatternRecognitionService`: Implements custom chart pattern detection algorithms that complement EODHD's pattern recognition
 
 ### 4. Data Processing Services
 
@@ -148,6 +149,15 @@ Analyzes options data to identify sentiment and unusual activity:
 - Unusual volume relative to open interest
 - Implied volatility analysis
 
+### Pattern Recognition
+
+Identifies chart patterns using both EODHD API and custom algorithms:
+
+- Implements algorithms for common patterns (double bottoms, head and shoulders, flags, triangles, etc.)
+- Cross-validates patterns detected by EODHD with custom detection
+- Provides fallback when EODHD pattern recognition is unavailable
+- Assigns confidence scores based on pattern confirmation from multiple sources
+
 ### Intraday VWAP Calculation
 
 Calculates Volume-Weighted Average Price (VWAP) using minute-by-minute data:
@@ -213,11 +223,9 @@ The `TradierApiClient.getPreMarketData()` method:
 
 1. **API Rate Limits**: Both Tradier and EODHD have rate limits that may affect the number of stocks that can be analyzed simultaneously.
 
-2. **Pattern Recognition Quality**: The quality of pattern recognition depends on the EODHD implementation.
+2. **Pre-market Data Availability**: Pre-market data may not be available for all stocks, especially those with lower liquidity.
 
-4. **Pre-market Data Availability**: Pre-market data may not be available for all stocks, especially those with lower liquidity.
-
-5. **Stock Universe Selection**: The current implementation uses a static list of mid-cap stocks. A more sophisticated screening mechanism could be implemented.
+3. **Stock Universe Selection**: The current implementation uses a static list of mid-cap stocks. A more sophisticated screening mechanism could be implemented.
 
 ## Future Enhancements
 

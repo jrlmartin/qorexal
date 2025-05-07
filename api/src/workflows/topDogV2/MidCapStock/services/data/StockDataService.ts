@@ -13,6 +13,7 @@ import { TradierApiClient } from '../api/TradierApiClient';
 import { EODHDApiClient } from '../api/EODHDApiClient';
 import { ScoringService } from '../algorithms/ScoringService';
 import { OptionsService } from '../algorithms/OptionsService';
+import { PatternRecognitionService } from '../algorithms/PatternRecognitionService';
 import { addDays, format, subDays, subMonths, parse } from 'date-fns';
 
 export class StockDataService {
@@ -20,12 +21,14 @@ export class StockDataService {
   private eodhdClient: EODHDApiClient;
   private scoringService: ScoringService;
   private optionsService: OptionsService;
+  private patternRecognitionService: PatternRecognitionService;
 
   constructor() {
     this.tradierClient = new TradierApiClient();
     this.eodhdClient = new EODHDApiClient();
     this.scoringService = new ScoringService();
     this.optionsService = new OptionsService();
+    this.patternRecognitionService = new PatternRecognitionService();
   }
 
   // Main method to gather all stock data
@@ -107,6 +110,7 @@ export class StockDataService {
       bollingerBands,
       adxData,
       patternData,
+      historicalData, // Pass historical data to the function
     );
 
     // Process options data
@@ -305,6 +309,7 @@ export class StockDataService {
     bollingerBands: any,
     adxData: any,
     patternData: any,
+    historicalData?: any // Add optional historicalData parameter
   ): TechnicalIndicators {
     // Extract latest values
     const rsi =
@@ -350,25 +355,59 @@ export class StockDataService {
     const adx =
       adxData?.data?.length > 0 ? adxData.data[adxData.data.length - 1].adx : 0;
 
-    // Process pattern recognition data
+    // 1. Process EODHD pattern recognition data
     const patterns = patternData?.data || [];
-    const bullishPatterns = patterns
+    const eodhdBullishPatterns = patterns
       .filter(
         (p: any) =>
           p.strength >= 5 && ['bullish', 'both'].includes(p.trade_signal),
       )
       .map((p: any) => p.pattern);
 
-    const bearishPatterns = patterns
+    const eodhdBearishPatterns = patterns
       .filter(
         (p: any) =>
           p.strength >= 5 && ['bearish', 'both'].includes(p.trade_signal),
       )
       .map((p: any) => p.pattern);
 
-    const consolidationPatterns = patterns
+    const eodhdConsolidationPatterns = patterns
       .filter((p: any) => ['consolidation', 'neutral'].includes(p.trade_signal))
       .map((p: any) => p.pattern);
+      
+    const eodhdPatterns = {
+      bullish_patterns: eodhdBullishPatterns,
+      bearish_patterns: eodhdBearishPatterns,
+      consolidation_patterns: eodhdConsolidationPatterns
+    };
+    
+    // 2. Use custom pattern recognition if historical data is available
+    let customPatterns = {
+      bullish_patterns: [] as string[],
+      bearish_patterns: [] as string[],
+      consolidation_patterns: [] as string[]
+    };
+    
+    if (historicalData?.history?.day) {
+      // Format historical data for pattern recognition
+      const formattedHistoricalData = historicalData.history.day.map((day: any) => ({
+        date: day.date,
+        open: day.open,
+        high: day.high,
+        low: day.low,
+        close: day.close,
+        volume: day.volume
+      }));
+      
+      // Run custom pattern detection
+      customPatterns = this.patternRecognitionService.detectPatterns(formattedHistoricalData);
+    }
+    
+    // 3. Cross-validate patterns from both sources
+    const finalPatterns = this.patternRecognitionService.crossValidatePatterns(
+      eodhdPatterns,
+      customPatterns
+    );
 
     return {
       rsi_14: Math.round(rsi),
@@ -381,11 +420,7 @@ export class StockDataService {
         width: bbWidth,
       },
       adx: parseFloat(adx.toFixed(1)),
-      pattern_recognition: {
-        bullish_patterns: bullishPatterns,
-        bearish_patterns: bearishPatterns,
-        consolidation_patterns: consolidationPatterns,
-      },
+      pattern_recognition: finalPatterns,
     };
   }
 
