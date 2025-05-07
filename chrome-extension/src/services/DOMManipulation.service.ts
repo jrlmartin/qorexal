@@ -43,7 +43,7 @@ export class DOMManipulationService {
   private debugMode = false;
 
   // Visualization flag
-  private visualizationEnabled = true;
+  private visualizationEnabled = false;
 
   // Selectors
   private readonly PROMPT_TEXTAREA_SELECTOR = "#prompt-textarea";
