@@ -96,6 +96,7 @@ Helper functions for common operations:
 Used for real-time and historical market data:
 
 - Pre-market data via timesales endpoint with session_filter=all
+- Intraday minute data via timesales endpoint for accurate VWAP calculation
 - Historical data for technical analysis
 - Real-time quotes for current market prices
 - Options chains for options analysis
@@ -146,6 +147,15 @@ Analyzes options data to identify sentiment and unusual activity:
 - Call/put volume ratio
 - Unusual volume relative to open interest
 - Implied volatility analysis
+
+### Intraday VWAP Calculation
+
+Calculates Volume-Weighted Average Price (VWAP) using minute-by-minute data:
+
+- Uses Tradier's timesales endpoint to fetch intraday minute data
+- Calculates precise VWAP using the formula: sum(price × volume) / sum(volume)
+- Provides a key intraday reference level for trading decisions
+- Falls back to approximation method using daily data if minute data is unavailable
 
 ## Installation and Setup
 
@@ -203,9 +213,7 @@ The `TradierApiClient.getPreMarketData()` method:
 
 1. **API Rate Limits**: Both Tradier and EODHD have rate limits that may affect the number of stocks that can be analyzed simultaneously.
 
-2. **Intraday VWAP Calculation**: VWAP calculation requires minute-by-minute data which may not be completely accurate with the current implementation.
-
-3. **Pattern Recognition Quality**: The quality of pattern recognition depends on the EODHD implementation.
+2. **Pattern Recognition Quality**: The quality of pattern recognition depends on the EODHD implementation.
 
 4. **Pre-market Data Availability**: Pre-market data may not be available for all stocks, especially those with lower liquidity.
 
