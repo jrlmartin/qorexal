@@ -22,15 +22,15 @@
        // For demo purposes, return a static list of mid-cap stocks
        return [
          'DUOL', // Duolingo
-         'PINS', // Pinterest
-         'SNAP', // Snap
-         'ETSY', // Etsy
-         'RBLX', // Roblox
-         'ZS',   // Zscaler
-         'DDOG', // Datadog
-         'CRWD', // CrowdStrike
-         'SNOW', // Snowflake
-         'NET'   // Cloudflare
+        //  'PINS', // Pinterest
+        //  'SNAP', // Snap
+        //  'ETSY', // Etsy
+        //  'RBLX', // Roblox
+        //  'ZS',   // Zscaler
+        //  'DDOG', // Datadog
+        //  'CRWD', // CrowdStrike
+        //  'SNOW', // Snowflake
+        //  'NET'   // Cloudflare
        ].slice(0, limit);
      } catch (error) {
        console.error('Error finding mid-cap stocks:', error);

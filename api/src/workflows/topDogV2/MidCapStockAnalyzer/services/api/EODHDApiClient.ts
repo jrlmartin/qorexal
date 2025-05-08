@@ -18,7 +18,9 @@ export class EODHDApiClient {
   // Historical EOD data
   async getHistoricalEOD(ticker: string, from: string, to: string, period: string = 'd'): Promise<any> {
     try {
-      const response = await axios.get(`${this.baseUrl}/eod/${ticker}`, {
+      const formattedTicker = ticker.toUpperCase() + '.US';
+
+      const response = await axios.get(`${this.baseUrl}/eod/${formattedTicker}`, {
         params: {
           api_token: this.apiKey,
           from,
@@ -34,10 +36,14 @@ export class EODHDApiClient {
     }
   }
 
-  // Pattern recognition
+  // Pattern recognition - 1111 Need to Fix
   async getPatternRecognition(ticker: string, period: number = 30): Promise<any> {
+    return { data: [] };
+
     try {
-      const response = await axios.get(`${this.baseUrl}/technical/${ticker}`, {
+      const formattedTicker = ticker.toUpperCase() + '.US';
+
+      const response = await axios.get(`${this.baseUrl}/technical/${formattedTicker}`, {
         params: {
           function: 'pattern_recognition',
           api_token: this.apiKey,
@@ -49,7 +55,8 @@ export class EODHDApiClient {
       return response.data;
     } catch (error) {
       console.error('Error fetching pattern recognition data:', error);
-      throw error;
+
+      return { data: [] };
     }
   }
   

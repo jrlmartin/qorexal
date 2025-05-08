@@ -48,7 +48,7 @@ export class TradierApiClient {
           interval: '1min',
           start: preMarketStart,
           end: marketOpen,
-          session_filter: 'all' // Include all sessions (pre-market, regular, post-market)
+          session_filter: 'all' // Include all sessions (pre-market, regular, post-market) - Defualt is all
         },
         headers: this.headers
       });
@@ -120,7 +120,7 @@ export class TradierApiClient {
           interval: '1min',
           start: marketOpen,
           end: marketClose,
-          session_filter: 'regular' // Only regular market hours
+          session_filter: 'open' // Only regular market hours
         },
         headers: this.headers
       });
@@ -230,3 +230,6 @@ export class TradierApiClient {
     }
   }
 }
+
+
+ 
