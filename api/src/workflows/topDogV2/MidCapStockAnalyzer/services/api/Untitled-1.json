@@ -1,0 +1,201 @@
+[
+  {
+    "date": "2025-05-07",
+    "time": "09:30:00",
+    "market_data": {
+      "indices": {
+        "SPY": { "price": 561.15, "change_percent": 0.43 },
+        "QQQ": { "price": 483.3, "change_percent": 0.4 },
+        "IWM": { "price": 197.42, "change_percent": 0.33 }
+      },
+      "sector_performance": {
+        "XLK": 1.01,
+        "XLY": 0.78,
+        "XLF": 0.59,
+        "XLV": 0.77,
+        "XLE": 0.04,
+        "XLI": 0.51,
+        "XLP": 0.16,
+        "XLU": 0.29,
+        "XLB": -0.55,
+        "XLRE": -0.08,
+        "XLC": -0.19
+      }
+    },
+    "stock_universe": [
+      {
+        "ticker": "DUOL",
+        "company_name": "Duolingo Inc",
+        "sector": "Technology",
+        "industry": "Software - Application",
+        "market_cap": 22099861504,
+        "float": 36594758,
+        "avg_daily_volume": 1018306,
+        "price_data": {
+          "previous_close": 490.55,
+          "pre_market": 491.185,
+          "current": 495.56,
+          "day_range": { "low": 491.06, "high": 504.5 },
+          "moving_averages": { "ma_20": 379.665, "ma_50": 336.7716 },
+          "intraday": {
+            "opening_range": {
+              "high": 503.775,
+              "low": 491.06,
+              "breakout": false
+            },
+            "vwap": 497.36
+          }
+        },
+        "volume_data": {
+          "pre_market": 12568,
+          "current": 1054317,
+          "avg_10d": 1018306,
+          "relative_volume": 1,
+          "volume_distribution": { "first_hour_percent": 0 }
+        },
+        "technical_indicators": {
+          "rsi_14": 81,
+          "macd": { "line": 41.7211, "signal": 26.1125 },
+          "atr_14": 25.65,
+          "bollinger_bands": {
+            "upper": 503.38,
+            "middle": 379.67,
+            "lower": 255.95,
+            "width": 0.65
+          },
+          "adx": 34,
+          "pattern_recognition": {
+            "bullish_patterns": [],
+            "bearish_patterns": [],
+            "consolidation_patterns": []
+          }
+        },
+        "options_data": {
+          "call_put_ratio": 1.46,
+          "unusual_activity": true,
+          "options_flow": { "bullish_flow_percent": 63 }
+        },
+        "earnings_data": {
+          "recent_report": {
+            "date": "2025-05-01",
+            "eps": {
+              "actual": 1.2618,
+              "estimate": 0.27,
+              "surprise_percent": 367.3333
+            }
+          }
+        },
+        "news_data": {
+          "recent_articles": [
+            {
+              "date": "2025-05-08T02:45:04+00:00",
+              "title": "USD/INR extends gains due to Fed’s cautious policy outlook, India-Pakistan tensions",
+              "content": "The Indian Rupee (INR) loses ground against the US Dollar (USD), extending its losses for the third successive session on Thursday. The USD/INR pair appreciates amid the Federal Reserve’s (Fed) cautious policy outlook.",
+              "link": "https://www.fxstreet.com/news/usd-inr-extends-gains-due-to-feds-cautious-policy-outlook-india-pakistan-tensions-202505080245",
+              "symbols": ["INRUSD.FOREX", "USDUSD.FOREX"],
+              "tags": [],
+              "sentiment": {
+                "polarity": 0,
+                "neg": 0.161,
+                "neu": 0.704,
+                "pos": 0.136
+              }
+            },
+            {
+              "date": "2025-05-08T02:42:07+00:00",
+              "title": "The Cigna Group (CI): Among the Cheap ESG Stocks to Buy According to Hedge Funds",
+              "content": "We recently compiled a list of the 11 Cheap ESG Stocks to Buy According to Hedge Funds.In this article, we are going to take a look at where The Cigna Group (NYSE:CI) stands against the other cheap ESG stocks.\n\nThese days, it seems like everyone wants to wear the “saving the world” cape. Whether this urge to make a real impact on the world stems from a desire to ride the social trend wave or simply out of genuine concern is, well, a debate for another day. For now, let’s focus on the fact that all companies must adhere to Corporate Social Responsibility (CSR) by law.\n\nIn other words, ESG companies are those that incorporate Environmental, Social, and Governance factors into their operations and decision-making. This framework is utilized to measure an organization’s practices and performance on sustainability and ethical grounds. In capital markets, some investors employ ESG criteria to assess companies and make their investment decisions accordingly, a practice known as ESG investing. While investing delivers financial returns, ESG investing offers both financial returns and societal impacts, and that’s what is most valued by some investors.\n\nSome believe ESG investing is aligned with reduced risk exposure, stakeholder interests, and superior returns. Not only attractive in theory, but there are reports that back this form of investing. For instance, the Sustainability Megatrends Report by Cushman & Wakefield reveals that ESG companies are gaining traction from institutional investors. A survey of 250 institutional investors indicated that around 60% noted higher performance yield from ESG investments, and 78% were willing to pay higher premiums for these funds.\n\n“Institutional investors are showing increased demand for properties with strong ESG-related management and activities,” the report underscores.\n\nA US SIF \"Trends Report\" reveals that out of the US market size of $52.5 trillion, $6.5 trillion (12%) is identified as a sustainable or ESG investment. Having said that, as many as 73% of respondents believe the sustainable investment market will grow over the next few years. Therefore, community investing continues to shine with rising enthusiasm across several types of investors.\n\nESG companies are mainly ranked by third-party ranking agencies based on how well they perform across Environmental, Social, and Governance indicators. Using standardized metrics, proprietary models, and disclosures, the companies are then assessed and compared. Among the most notable agencies are MSCI, Sustainalytics (by Morningstar), Refinitiv ESG Scores, and S&P Global ESG Scores. In this analysis, we have used the ratings by Sustainalytics, which covers over 15,000 firms across 42 industries globally. The firm recently disclosed its 2025 list of ESG Top-Rated Companies, identifying Global 50 Top-Rated companies and other regional and industry leaders. Given this, we will take a look at some of the best ESG stocks to consider.\n\nStory Continues\n\nOur Methodology:\n\nWe have compiled a list of 11 companies ranked by Sustainalytics (by Morningstar) in its recent ESG Top-Rated Companies report. From the report, we identified companies with a forward P/E less than 15, extracted from FINVIZ. From there, we picked companies with the highest number of hedge fund investors, as per Insider Monkey's database of Q4 2024. From less preferred to highly preferred, according to hedge funds, the selected stocks are listed in either the global, regional, or industry standings in the report.\n\nAt Insider Monkey, we are obsessed with hedge funds. Why are we interested in the stocks that hedge funds pile into? The reason is simple: our research has shown that we can outperform the market by imitating the top stock picks of the best hedge funds. Our quarterly newsletter’s strategy selects 14 small-cap and large-cap stocks every quarter and has returned 373.4% since May 2014, beating its benchmark by 218 percentage points (see more details here).Is The Cigna Group (CI) The Best Undervalued Stock to Buy According to Billionaires?\n\nA healthcare team discussing strategies for patient advocacy programs.\n\nThe Cigna Group (NYSE:CI)\n\nNumber of Hedge funds holding: 72\n\nForward P/E as of May 06, 2025:10.09\n\nThe Cigna Group (NYSE:CI) is a global health company providing insurance and related products. With two main segments: Evernorth Health Services and Cigna Healthcare, it has a vast offering including coordinated and point solution health services, and pharma-related care. Based in Connecticut, the company is committed to a better future.\n\nThe company maintains a strong ESG vision to revolutionize the health ecosystem into one that is well-functioning, sustainable, accessible, and equitable. The Cigna Group (NYSE:CI) seeks to recognize advanced efficiencies and make strategic investments to mitigate not only operational costs but also environmental impacts, as it believes responsible environmental stewardship has the potential to improve health and vitality.\n\nThe Cigna Group (NYSE:CI) collaborated with the Houston Parks Board to improve neighborhood parks as it strives to improve health outcomes through elevated environmental exposures. As part of the project, Grimes Park in the Sunnyside neighborhood now has a football field, playground, picnic area, walking path, and basketball pavilion, among others. The company is also partnering with Brighter Bites to provide healthy food guidelines and 20 pounds of free fruits and vegetables each week to around 500 elementary students and their families.\n\nJust recently, The Cigna Group (NYSE:CI) Foundation announced an additional $1 million to youth clubs to support mental health in America over the next two years. The funding will go into the training of staff to identify mental health-related symptoms in individuals, incorporating trauma-informed strategies in their practices, and expanding its Behavioral Support Toolkit to all Clubs. Over the last year, the platform extended a $250,000 grant for developing a teen mental health guide, strengthening youth mental health programming. With this, we can say that the company is in the right direction to invest over $27 million in grants to nonprofit organizations through 2026.\n\nThe Cigna Group (NYSE:CI)'s water management and waste reduction efforts, too, are quite commendable. The company prioritizes leasing LEED-certified buildings by working towards embedding green language into their leases. It tracks water performance, safeguards natural habitats by building discharge water, offers an efficient irrigation system, and adopts a data-driven approach to mitigating pharmaceutical inventory waste. On that note, we can label it as one of the best ESG stocks to keep an eye on.\n\nOverall CI ranks 5th on our list of cheap ESG stocks to buy according to hedge funds. While we acknowledge the potential of CI as an investment, our conviction lies in the belief that AI stocks hold greater promise for delivering higher returns, and doing so within a shorter time frame. There is an AI stock that went up since the beginning of 2025, while popular AI stocks lost around 25%. If you are looking for an AI stock that is more promising than CI but that trades at less than 5 times its earnings, check out our report about this cheapest AI stock.\n\nREAD NEXT: 20 Best AI Stocks To Buy Now and 30 Best Stocks to Buy Now According to Billionaires.\n\nDisclosure: None. This article is originally published at Insider Monkey.\n\nView Comments",
+              "link": "https://finance.yahoo.com/news/cigna-group-ci-among-cheap-024207493.html",
+              "symbols": ["CGN.BE", "CGN.DU", "CGN.HM", "CI.US"],
+              "tags": [],
+              "sentiment": {
+                "polarity": 0.999,
+                "neg": 0.023,
+                "neu": 0.842,
+                "pos": 0.136
+              }
+            },
+            {
+              "date": "2025-05-08T02:08:00+00:00",
+              "title": "First National Bank Alaska announces unaudited results for first quarter 2025",
+              "content": "ANCHORAGE, Alaska, May  07, 2025  (GLOBE NEWSWIRE) -- First National Bank Alaska’s (OTCQX:FBAK) net income for the first quarter of 2025 was $17.7 million, or $5.60 per share. This compares to a net income of $13.5 million, or $4.26 per share, for the same period in 2024.\n\n“The momentum we gained in 2024 propelled the bank to a very strong first quarter performance,” said First National Board Chair and CEO/President Betsy Lawer. “Our unrivaled 600-plus employees are delivering dynamic improvements to services across the bank. By focusing on improving our customer experiences whether in person or online, we are creating efficiencies in our operations, enhancing cybersecurity awareness and reducing the impact of fraud on the bank and our customers. Our balance sheet remains well positioned to support opportunities for Alaskans.”\n\nLoans totaled $2.6 billion as of March 31, 2025, an increase of $137.1 million during first quarter 2025, and an increase of $237.8 million compared to the same period in 2024. First quarter loan quality was strong with nonperforming loans of $4.2 million, 0.16% of outstanding loans compared to $4.3 million and 0.17% as of Dec. 31, 2024. The provision for credit losses totaled $1.5 million as of March 31, 2025, compared to $0.9 million as of March 31, 2024. The allowance for credit losses as of March 31, 2025 totaled $19.5 million, or 0.75% of total loans.\n\nFirst quarter total interest and loan fee income was $56.0 million, a 5.9% decrease from $59.5 million for the first quarter ended March 31, 2024. The bank repaid all borrowings in 2024 reducing earning assets. Interest income to average earning assets increased to 4.61% compared to 4.28% as of March 31, 2024.\n\nAssets totaled $4.9 billion as of March 31, 2025, decreasing $322.9 million primarily due to the repayments under the Federal Reserve Bank Term Funding Program during 2024. Return on assets as of March 31, 2025, increased to 1.42%, forty-seven basis points higher than first quarter 2024, on strong first quarter net income performance.\n\nDeposits and repurchase agreements totaled $4.3 billion as of March 31, 2025, compared to $4.2 billion as of March 31, 2024, and $4.4 billion as of Dec. 31, 2024. First quarter activity represented normal seasonal outflow.\n\nTotal interest expense for the quarter decreased $9.2 million compared to the quarter ended March 31, 2024 without interest incurred on borrowed funds. Interest expense to average earning assets decreased to 98 basis points compared to 1.52% as of March 31, 2024. Net interest margin through March 31, 2025, was 3.63% compared to 2.76% for the year ended March 31, 2024.\n\nNoninterest income for first quarter 2025 was $6.8 million, an increase of 3.5% compared to first quarter 2024. Quarterly improvement occurred in fiduciary, mortgage loan servicing, and bankcard activities. Noninterest expenses for the first quarter of 2025 increased 1.0% compared to the same period in 2024. The efficiency ratio for March 31, 2025, was 49.70% and remains better than First National’s peer groups, both in Alaska and across the nation.\n\nShareholders’ equity was $535.1 million as of March 31, 2025, compared to $516.6 million as of Dec. 31, 2024. This $18.5 million increase resulted from a decrease in the net unrealized loss position of the securities portfolio and net income retained in excess of dividends paid. Return on equity as of March 31, 2025, was 13.49% compared to 13.60% as of Dec. 31, 2024. Book value per share increased to $168.98, compared to $163.11 as of Dec. 31, 2024. The bank’s March 31, 2025, Tier 1 leverage capital ratio of 11.72% remains above well-capitalized standards.\n\nABOUT FIRST NATIONAL BANK ALASKA\n\nAlaska’s community bank since 1922, First National Bank Alaska proudly meets the financial needs of Alaskans with ATMs and 28 locations in 19 communities throughout the state, and by providing banking services to meet their needs across the nation and around the world.\n\nIn 2025, Forbes selected First National as the sixth best bank on their America’s Best Banks list, and Newsweek recognized the bank as one of the nation’s Best Regional Banks and Credit Unions. In 2024, Alaska Business readers voted First National “Best of Alaska Business” in the Best Place to Work category for the ninth year in a row, Best Bank/Credit Union for the fourth time, and Best Customer Service. The bank was also voted “Best of Alaska” in 2024 in the Anchorage Daily News awards, ranking as one of the top three in the Bank/Financial category for the sixth year in a row. American Banker again recognized First National as a “Best Bank to Work For” in 2024, for the seventh consecutive year.\n\nFor more than a century, the bank has been committed to supporting the communities it serves. In 2024, for the eighth consecutive reporting period, over a span of twenty-four years, First National received an Outstanding Community Reinvestment Act performance rating from the Office of the Comptroller of the Currency.\n\nFirst National Bank Alaska is a Member FDIC, Equal Housing Lender, and recognized as a Minority Depository Institution by the Office of the Comptroller of the Currency, as it is majority-owned by women.\n\nCONTACT: Marketing, 907-777-3451\n\nQuarter Ended ($ in thousands)Financial Overview (Unaudited) 3/31/202512/31/20249/30/20246/30/20243/31/2024Balance Sheet Total Assets$4,890,081 $4,997,767 $5,557,306 $5,116,066 $5,212,976 Total Securities$1,882,332 $1,928,625 $2,602,519 $2,197,788 $2,404,078 Total Loans$2,607,081 $2,469,935 $2,445,596 $2,391,593 $2,369,282 Total Deposits$3,580,147 $3,679,155 $3,728,181 $3,698,631 $3,665,066 Repurchase Agreements$716,908 $743,193 $647,043 $615,096 $571,463 Total Deposits and Repurchase Agreements$4,297,055 $4,422,348 $4,375,224 $4,313,727 $4,236,529 Total Borrowing under the Federal Reserve Bank Term Funding Program$- $- $249,868 $249,868 $430,000 Unrealized loss on marketable securities, net of tax$(49,465)$(62,985)$(52,020)$(86,857)$(95,809)Total Shareholders' Equity$535,148 $516,562 $527,864 $485,167 $470,702  Income Statement Total Interest And Loan Fee Income$56,005 $63,439 $64,615 $56,773 $59,493 Total Interest Expense$11,956 $18,591 $21,319 $16,521 $21,168 Provision for Credit Losses$1,535 $(118)$(432)$318 $953 Total Noninterest Income$6,768 $7,011 $7,293 $7,389 $6,540 Total Noninterest Expense$25,334 $27,696 $25,928 $25,637 $25,085 Provision for Income Taxes$6,214 $4,350 $7,099 $6,039 $5,351 Net Income$17,734 $19,931 $17,994 $15,647 $13,476 Earnings per common share$5.60 $6.29 $5.68 $4.94 $4.26 Dividend per common share$4.00 $6.40 $3.20 $3.20 $3.20  Financial Measures Return on Assets 1.42% 1.22% 1.15% 1.08% 0.95%Return on Equity 13.49% 13.60% 12.90% 12.30% 11.52%Net Interest Margin 3.63% 3.12% 3.04% 2.98% 2.76%Interest Income to Average Earning Assets 4.61% 4.57% 4.51% 4.40% 4.28%Interest Expense to Average Earning Assets 0.98% 1.45% 1.47% 1.42% 1.52%Efficiency Ratio 49.70% 53.51% 53.59% 54.94% 56.00% Capital Shareholders' Equity/Total Assets 10.94% 10.34% 9.50% 9.48% 9.03%Tier 1 Leverage Ratio 0.98% 1.45% 1.47% 1.42% 1.52%Regulatory Well Capitalized Minimum Ratio - Tier 1 Leverage Ratio 5.00% 5.00% 5.00% 5.00% 5.00%Tier 1 (Core) Capital$584,613 $579,547 $579,884 $572,024 $566,511  Credit Quality Nonperforming Loans and OREO$4,243 $4,313 $4,186 $4,731 $28,634 Nonperforming Loans and OREO/Total Loans 0.16% 0.17% 0.17% 0.20% 1.21%Nonperforming Loans and OREO/Tier 1 Capital 0.73% 0.74% 0.72% 0.83% 5.05%Allowance for Loan Losses$19,500 $18,025 $18,550 $19,000 $18,800 Allowance for Loan Losses/Total Loans 0.75% 0.73% 0.76% 0.79% 0.79% Net interest margin, yields, and efficiency ratios are tax effected. Financial measures are year-to-date. Per common share amounts are not in thousands.",
+              "link": "https://www.globenewswire.com/news-release/2025/05/08/3076785/0/en/First-National-Bank-Alaska-announces-unaudited-results-for-first-quarter-2025.html",
+              "symbols": [],
+              "tags": [
+                "EARNINGS RELEASES AND OPERATING RESULTS",
+                "FIRST NATIONAL BANK ALASKA",
+                "Q1 2025 UNAUDITED RESULTS"
+              ],
+              "sentiment": {
+                "polarity": 0.999,
+                "neg": 0.012,
+                "neu": 0.844,
+                "pos": 0.144
+              }
+            },
+            {
+              "date": "2025-05-08T02:00:00+00:00",
+              "title": "New Godzilla the Ride Film to Be Directed by Academy Award-Winning Takashi Yamazaki",
+              "content": "SINGAPORE, May  07, 2025  (GLOBE NEWSWIRE) -- Toho Entertainment Asia, the Japanese studio's Singapore-based subsidiary, revealed that Takashi Yamazaki, director and Academy Award–winner of Best Visual Effects for Godzilla Minus One will write, direct and produce the VFX for a brand‑new Godzilla ride attraction.\n\nDirector Takashi Yamazaki's first Godzilla ride attraction project, \"Godzilla the Ride: Giant Monsters Ultimate Battle,\" which is currently showing at Seibuen Amusement Park, Japan, has earned global acclaim for its exceptional quality and epic scale, regularly seeing an outstanding audience satisfaction rate.\n\nThe new experience will be distributed to additional locations via the iRide system developed by Taiwan's Brogent Technologies, Inc.\n\n\"I'm thrilled to return to Godzilla's world from the passenger seat\", said Yamazaki. \"What powerful foes will emerge? Where will this ride take us next? As a ride enthusiast myself, I can't wait for my first spin - and I'm working day and night with our team to make this the most terrifying ride in the world.\"\n\nWhile there are few specifics about the content of the new attraction, the plan is for the scope and scale to surpass that of the original acclaimed theme park experience, offering fans once again an experience unlike anything they've ever witnessed featuring the King of the Monsters.\n\nThe newly produced ride attraction experience will begin rolling out in Summer 2025.\n\nFeatured venues will include leading theme parks and entertainment centers utilizing Brogent's iRide system. Exact locations and launch dates will be announced soon.\n\nSocial Links\n\nInstagram: https://www.instagram.com/godzilla_asia/\n\nFacebook: https://bit.ly/GodzillaAsia\n\nMedia Contact\n\nCompany: Toho Entertainment Asia\n\nContact: Sales Team\n\nEmail: hello@tohoea.com.sg",
+              "link": "https://www.globenewswire.com/news-release/2025/05/08/3076784/0/en/New-Godzilla-the-Ride-Film-to-Be-Directed-by-Academy-Award-Winning-Takashi-Yamazaki.html",
+              "symbols": [],
+              "tags": ["PRESS RELEASES", "TOHO ENTERTAINMENT ASIA"],
+              "sentiment": {
+                "polarity": 0.988,
+                "neg": 0.024,
+                "neu": 0.822,
+                "pos": 0.154
+              }
+            },
+            {
+              "date": "2025-05-08T01:43:33+00:00",
+              "title": "Dow Jones Futures Rise As Trump Teases 'Major Trade Deal'; MercadoLibre, AppLovin Soar Late",
+              "content": "Futures rose as President Trump teased a \"major trade deal\" after indexes climbed as Trump eased AI curbs. MercadoLibre, AppLovin leapt late.\n\nContinue Reading\n\nView Comments",
+              "link": "https://finance.yahoo.com/m/eed47d1e-34f8-3033-86b2-82909f127cad/dow-jones-futures-rise-as.html",
+              "symbols": [
+                "AAPL.US",
+                "ADMA.US",
+                "CVNA.US",
+                "F1TN34.SA",
+                "FO8.F",
+                "FTNT.US",
+                "GOOG.US",
+                "GOOGL.US",
+                "MELI.US"
+              ],
+              "tags": [],
+              "sentiment": {
+                "polarity": 0,
+                "neg": 0.08,
+                "neu": 0.839,
+                "pos": 0.08
+              }
+            }
+          ],
+          "material_news_classification": "neutral"
+        },
+        "day_trading_metrics": {
+          "volatility_score": 0.87,
+          "technical_setup_score": 0.76
+        }
+      }
+    ],
+    "market_conditions": {
+      "vix": 23.55,
+      "put_call_ratio": 1.03,
+      "sector_rotation": {
+        "inflow_sectors": [
+          "Technology",
+          "Consumer Discretionary",
+          "Healthcare"
+        ],
+        "outflow_sectors": [
+          "Real Estate",
+          "Communication Services",
+          "Materials"
+        ]
+      },
+      "macro_events": []
+    }
+  }
+]

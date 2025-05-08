@@ -285,10 +285,9 @@ export class EODHDApiClient {
     limit: number = 5,
     sentiment: boolean = true,
   ): Promise<any> {
-    return [];
     try {
       // EODHD API usually requires uppercase for news articles
-      const formattedTicker = ticker.toUpperCase();
+      const formattedTicker = ticker.toUpperCase() + '.US';
 
       const response = await axios.get(`${this.baseUrl}/news`, {
         params: {
@@ -299,6 +298,16 @@ export class EODHDApiClient {
           fmt: 'json',
         },
       });
+
+      console.log( {
+        params: {
+          tickers: formattedTicker,
+          api_token: this.apiKey,
+          limit,
+          sentiment: sentiment ? 1 : 0,
+          fmt: 'json',
+        },
+      })
 
       return response.data;
     } catch (error) {
