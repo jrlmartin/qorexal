@@ -308,11 +308,27 @@ export class EODHDApiClient {
     }
   }
 
-  // Earnings data
-  async getEarnings(ticker: string, from: string, to: string): Promise<any> {
+  /**
+   * Get earnings data - with improved date range to maximize data retrieval
+   */
+  async getEarnings(ticker: string, date: string): Promise<any> {
     try {
-      // Format ticker - EODHD API usually requires uppercase for earnings
-      const formattedTicker = ticker.toUpperCase();
+      // Parse the current date
+      const currentDate = new Date(date);
+
+      // Create a wide date range to capture both recent past and near future earnings
+      // Go back 90 days and forward 90 days to cover quarterly reporting cycles
+      const pastDate = new Date(currentDate);
+      pastDate.setDate(pastDate.getDate() - 90);
+      const futureDate = new Date(currentDate);
+      futureDate.setDate(futureDate.getDate() + 90);
+
+      const from = pastDate.toISOString().split('T')[0];
+      const to = futureDate.toISOString().split('T')[0];
+
+      // Some APIs require exchange suffix (.US, etc.)
+      // If ticker doesn't include a dot, assume US exchange
+      const formattedTicker = ticker.includes('.') ? ticker : `${ticker}.US`;
 
       const response = await axios.get(`${this.baseUrl}/calendar/earnings`, {
         params: {
@@ -327,7 +343,7 @@ export class EODHDApiClient {
       return response.data;
     } catch (error) {
       console.error(`Error fetching earnings data for ${ticker}:`, error);
-      // Return empty array instead of throwing
+      // Return empty array instead of throwing to prevent cascading failures
       return [];
     }
   }

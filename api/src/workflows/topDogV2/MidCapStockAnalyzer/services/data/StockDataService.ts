@@ -50,18 +50,24 @@ export class StockDataService {
 
     // Find the closest expiration date to today
     let closestExpiration = dateStr; // Default to today if no dates available
-    
+
     if (expirationDates.length > 0) {
       // Sort dates by proximity to today (dates after today preferred)
-      const futureExpirations = expirationDates.filter(d => new Date(d) >= today);
-      
+      const futureExpirations = expirationDates.filter(
+        (d) => new Date(d) >= today,
+      );
+
       if (futureExpirations.length > 0) {
         // Use the closest future date
-        futureExpirations.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+        futureExpirations.sort(
+          (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+        );
         closestExpiration = futureExpirations[0];
       } else {
         // If no future dates, use the most recent past date
-        expirationDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+        expirationDates.sort(
+          (a, b) => new Date(b).getTime() - new Date(a).getTime(),
+        );
         closestExpiration = expirationDates[0];
       }
     }
@@ -98,7 +104,7 @@ export class StockDataService {
       this.eodhdClient.getMovingAverage(ticker, 'sma', 20),
       this.eodhdClient.getMovingAverage(ticker, 'sma', 50),
       this.tradierClient.getOptionsChains(ticker, closestExpiration), // Use the valid expiration date
-      this.eodhdClient.getEarnings(ticker, yesterday, dateStr),
+      this.eodhdClient.getEarnings(ticker, dateStr),
       this.eodhdClient.getNews(ticker, 5, true),
     ]);
 
@@ -186,14 +192,14 @@ export class StockDataService {
 
     // Calculate opening range using intraday data (minute-by-minute)
     let openingHighLow = { high: quoteData.high || 0, low: quoteData.low || 0 };
-    
+
     if (intradayData && intradayData.data && Array.isArray(intradayData.data)) {
       // Market opens at 9:30 AM ET, so we filter for the first hour (9:30 AM to 10:30 AM)
       const firstHourData = intradayData.data.filter((d: any) => {
         const dataDate = new Date(d.time || d.date);
         const hours = dataDate.getHours();
         const minutes = dataDate.getMinutes();
-        
+
         // First trading hour: 9:30 AM to 10:30 AM
         return (hours === 9 && minutes >= 30) || (hours === 10 && minutes < 30);
       });
@@ -208,21 +214,25 @@ export class StockDataService {
 
     // Determine if there's a breakout from opening range
     const openingRangeBreakout = quoteData.last > openingHighLow.high;
- 
+
     // Calculate VWAP using minute-by-minute intraday data
     let vwap = quoteData.last || 0;
-    
+
     // Use the VWAP calculated from minute-by-minute data if available
     if (intradayData && intradayData.vwap !== null) {
       vwap = intradayData.vwap;
     } else if (historicalData?.history?.day) {
       // Fallback to the old method if intraday data is not available
-      console.warn(`Falling back to approximate VWAP calculation for ${quoteData.symbol}`);
+      console.warn(
+        `Falling back to approximate VWAP calculation for ${quoteData.symbol}`,
+      );
       const todayData = historicalData.history.day.filter((d: any) => {
         const dataDate = new Date(d.date);
-        return dataDate.getDate() === today.getDate() && 
-               dataDate.getMonth() === today.getMonth() && 
-               dataDate.getFullYear() === today.getFullYear();
+        return (
+          dataDate.getDate() === today.getDate() &&
+          dataDate.getMonth() === today.getMonth() &&
+          dataDate.getFullYear() === today.getFullYear()
+        );
       });
 
       if (todayData.length > 0) {
@@ -241,14 +251,10 @@ export class StockDataService {
 
     // Get latest SMA values
     const ma20 =
-      sma20Data?.length > 0
-        ? sma20Data[sma20Data.length - 1].sma
-        : 0;
+      sma20Data?.length > 0 ? sma20Data[sma20Data.length - 1].sma : 0;
 
     const ma50 =
-      sma50Data?.length > 0
-        ? sma50Data[sma50Data.length - 1].sma
-        : 0;
+      sma50Data?.length > 0 ? sma50Data[sma50Data.length - 1].sma : 0;
 
     return {
       previous_close: quoteData.prevclose || 0,
@@ -287,9 +293,11 @@ export class StockDataService {
     const dailyData = historicalData?.history?.day
       ? historicalData.history.day.filter((d: any) => {
           const dataDate = new Date(d.date);
-          return dataDate.getDate() === today.getDate() && 
-                 dataDate.getMonth() === today.getMonth() && 
-                 dataDate.getFullYear() === today.getFullYear();
+          return (
+            dataDate.getDate() === today.getDate() &&
+            dataDate.getMonth() === today.getMonth() &&
+            dataDate.getFullYear() === today.getFullYear()
+          );
         })
       : [];
 
@@ -335,13 +343,10 @@ export class StockDataService {
     bollingerBands: any,
     adxData: any,
     patternData: any,
-    historicalData?: any // Add optional historicalData parameter
+    historicalData?: any, // Add optional historicalData parameter
   ): TechnicalIndicators {
     // Extract latest values
-    const rsi =
-      rsiData?.length > 0
-        ? rsiData[rsiData.length - 1].rsi
-        : 50;
+    const rsi = rsiData?.length > 0 ? rsiData[rsiData.length - 1].rsi : 50;
 
     const macd =
       macdData?.length > 0
@@ -352,18 +357,14 @@ export class StockDataService {
           }
         : { line: 0, signal: 0, histogram: 0 };
 
-    const atr =
-      atrData?.length > 0 ? atrData[atrData.length - 1].atr : 0;
+    const atr = atrData?.length > 0 ? atrData[atrData.length - 1].atr : 0;
 
     const latestBollingerBands =
       bollingerBands?.length > 0
         ? {
-            upper:
-              bollingerBands[bollingerBands.length - 1].uband,
-            middle:
-              bollingerBands[bollingerBands.length - 1].mband,
-            lower:
-              bollingerBands[bollingerBands.length - 1].lband,
+            upper: bollingerBands[bollingerBands.length - 1].uband,
+            middle: bollingerBands[bollingerBands.length - 1].mband,
+            lower: bollingerBands[bollingerBands.length - 1].lband,
           }
         : { upper: 0, middle: 0, lower: 0 };
 
@@ -378,11 +379,10 @@ export class StockDataService {
           )
         : 0;
 
-    const adx =
-      adxData?.length > 0 ? adxData[adxData.length - 1].adx : 0;
+    const adx = adxData?.length > 0 ? adxData[adxData.length - 1].adx : 0;
 
     // 1. Process EODHD pattern recognition data Fix - 1111
-    const patterns = [] // patternData || [];
+    const patterns = []; // patternData || [];
     const eodhdBullishPatterns = patterns
       .filter(
         (p: any) =>
@@ -400,39 +400,43 @@ export class StockDataService {
     const eodhdConsolidationPatterns = patterns
       .filter((p: any) => ['consolidation', 'neutral'].includes(p.trade_signal))
       .map((p: any) => p.pattern);
-      
+
     const eodhdPatterns = {
       bullish_patterns: eodhdBullishPatterns,
       bearish_patterns: eodhdBearishPatterns,
-      consolidation_patterns: eodhdConsolidationPatterns
+      consolidation_patterns: eodhdConsolidationPatterns,
     };
-    
+
     // 2. Use custom pattern recognition if historical data is available
     let customPatterns = {
       bullish_patterns: [] as string[],
       bearish_patterns: [] as string[],
-      consolidation_patterns: [] as string[]
+      consolidation_patterns: [] as string[],
     };
-    
+
     if (historicalData?.history?.day) {
       // Format historical data for pattern recognition
-      const formattedHistoricalData = historicalData.history.day.map((day: any) => ({
-        date: day.date,
-        open: day.open,
-        high: day.high,
-        low: day.low,
-        close: day.close,
-        volume: day.volume
-      }));
-      
+      const formattedHistoricalData = historicalData.history.day.map(
+        (day: any) => ({
+          date: day.date,
+          open: day.open,
+          high: day.high,
+          low: day.low,
+          close: day.close,
+          volume: day.volume,
+        }),
+      );
+
       // Run custom pattern detection
-      customPatterns = this.patternRecognitionService.detectPatterns(formattedHistoricalData);
+      customPatterns = this.patternRecognitionService.detectPatterns(
+        formattedHistoricalData,
+      );
     }
-    
+
     // 3. Cross-validate patterns from both sources
     const finalPatterns = this.patternRecognitionService.crossValidatePatterns(
       eodhdPatterns,
-      customPatterns
+      customPatterns,
     );
 
     return {
@@ -455,33 +459,78 @@ export class StockDataService {
     return this.optionsService.extractOptionsData(optionsData);
   }
 
-  // Process earnings data
+  /**
+   * Process earnings data with improved logic
+   */
   private processEarningsData(earningsData: any): EarningsData {
-    const latestEarnings =
-      Array.isArray(earningsData) && earningsData.length > 0
-        ? earningsData[0]
-        : null;
-
-    if (!latestEarnings) {
-      return {
-        recent_report: {
-          date: '',
-          eps: {
-            actual: 0,
-            estimate: 0,
-            surprise_percent: 0,
-          },
+    // Default empty structure
+    const defaultEarnings = {
+      recent_report: {
+        date: '',
+        eps: {
+          actual: 0,
+          estimate: 0,
+          surprise_percent: 0,
         },
-      };
+      },
+    };
+
+    // Extract earnings array if nested in an object
+    earningsData = earningsData?.earnings || earningsData;
+
+    // Handle non-array responses or empty arrays
+    if (!Array.isArray(earningsData) || earningsData.length === 0) {
+      return defaultEarnings;
     }
 
+    // Sort earnings data by report date, most recent first
+    const sortedEarnings = [...earningsData].sort((a, b) => {
+      const dateA = new Date(a.report_date || '1970-01-01');
+      const dateB = new Date(b.report_date || '1970-01-01');
+      return dateB.getTime() - dateA.getTime();
+    });
+
+    // Find the most recent actual earnings report (with reported EPS)
+    const mostRecentActual = sortedEarnings.find(
+      (e) => e.actual !== null && e.actual !== undefined,
+    );
+
+    // Find the nearest upcoming earnings report if no actual report is found
+    const nearestUpcoming = sortedEarnings.find((e) => {
+      const reportDate = new Date(e.report_date || '1970-01-01');
+      const now = new Date();
+      return reportDate > now;
+    });
+
+    // Use the most relevant earnings data (actual if available, otherwise upcoming)
+    const relevantEarnings =
+      mostRecentActual || nearestUpcoming || sortedEarnings[0];
+
+    if (!relevantEarnings) {
+      return defaultEarnings;
+    }
+
+    // Calculate the surprise percent if it's not directly provided
+    let surprisePercent = relevantEarnings.percent;
+    if (
+      surprisePercent === undefined &&
+      relevantEarnings.estimate &&
+      relevantEarnings.actual
+    ) {
+      surprisePercent =
+        ((relevantEarnings.actual - relevantEarnings.estimate) /
+          Math.abs(relevantEarnings.estimate)) *
+        100;
+    }
+
+    // Format the earnings data
     return {
       recent_report: {
-        date: latestEarnings.report_date || '',
+        date: relevantEarnings.report_date || '',
         eps: {
-          actual: latestEarnings.reported_eps || 0,
-          estimate: latestEarnings.expected_eps || 0,
-          surprise_percent: latestEarnings.surprise_pct || 0,
+          actual: relevantEarnings.actual || 0,
+          estimate: relevantEarnings.estimate || 0,
+          surprise_percent: surprisePercent || 0,
         },
       },
     };
