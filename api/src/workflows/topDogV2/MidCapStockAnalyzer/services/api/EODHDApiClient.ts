@@ -263,6 +263,9 @@ export class EODHDApiClient {
   
   // Economic calendar
   async getEconomicCalendar(from: string, to: string, country: string = 'US'): Promise<any> {
+    // 1111 Need to Fix
+    return [];
+
     try {
       const response = await axios.get(`${this.baseUrl}/calendar/economic`, {
         params: {
