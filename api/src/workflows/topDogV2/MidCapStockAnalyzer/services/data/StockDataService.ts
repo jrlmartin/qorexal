@@ -355,10 +355,6 @@ export class StockDataService {
     const atr =
       atrData?.length > 0 ? atrData[atrData.length - 1].atr : 0;
 
-
-console.log({bollingerBands})
-
-
     const latestBollingerBands =
       bollingerBands?.length > 0
         ? {
@@ -385,6 +381,8 @@ console.log({bollingerBands})
     const adx =
       adxData?.length > 0 ? adxData[adxData.length - 1].adx : 0;
 
+
+      console.log({patternData})
     // 1. Process EODHD pattern recognition data
     const patterns = patternData?.data || [];
     const eodhdBullishPatterns = patterns
