@@ -5,7 +5,7 @@ export const config = {
       baseUrl: 'https://api.tradier.com/v1'
     },
     eodhd: {
-      apiKey: process.env.EODHD_API_KEY || 'your-eodhd-api-key',
+      apiKey: '681bf3941affe4.50760934', // You need to provide a valid EODHD API key
       baseUrl: 'https://eodhistoricaldata.com/api'
     },
     app: {

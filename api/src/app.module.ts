@@ -1,15 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppGateway } from './app.gateway';
-import { LLMService } from './util/llm.service';
-
 import { typeOrmConfig } from './core/rds/typeormConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StockCapTierEntity } from './entities/StockCapTier.entity';
-import { StockService } from './serivces/stock.service';
-import { BenzingaService } from './serivces/market-api/benzinga';
-import { TopDogV1Workflow } from './workflows/topDogV1/topDogV1.workflow';
-import { CompanyDatasetService } from './serivces/company-dataset.service';
 import { TopDogV2Workflow } from './workflows/topDogV2/workflow.service';
 @Module({
   imports: [

@@ -5,6 +5,7 @@ import { EODHDApiClient } from '../api/EODHDApiClient';
 import { StockDataService } from './StockDataService';
 import { SectorRotationService } from '../algorithms/SectorRotationService';
 import { format } from 'date-fns';
+import { config } from '../../config';
 
 export class MarketDataService {
   private tradierClient: TradierApiClient;
@@ -32,8 +33,16 @@ export class MarketDataService {
     // Step 3: Get VIX data
     const vixData = await this.tradierClient.getQuotes(['VIX']);
     
-    // Step 4: Get economic calendar
-    const economicData = await this.eodhdClient.getEconomicCalendar(date, date, 'US');
+    // Step 4: Get economic calendar - Skip if API key is missing
+    let economicData = [];
+    if (config.eodhd.apiKey) {
+      try {
+        economicData = await this.eodhdClient.getEconomicCalendar(date, date, 'US');
+      } catch (error) {
+        console.error('Error fetching economic calendar data:', error);
+        economicData = [];
+      }
+    }
     
     // Step 5: Calculate market-wide put/call ratio (can be approximated from index options)
     const spyOptions = await this.tradierClient.getOptionsChains('SPY', date);
@@ -97,20 +106,7 @@ export class MarketDataService {
     }
     
     // Process economic events
-    const macroEvents = Array.isArray(economicData) 
-      ? economicData
-          .filter((event: any) => {
-            const eventTime = event.date ? new Date(event.date) : null;
-            return eventTime && event.importance === 'high';
-          })
-          .map((event: any) => {
-            const eventTime = new Date(event.date);
-            return {
-              time: format(eventTime, 'HH:mm'),
-              event: event.indicator
-            };
-          })
-      : [];
+    const macroEvents = economicData;
     
     // Construct full market data object
     return {
