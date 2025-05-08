@@ -98,7 +98,7 @@ export class TradierApiClient {
         },
         headers: this.headers
       });
-      
+
       return response.data;
     } catch (error) {
       console.error('Error fetching historical data:', error);

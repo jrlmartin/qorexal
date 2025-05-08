@@ -208,7 +208,7 @@ export class StockDataService {
 
     // Determine if there's a breakout from opening range
     const openingRangeBreakout = quoteData.last > openingHighLow.high;
-
+ 
     // Calculate VWAP using minute-by-minute intraday data
     let vwap = quoteData.last || 0;
     
@@ -241,13 +241,13 @@ export class StockDataService {
 
     // Get latest SMA values
     const ma20 =
-      sma20Data?.data?.length > 0
-        ? sma20Data.data[sma20Data.data.length - 1].sma
+      sma20Data?.length > 0
+        ? sma20Data[sma20Data.length - 1].sma
         : 0;
 
     const ma50 =
-      sma50Data?.data?.length > 0
-        ? sma50Data.data[sma50Data.data.length - 1].sma
+      sma50Data?.length > 0
+        ? sma50Data[sma50Data.length - 1].sma
         : 0;
 
     return {
@@ -381,10 +381,8 @@ export class StockDataService {
     const adx =
       adxData?.length > 0 ? adxData[adxData.length - 1].adx : 0;
 
-
-      console.log({patternData})
-    // 1. Process EODHD pattern recognition data
-    const patterns = patternData?.data || [];
+    // 1. Process EODHD pattern recognition data Fix - 1111
+    const patterns = [] // patternData || [];
     const eodhdBullishPatterns = patterns
       .filter(
         (p: any) =>
