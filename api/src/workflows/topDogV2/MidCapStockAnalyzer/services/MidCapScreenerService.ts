@@ -21,7 +21,7 @@
        
        // For demo purposes, return a static list of mid-cap stocks
        return [
-         'DUOL', // Duolingo
+         'AMZN', // Amazon
         //  'PINS', // Pinterest
         //  'SNAP', // Snap
         //  'ETSY', // Etsy

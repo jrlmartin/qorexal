@@ -11,6 +11,7 @@ import {
 } from '../../models/Stock';
 import { TradierApiClient } from '../api/TradierApiClient';
 import { EODHDApiClient } from '../api/EODHDApiClient';
+import { BenzingaService } from '../api/BenzingaApiClient';
 import { ScoringService } from '../algorithms/ScoringService';
 import { OptionsService } from '../algorithms/OptionsService';
 import { PatternRecognitionService } from '../algorithms/PatternRecognitionService';
@@ -19,6 +20,7 @@ import { addDays, format, subDays, subMonths, parse } from 'date-fns';
 export class StockDataService {
   private tradierClient: TradierApiClient;
   private eodhdClient: EODHDApiClient;
+  private benzingaClient: BenzingaService;
   private scoringService: ScoringService;
   private optionsService: OptionsService;
   private patternRecognitionService: PatternRecognitionService;
@@ -26,6 +28,7 @@ export class StockDataService {
   constructor() {
     this.tradierClient = new TradierApiClient();
     this.eodhdClient = new EODHDApiClient();
+    this.benzingaClient = new BenzingaService();
     this.scoringService = new ScoringService();
     this.optionsService = new OptionsService();
     this.patternRecognitionService = new PatternRecognitionService();
@@ -105,7 +108,7 @@ export class StockDataService {
       this.eodhdClient.getMovingAverage(ticker, 'sma', 50),
       this.tradierClient.getOptionsChains(ticker, closestExpiration), // Use the valid expiration date
       this.eodhdClient.getEarnings(ticker, dateStr),
-      this.eodhdClient.getNews(ticker, 5, true),
+      this.benzingaClient.getNews({ tickers: ticker, pageSize: 5 }),
     ]);
 
     // Step 3: Process the data into our standard format
@@ -538,33 +541,55 @@ export class StockDataService {
 
   // Process news data
   private processNewsData(newsData: any): NewsData {
-    // Process recent articles
+    // Process recent articles from Benzinga
     const recentArticles = Array.isArray(newsData) ? newsData : [];
 
     // Classify news sentiment
     let newsClassification = 'neutral';
-
-    // Check for positive news
-    const hasPositiveNews = recentArticles.some(
-      (article) => article.sentiment && article.sentiment.score > 0.6,
-    );
-
-    // Check for negative news
-    const hasNegativeNews = recentArticles.some(
-      (article) => article.sentiment && article.sentiment.score < 0.4,
-    );
-
+    
+    // For Benzinga news, we'll use a simple text analysis approach
+    const positiveWords = ['rise', 'up', 'gain', 'positive', 'growth', 'profit', 'bullish'];
+    const negativeWords = ['drop', 'down', 'fall', 'negative', 'loss', 'bearish', 'decline'];
+    
+    let positiveArticles = 0;
+    let negativeArticles = 0;
+    
+    // Check each article for sentiment keywords
+    recentArticles.forEach(article => {
+      const combinedText = `${article.title} ${article.teaser}`.toLowerCase();
+      
+      const hasPositive = positiveWords.some(word => combinedText.includes(word));
+      const hasNegative = negativeWords.some(word => combinedText.includes(word));
+      
+      if (hasPositive && !hasNegative) positiveArticles++;
+      if (hasNegative && !hasPositive) negativeArticles++;
+    });
+    
     // Determine overall classification
-    if (hasPositiveNews && !hasNegativeNews) {
+    if (positiveArticles > negativeArticles) {
       newsClassification = 'positive_catalyst';
-    } else if (hasNegativeNews && !hasPositiveNews) {
+    } else if (negativeArticles > positiveArticles) {
       newsClassification = 'negative_catalyst';
-    } else if (hasPositiveNews && hasNegativeNews) {
+    } else if (positiveArticles > 0 && negativeArticles > 0) {
       newsClassification = 'mixed';
     }
 
     return {
-      recent_articles: recentArticles,
+      recent_articles: recentArticles.map(article => ({
+        date: article.created,
+        title: article.title,
+        teaser: article.teaser,
+        content: article.bodyMarkdown,
+        link: article.url,
+        symbols: article.stocks ? article.stocks.map((s: any) => s.name) : [],
+        tags: article.tags ? article.tags.map((t: any) => t.name) : [],
+        // sentiment: {
+        //   polarity: 0, // Benzinga doesn't provide sentiment scores
+        //   neg: 0,
+        //   neu: 0,
+        //   pos: 0
+        // }
+      })),
       material_news_classification: newsClassification,
     };
   }
