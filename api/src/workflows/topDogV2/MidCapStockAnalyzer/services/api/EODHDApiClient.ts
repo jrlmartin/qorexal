@@ -285,6 +285,7 @@ export class EODHDApiClient {
     limit: number = 5,
     sentiment: boolean = true,
   ): Promise<any> {
+    return [];
     try {
       // EODHD API usually requires uppercase for news articles
       const formattedTicker = ticker.toUpperCase();

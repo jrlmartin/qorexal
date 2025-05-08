@@ -339,31 +339,35 @@ export class StockDataService {
   ): TechnicalIndicators {
     // Extract latest values
     const rsi =
-      rsiData?.data?.length > 0
-        ? rsiData.data[rsiData.data.length - 1].rsi
+      rsiData?.length > 0
+        ? rsiData[rsiData.length - 1].rsi
         : 50;
 
     const macd =
-      macdData?.data?.length > 0
+      macdData?.length > 0
         ? {
-            line: macdData.data[macdData.data.length - 1].macd,
-            signal: macdData.data[macdData.data.length - 1].signal,
-            histogram: macdData.data[macdData.data.length - 1].histogram,
+            line: macdData[macdData.length - 1].macd,
+            signal: macdData[macdData.length - 1].signal,
+            histogram: macdData[macdData.length - 1].histogram,
           }
         : { line: 0, signal: 0, histogram: 0 };
 
     const atr =
-      atrData?.data?.length > 0 ? atrData.data[atrData.data.length - 1].atr : 0;
+      atrData?.length > 0 ? atrData[atrData.length - 1].atr : 0;
+
+
+console.log({bollingerBands})
+
 
     const latestBollingerBands =
-      bollingerBands?.data?.length > 0
+      bollingerBands?.length > 0
         ? {
             upper:
-              bollingerBands.data[bollingerBands.data.length - 1].upper_band,
+              bollingerBands[bollingerBands.length - 1].uband,
             middle:
-              bollingerBands.data[bollingerBands.data.length - 1].middle_band,
+              bollingerBands[bollingerBands.length - 1].mband,
             lower:
-              bollingerBands.data[bollingerBands.data.length - 1].lower_band,
+              bollingerBands[bollingerBands.length - 1].lband,
           }
         : { upper: 0, middle: 0, lower: 0 };
 
@@ -379,7 +383,7 @@ export class StockDataService {
         : 0;
 
     const adx =
-      adxData?.data?.length > 0 ? adxData.data[adxData.data.length - 1].adx : 0;
+      adxData?.length > 0 ? adxData[adxData.length - 1].adx : 0;
 
     // 1. Process EODHD pattern recognition data
     const patterns = patternData?.data || [];
