@@ -17,6 +17,51 @@ import { OptionsService } from '../algorithms/OptionsService';
 import { PatternRecognitionService } from '../algorithms/PatternRecognitionService';
 import { addDays, format, subDays, subMonths, parse } from 'date-fns';
 
+// Define a broader set of positive and negative regex patterns:
+const positivePatterns = [
+  /\brise\b/i,
+  /\bup\b/i,
+  /\bgain\b/i,
+  /\bpositive\b/i,
+  /\bgrowth\b/i,
+  /\bprofit\b/i,
+  /\bbullish\b/i,
+  /\bsurge\b/i,
+  /\bsoar\b/i,
+  /\brecord high\b/i,
+  /\brally\b/i,
+  /\bbeat\b/i,
+  /\bexceed\b/i,
+  /\boutperform\b/i,
+  /\bstrong\b/i,
+  /\boptimistic\b/i,
+  /\bimprove\b/i,
+  /\bincrease\b/i,
+  /\bupgrade\b/i,
+];
+
+const negativePatterns = [
+  /\bdrop\b/i,
+  /\bdown\b/i,
+  /\bfall\b/i,
+  /\bnegative\b/i,
+  /\bloss\b/i,
+  /\bbearish\b/i,
+  /\bdecline\b/i,
+  /\bplunge\b/i,
+  /\btumble\b/i,
+  /\bdisappoint\b/i,
+  /\bmiss\b/i,
+  /\bbankrupt\b/i,
+  /\bshort\b/i,
+  /\bweak\b/i,
+  /\bunderperform\b/i,
+  /\bpessimistic\b/i,
+  /\bworsen\b/i,
+  /\bdecrease\b/i,
+  /\bdowngrade\b/i,
+];
+
 export class StockDataService {
   private tradierClient: TradierApiClient;
   private eodhdClient: EODHDApiClient;
@@ -546,25 +591,30 @@ export class StockDataService {
 
     // Classify news sentiment
     let newsClassification = 'neutral';
-    
-    // For Benzinga news, we'll use a simple text analysis approach
-    const positiveWords = ['rise', 'up', 'gain', 'positive', 'growth', 'profit', 'bullish'];
-    const negativeWords = ['drop', 'down', 'fall', 'negative', 'loss', 'bearish', 'decline'];
-    
+
     let positiveArticles = 0;
     let negativeArticles = 0;
-    
-    // Check each article for sentiment keywords
-    recentArticles.forEach(article => {
+
+    // Check each article for sentiment keywords using regex
+    recentArticles.forEach((article) => {
+      // Combine title + teaser and convert to lower case for analysis
       const combinedText = `${article.title} ${article.teaser}`.toLowerCase();
-      
-      const hasPositive = positiveWords.some(word => combinedText.includes(word));
-      const hasNegative = negativeWords.some(word => combinedText.includes(word));
-      
-      if (hasPositive && !hasNegative) positiveArticles++;
-      if (hasNegative && !hasPositive) negativeArticles++;
+
+      // Determine if the article has positive or negative sentiment indicators
+      const hasPositive = positivePatterns.some((pattern) =>
+        pattern.test(combinedText),
+      );
+      const hasNegative = negativePatterns.some((pattern) =>
+        pattern.test(combinedText),
+      );
+
+      if (hasPositive && !hasNegative) {
+        positiveArticles++;
+      } else if (hasNegative && !hasPositive) {
+        negativeArticles++;
+      }
     });
-    
+
     // Determine overall classification
     if (positiveArticles > negativeArticles) {
       newsClassification = 'positive_catalyst';
@@ -573,13 +623,13 @@ export class StockDataService {
     } else if (positiveArticles > 0 && negativeArticles > 0) {
       newsClassification = 'mixed';
     }
-
+ // @ts-ignore
     return {
-      recent_articles: recentArticles.map(article => ({
+      recent_articles: recentArticles.map((article) => ({
         date: article.created,
         title: article.title,
         teaser: article.teaser,
-        content: article.bodyMarkdown,
+        content: article.bodyMarkdown ? article.bodyMarkdown.substring(0, 1200) : '',
         link: article.url,
         symbols: article.stocks ? article.stocks.map((s: any) => s.name) : [],
         tags: article.tags ? article.tags.map((t: any) => t.name) : [],
@@ -590,7 +640,7 @@ export class StockDataService {
         //   pos: 0
         // }
       })),
-      material_news_classification: newsClassification,
+    //  material_news_classification: newsClassification,
     };
   }
 

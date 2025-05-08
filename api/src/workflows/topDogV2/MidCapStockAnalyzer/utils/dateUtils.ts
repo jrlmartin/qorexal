@@ -39,6 +39,12 @@ export const parseDateString = (dateStr: string): Date => {
   }
 };
 
+export const getNow = (): string => {
+  // Returns the current date and time in a format compatible with the stock system
+  // Format: 'yyyy-MM-dd HH:mm:ss'
+  return format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+};
+
 export const getDateRanges = (date: Date | string) => {
   // Convert string to Date if needed
   const targetDate = typeof date === 'string' ? parseDateString(date) : date;

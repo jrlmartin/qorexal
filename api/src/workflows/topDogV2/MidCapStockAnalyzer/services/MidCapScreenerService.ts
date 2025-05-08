@@ -22,6 +22,14 @@
        // For demo purposes, return a static list of mid-cap stocks
        return [
          'AMZN', // Amazon
+         'NVDA', // Nvidia
+         'AAPL', // Apple
+         'MSFT', // Microsoft
+         'GOOG', // Google
+         'TSLA', // Tesla
+         'TSM', // Taiwan Semiconductor
+         'QCOM', // Qualcomm
+         
         //  'PINS', // Pinterest
         //  'SNAP', // Snap
         //  'ETSY', // Etsy

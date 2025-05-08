@@ -63,6 +63,21 @@ export class BenzingaService {
   constructor() {
     this.axios = axios.create();
     this.turndownService = new Turndown();
+    
+    // Add rules to strip out links and images
+    this.turndownService.addRule('removeLinks', {
+      filter: 'a',
+      replacement: function(content) {
+        return content;
+      }
+    });
+
+    this.turndownService.addRule('removeImages', {
+      filter: ['img', 'picture'],
+      replacement: function() {
+        return '';
+      }
+    });
   }
   /**
    * GET News
