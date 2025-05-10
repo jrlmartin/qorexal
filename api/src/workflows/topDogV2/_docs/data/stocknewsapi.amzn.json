@@ -1,0 +1,315 @@
+{
+    "data": [
+        {
+            "news_url": "https://www.youtube.com/watch?v=JEn17s0ISHQ",
+            "image_url": "https://cdn.snapi.dev/images/v1/j/e/n/amaz34-2683304-3079170.jpg",
+            "title": "Amazon Prime Video's Hopkins: Sports generates large audience, big part of advertising sales package",
+            "text": "Mike Hopkins, Head of Amazon Prime Video, and CNBC's Julia Boorstin joins 'Closing Bell Overtime' to talk tariff threats, the advertising business, film and TV offerings and more.",
+            "source_name": "CNBC Television",
+            "date": "Fri, 09 May 2025 17:19:11 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Video",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.prnewswire.com/news-releases/vegan-k-beauty-sun-care-for-sensitive-skin--now-25-off-on-amazon-302449427.html",
+            "image_url": "https://cdn.snapi.dev/images/v1/u/1/v/press11-3078488.jpg",
+            "title": "VEGAN K-BEAUTY SUN CARE FOR SENSITIVE SKIN -- NOW 25% OFF ON AMAZON",
+            "text": "SEOUL, South Korea , May 9, 2025 /PRNewswire/ -- BRING GREEN, the vegan K-beauty skincare brand from CJ Olive Young, South Korea's largest beauty retailer, is launching its Tea Tree Cica sun care line in the U.S. market via Amazon this May. The new products include the Tea Tree Cica Facial Sun Cushion and Tea Tree Cica Sun Cream, both featuring a lightweight formula tailored for sensitive skin.",
+            "source_name": "PRNewsWire",
+            "date": "Fri, 09 May 2025 12:00:00 -0400",
+            "topics": [
+                "PressRelease"
+            ],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.cnbc.com/2025/05/09/amazon-is-going-after-google-and-microsoft-in-quantum-computing.html",
+            "image_url": "https://cdn.snapi.dev/images/v1/q/0/y/catalog-mail7-3077963.jpg",
+            "title": "How Amazon plans to catch Google and Microsoft in the quantum computing race",
+            "text": "CNBC's Kate Rooney got exclusive access to Amazon's quantum computing lab and explores how the tech giant plans to catch up to Google and Microsoft.",
+            "source_name": "CNBC",
+            "date": "Fri, 09 May 2025 09:00:01 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN",
+                "GOOG",
+                "GOOGL",
+                "MSFT"
+            ]
+        },
+        {
+            "news_url": "https://seekingalpha.com/article/4784192-amazon-buying-opportunity-knocking-at-front-door-again",
+            "image_url": "https://cdn.snapi.dev/images/v1/n/x/r/amaz49-2682962-3077913.jpg",
+            "title": "Amazon: Buying Opportunity Knocking At The Front Door Again",
+            "text": "The S&P 500 has rebounded swiftly from April's tariff-induced bear market, with Amazon stock showing resilience and consolidation above April lows. Amazon Web Services (AWS) remains a key profitability driver, helping to mitigate the headwinds linked to the trade turmoil. AMZN continues to trade at an attractive level, closer to the lows it fell to in late 2023.",
+            "source_name": "Seeking Alpha",
+            "date": "Fri, 09 May 2025 09:00:00 -0400",
+            "topics": [
+                "paylimitwall"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.investors.com/etfs-and-funds/sectors/sp500-stocks-burn-a-trillion-hole-in-portfolios-including-yours/",
+            "image_url": "https://cdn.snapi.dev/images/v1/3/5/f/computer-electronic38-3077847.jpg",
+            "title": "7 Stocks Burn A $2.5 Trillion Hole In Portfolios — Including Yours",
+            "text": "Last year, S&P 500 investors wanted to make as much money as they could — hence the popularity of the Magnificent 7.",
+            "source_name": "Investors Business Daily",
+            "date": "Fri, 09 May 2025 08:00:33 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AAPL",
+                "GOOG",
+                "GOOGL",
+                "NVDA",
+                "AMZN",
+                "AVGO",
+                "TSLA",
+                "UNH"
+            ]
+        },
+        {
+            "news_url": "https://247wallst.com/forecasts/2025/05/09/amazon-amzn-stock-price-prediction-in-2030-bull-base-bear-forecasts/?utm_source=snapi",
+            "image_url": "https://cdn.snapi.dev/images/v1/w/e/f/amaz46-2680971-3077628.jpg",
+            "title": "Amazon (NASDAQ: AMZN) Stock Price Prediction in 2030: Bull, Bear, & Baseline Forecasts (May 9)",
+            "text": "Amazon.com Inc. (NASDAQ: AMZN) has been one of the stock market's biggest success stories ever.",
+            "source_name": "24/7 Wall Street",
+            "date": "Fri, 09 May 2025 07:20:58 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/09/2-ai-stocks-that-could-go-parabolic/",
+            "image_url": "https://cdn.snapi.dev/images/v1/z/9/m/catalog-mail6-3077699.jpg",
+            "title": "2 AI Stocks That Could Go Parabolic",
+            "text": "Global equity markets have been exceptionally volatile in 2025, rattled by increasing trade tensions between the U.S. and China, rising global conflicts, and growing concerns about impending recessions in major economies.",
+            "source_name": "The Motley Fool",
+            "date": "Fri, 09 May 2025 07:15:00 -0400",
+            "topics": [],
+            "sentiment": "Negative",
+            "type": "Article",
+            "tickers": [
+                "AMZN",
+                "META"
+            ]
+        },
+        {
+            "news_url": "https://seekingalpha.com/article/4784167-amazon-stock-q1-operating-margins-continue-to-improve",
+            "image_url": "https://cdn.snapi.dev/images/v1/b/u/z/amaz30-2684050-3077316.jpg",
+            "title": "Amazon's Operating Margins Continue To Improve",
+            "text": "Amazon's 1Q25 results show improved operating margins Y/Y, with North America at 6.3% and international at 3%. Valuation concerns include increased capex and slowing non-AWS growth, but potential operating margins of 8% for non-AWS segments suggest strong future earnings. With a market cap below the valuation range, Amazon stock is a buy for long-term investors holding for at least three years.",
+            "source_name": "Seeking Alpha",
+            "date": "Fri, 09 May 2025 03:38:36 -0400",
+            "topics": [
+                "paylimitwall"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.pymnts.com/news/ecommerce/2025/amazon-partners-with-pet-pharmacy-vetsource-to-sell-pet-medications/?utm_source=snapi",
+            "image_url": "https://cdn.snapi.dev/images/v1/9/8/w/amaz15-2687306-3076989.jpg",
+            "title": "Amazon Partners With Pet Pharmacy Vetsource to Sell Pet Medications",
+            "text": "Amazon will start selling prescriptions for pets. According to a Thursday (May 8) blog post from Amazon, the company said it is partnering with pet pharmacy Vetsource to provide prescription pet medications, adding hundreds of prescription medications to its platform.",
+            "source_name": "PYMNTS",
+            "date": "Thu, 08 May 2025 19:49:44 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.zacks.com/stock/news/2465490/amazon-issues-mixed-q2-guidance-buy-sell-or-hold-the-stock?cid=CS-STOCKNEWSAPI-FT-analyst_blog|most_popular_stocks-2465490",
+            "image_url": "https://cdn.snapi.dev/images/v1/y/m/z/amaz45-2681233-3075991.jpg",
+            "title": "Amazon Issues Mixed Q2 Guidance: Buy, Sell or Hold the Stock?",
+            "text": "AMZN posts strong Q1 results, but issues mixed Q2 outlook. With premium valuation and tariff concerns, you can hold or wait for pullbacks if looking to buy.",
+            "source_name": "Zacks Investment Research",
+            "date": "Thu, 08 May 2025 16:00:43 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.youtube.com/watch?v=jBylLJcRLCI",
+            "image_url": "https://cdn.snapi.dev/images/v1/d/u/i/amaz25-2686057-3075847.jpg",
+            "title": "Amazon's quantum lab: Here's an in-depth look",
+            "text": "CNBC's Kate Rooney delivers a fresh look at Amazon's quantum aspirations.",
+            "source_name": "CNBC Television",
+            "date": "Thu, 08 May 2025 14:22:54 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Video",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.cnbc.com/2025/05/08/amazon-adds-pet-prescriptions-to-its-online-pharmacy-.html",
+            "image_url": "https://cdn.snapi.dev/images/v1/o/7/p/amaz40-2682399-3075440.jpg",
+            "title": "Amazon adds pet prescriptions to its online pharmacy",
+            "text": "Amazon is adding \"hundreds of commonly prescribed pet medications\" to its online pharmacy in the U.S. Prescriptions are dispensed and delivered by Vetsource, an online pet pharmacy, but are ordered through Amazon's storefront.",
+            "source_name": "CNBC",
+            "date": "Thu, 08 May 2025 11:40:26 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.reuters.com/business/retail-consumer/britains-digital-tax-big-tech-not-impacted-by-trade-deal-2025-05-08/",
+            "image_url": "https://cdn.snapi.dev/images/v1/t/r/i/22wedw-2491586-3075445.jpg",
+            "title": "Britain's digital tax on 'Big Tech' not impacted by trade deal",
+            "text": "Britain's digital services tax, imposed on U.S. companies like Amazon , Google and Meta , will not be changed under the terms of the trade deal agreed between the two countries on Thursday, the British government said.",
+            "source_name": "Reuters",
+            "date": "Thu, 08 May 2025 11:36:38 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "AMZN",
+                "GOOG",
+                "GOOGL",
+                "META"
+            ]
+        },
+        {
+            "news_url": "https://www.businesswire.com/news/home/20250508023834/en/HSB%E2%80%99s-New-Slim-Sensors-Expand-IoT-Program-to-Habitational-Buildings-and-Homes-through-Amazon-Sidewalk/",
+            "image_url": "https://cdn.snapi.dev/images/v1/2/s/r/press18-3075289.jpg",
+            "title": "HSB's New Slim Sensors Expand IoT Program to Habitational Buildings and Homes through Amazon Sidewalk",
+            "text": "HARTFORD, Conn.--(BUSINESS WIRE)-- #IoT--HSB introduces Meshify Defender Slim™, its latest and thinnest IoT sensor to detect home water leaks, powered by the Amazon Sidewalk network.",
+            "source_name": "Business Wire",
+            "date": "Thu, 08 May 2025 10:50:00 -0400",
+            "topics": [
+                "PressRelease"
+            ],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/08/2-beaten-down-stocks-that-are-great-buys-on-the-di/",
+            "image_url": "https://cdn.snapi.dev/images/v1/x/j/0/catalog-mail7-3074876.jpg",
+            "title": "2 Beaten-Down Stocks That Are Great Buys on the Dip",
+            "text": "Even when equities are volatile, investors can find great stocks to buy. And the rules for investing in the current environment aren't that different, at least for those focused on the long game: Find quality stocks likely to survive the somewhat challenging period we are experiencing and perform well over five years or more.",
+            "source_name": "The Motley Fool",
+            "date": "Thu, 08 May 2025 09:12:00 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN",
+                "MRK"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/08/2-no-brainer-artificial-intelligence-ai-stocks-to/",
+            "image_url": "https://cdn.snapi.dev/images/v1/j/j/c/catalog-mail2-3075679.jpg",
+            "title": "2 No-Brainer Artificial Intelligence (AI) Stocks to Buy Right Now",
+            "text": "Nearly every expert agrees: The AI revolution will truly be massive. Understandably, many investors are racing to find companies that will benefit from this rare growth opportunity, one that could persist for decades to come.",
+            "source_name": "The Motley Fool",
+            "date": "Thu, 08 May 2025 07:00:00 -0400",
+            "topics": [
+                "StocksToWatch"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN",
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.wsj.com/articles/ups-stands-by-call-to-scale-back-amazon-business-despite-new-tariff-challenges-23a27e34",
+            "image_url": "https://cdn.snapi.dev/images/v1/u/r/r/3er3-2491065-3073786.jpg",
+            "title": "UPS Stands by Call to Scale Back Amazon Business Despite New Tariff Challenges",
+            "text": "Cutting more than half of its Amazon deliveries is good for UPS's business in the long run, its CFO says.",
+            "source_name": "WSJ",
+            "date": "Thu, 08 May 2025 06:00:00 -0400",
+            "topics": [
+                "paywall"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/08/the-best-stocks-to-invest-1000-in-right-now/",
+            "image_url": "https://cdn.snapi.dev/images/v1/l/w/6/catalog-mail4-3073691.jpg",
+            "title": "The Best Stocks to Invest $1,000 in Right Now",
+            "text": "While stocks have staged a nice rally, the major market indexes are still well below their highs, and some stocks are still trading at attractively low prices. Investing $1,000 is a smart way for investors to start dipping their toes into a stock and begin building a position, especially in a volatile market where easing in can help manage risk.",
+            "source_name": "The Motley Fool",
+            "date": "Thu, 08 May 2025 04:40:00 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN",
+                "GOOG",
+                "GOOGL",
+                "META"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/08/amazon-sell-off-why-now-may-be-the-best-time-to-bu/",
+            "image_url": "https://cdn.snapi.dev/images/v1/1/n/q/amaz34-2683304-3073670.jpg",
+            "title": "Amazon Sell-Off: Why Now May Be the Best Time to Buy Amazon Stock",
+            "text": "Amazon (AMZN 2.06%) continues to report strong growth, but its stock fell last week after weak guidance and worries about tariffs. It's a huge company with many moving parts, but the market is focusing on the negative.",
+            "source_name": "The Motley Fool",
+            "date": "Thu, 08 May 2025 04:05:00 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        },
+        {
+            "news_url": "https://techcrunch.com/2025/05/07/amazon-debuts-a-warehouse-robot-with-a-sense-of-touch/",
+            "image_url": "https://cdn.snapi.dev/images/v1/t/s/z/amaz41-2682218-3072223.jpg",
+            "title": "Amazon debuts a warehouse robot with a sense of ‘touch'",
+            "text": "Amazon says that it has developed a new warehouse robot, Vulcan, that can “feel” some of the items it touches.",
+            "source_name": "TechCrunch",
+            "date": "Wed, 07 May 2025 14:33:26 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMZN"
+            ]
+        }
+    ]
+}

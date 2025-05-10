@@ -26,9 +26,8 @@
          'AAPL', // Apple
          'MSFT', // Microsoft
          'GOOG', // Google
-         'TSLA', // Tesla
-         'TSM', // Taiwan Semiconductor
-         'QCOM', // Qualcomm
+         'META', // Tesla
+ 
          
         //  'PINS', // Pinterest
         //  'SNAP', // Snap

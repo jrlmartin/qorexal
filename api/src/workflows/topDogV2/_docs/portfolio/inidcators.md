@@ -1,0 +1,1 @@
+ For each stock find key technical and fundamental indicators or triggersfor each of these mid-cap stocks that would confirm (or “catalyze”) a bullish breakout. 

@@ -1,0 +1,1759 @@
+{
+    "meta": {
+        "found": 12,
+        "returned": 10,
+        "limit": 10,
+        "page": 1
+    },
+    "data": [
+        {
+            "uuid": "6e6fdfb6-2e62-4b4b-8784-f33f986733a6",
+            "title": "Hopium Buying - India Ready To Cut Tariffs to 4%, Trump Floats China Tariffs At 80%, UK Not A Model",
+            "description": "",
+            "keywords": "",
+            "snippet": "To gain an edge, this is what you need to know today.\n\nHopium Buying\n\nPlease click here for an enlarged chart of SPDR S&P 500 ETF Trust (SPY) which represents t...",
+            "url": "https://www.benzinga.com/markets/equities/25/05/45325591/hopium-buying-india-ready-to-cut-tariffs-to-4-trump-floats-china-tariffs-at-80-uk-not-a-model",
+            "image_url": "https://www.benzinga.com/next-assets/images/schema-image-default.png",
+            "language": "en",
+            "published_at": "2025-05-09T17:41:31.000000Z",
+            "source": "benzinga.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 11.234121,
+                    "sentiment_score": 0.8176,
+                    "highlights": [
+                        {
+                            "highlight": "Magnificent Seven Money Flows\n\nIn the ea[+268 characters]",
+                            "sentiment": 0.8176,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "9f9b306d-4f71-437b-b450-96665d7eb5c5",
+            "title": "AMZN Options Activity Shows Bullish Sentiment | AMZN Stock News",
+            "description": "Options trading for Amazon (AMZN) remains steady with approximately 265,000 contracts exchanged. Currently, call options are being traded more heavily than put",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, AMZN",
+            "snippet": "Options trading for Amazon (AMZN, Financial) remains steady with approximately 265,000 contracts exchanged. Currently, call options are being traded more heavil...",
+            "url": "https://www.gurufocus.com/news/2850247/amzn-options-activity-shows-bullish-sentiment-amzn-stock-news",
+            "image_url": "https://static.gurufocus.com/logos/0C000009EB.png?20",
+            "language": "en",
+            "published_at": "2025-05-09T16:45:22.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 29.922497,
+                    "sentiment_score": 0.27194,
+                    "highlights": [
+                        {
+                            "highlight": "Wall Street Analysts Forecast\n\nBased on [+286 characters]",
+                            "sentiment": -0.2732,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed estimate data can be found[+253 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Based on GuruFocus estimates, the estima[+243 characters]",
+                            "sentiment": 0.7579,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed data can be found on the <[+327 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Positive Points\n\n<em>Amazon.com</em> <em[+255 characters]",
+                            "sentiment": 0.875,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "64d78a8f-817a-4ef2-9e2b-8cc5933451ac",
+            "title": "Industry Comparison: Evaluating Amazon.com Against Competitors In Broadline Retail Industry - Amazon.com (NASDAQ:AMZN)",
+            "description": "",
+            "keywords": "",
+            "snippet": "In today's rapidly evolving and fiercely competitive business landscape, it is crucial for investors and industry analysts to conduct comprehensive company eval...",
+            "url": "https://www.benzinga.com/insights/news/25/05/45321108/industry-comparison-evaluating-amazon-com-against-competitors-in-broadline-retail-industry",
+            "image_url": "https://www.benzinga.com/next-assets/images/schema-image-default.png",
+            "language": "en",
+            "published_at": "2025-05-09T15:00:46.000000Z",
+            "source": "benzinga.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 77.29944,
+                    "sentiment_score": 0.322857,
+                    "highlights": [
+                        {
+                            "highlight": "In this article, we will undertake an in[+130 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>Amazon.com</em> Background\n\nAmazon i[+287 characters]",
+                            "sentiment": 0.6249,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Company P/E P/B P/S ROE EBITDA (in billi[+329 characters]",
+                            "sentiment": 0.34,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "14.01 3.58 0.27 15.61% $0.44 $1.69 -2.17[+331 characters]",
+                            "sentiment": 0.34,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "By evaluating <em>Amazon.com</em> agains[+221 characters]",
+                            "sentiment": 0.6369,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Key Takeaways\n\nFor <em>Amazon.com</em>, [+207 characters]",
+                            "sentiment": 0.3182,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Industry Comparison: Evaluating <em>Amazon.com</em> Against Competitors In Broadline Retail Industry - <em>Amazon.com</em> (<em>NASDAQ:AMZN</em>)",
+                            "sentiment": 0,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "ce93d461-eab7-4d41-818b-273bc9c62e5a",
+            "title": "What Does Cramer Think of Amazon.com (AMZN)’s $100 Billion AI Bet?",
+            "description": "We recently published a list of 10 Jim Cramer Stocks to Watch as US-China Prepare to Begin Talks. In this article, we are going to take a look at where Amazon.com, Inc. (NASDAQ:AMZN) stands against other stocks that Jim Cramer discussed. The optimism over US-China trade talks is increasing as the US Treasury Secretary is […]",
+            "keywords": "Jim Cramer, Amazon.com, Inc., market sentiment, Amazon Prime, AWS, hedge fund",
+            "snippet": "We recently published a list of 10 Jim Cramer Stocks to Watch as US-China Prepare to Begin Talks. In this article, we are going to take a look at where Amazon.c...",
+            "url": "https://finance.yahoo.com/news/does-cramer-think-amazon-com-141518901.html",
+            "image_url": "https://media.zenfs.com/en/insidermonkey.com/094a8be13d8f8f288d55bc0cebc6af1d",
+            "language": "en",
+            "published_at": "2025-05-09T14:15:18.000000Z",
+            "source": "finance.yahoo.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 59.044792,
+                    "sentiment_score": 0.473433,
+                    "highlights": [
+                        {
+                            "highlight": "In this article, we are going to take a [+283 characters]",
+                            "sentiment": 0.6486,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Number of Hedge Fund Investors: 286\n\nJim[+372 characters]",
+                            "sentiment": 0.7717,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "What Does Cramer Think of <em>Amazon.com</em> (AMZN)’s $100 Billion AI Bet?",
+                            "sentiment": 0,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "111301d3-98ee-451f-a628-aaa164f5f55b",
+            "title": "Jim Cramer on Amazon.com, Inc. (AMZN): ‘I Still Like It For The Long Haul’",
+            "description": "We recently compiled a list of the 10 Jim Cramer Stocks with Huge Upside Potential. In this article, we are going to take a look at where Amazon.com, Inc. (NASDAQ:AMZN) stands against the other Jim Cramer stocks with huge upside potential. During the episode of Mad Money aired on Wednesday, Jim Cramer broke down what […]",
+            "keywords": "Jim Cramer, Amazon.com, Inc., hedge funds, buying stocks, damaged stock",
+            "snippet": "We recently compiled a list of the 10 Jim Cramer Stocks with Huge Upside Potential. In this article, we are going to take a look at where Amazon.com, Inc. (NASD...",
+            "url": "https://finance.yahoo.com/news/amazon-com-inc-nasdaq-amzn-141139530.html",
+            "image_url": "https://s.yimg.com/ny/api/res/1.2/v4vjuMw83AspvSftOzdXyQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzM-/https://media.zenfs.com/en/insidermonkey.com/226ed9ed0936942adb97f3d56073e411",
+            "language": "en",
+            "published_at": "2025-05-09T14:11:39.000000Z",
+            "source": "finance.yahoo.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 76.58247,
+                    "sentiment_score": 0.13735,
+                    "highlights": [
+                        {
+                            "highlight": "In this article, we are going to take a [+291 characters]",
+                            "sentiment": -0.0865,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Jim Cramer on <em>Amazon.com</em>, <em>Inc</em>. (AMZN): ‘I Still Like It For The Long Haul’",
+                            "sentiment": 0.3612,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "1bb0a367-cf7d-4677-bee6-7296be669def",
+            "title": "Amazon (AMZN) Competition Concerns for Trade Desk Amid Market Developments | AMZN Stock News",
+            "description": "Piper Sandler analyst Thomas Champion has expressed concerns over competition from Amazon (AMZN) affecting Trade Desk despite a positive shift in their recent p",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, AMZN",
+            "snippet": "Piper Sandler analyst Thomas Champion has expressed concerns over competition from Amazon (AMZN, Financial) affecting Trade Desk despite a positive shift in the...",
+            "url": "https://www.gurufocus.com/news/2849297/amazon-amzn-competition-concerns-for-trade-desk-amid-market-developments-amzn-stock-news",
+            "image_url": "https://static.gurufocus.com/logos/0C000009EB.png?20",
+            "language": "en",
+            "published_at": "2025-05-09T13:21:08.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 29.403112,
+                    "sentiment_score": 0.27194,
+                    "highlights": [
+                        {
+                            "highlight": "Wall Street Analysts Forecast\n\nBased on [+286 characters]",
+                            "sentiment": -0.2732,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed estimate data can be found[+253 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Based on GuruFocus estimates, the estima[+243 characters]",
+                            "sentiment": 0.7579,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed data can be found on the <[+327 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Positive Points\n\n<em>Amazon.com</em> <em[+255 characters]",
+                            "sentiment": 0.875,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "ca233eee-061f-4871-82b2-7ef72c16a36e",
+            "title": "Should You Buy AMZN Stock At $195 After Landmark U.S.–U.K. Trade Deal?",
+            "description": "Since then, the government has been actively pursuing new trade agreements, most recently achieving a landmark deal with the UK.",
+            "keywords": "amazon stock, amzn revenue, amzn valuation, us uk trade deal, stock, amazon",
+            "snippet": "SAN DIEGO, CALIFORNIA - MAY 3: The Amazon logo is displayed on a sign outside of a sort center on ... More May 3, 2025 in San Diego, California. (Photo by Kevin...",
+            "url": "https://www.forbes.com/sites/greatspeculations/2025/05/09/should-you-buy-amzn-stock-at-195-after-landmark-usuk-trade-deal/",
+            "image_url": "https://imageio.forbes.com/specials-images/imageserve/681de08aa15d637c29057ce5/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds",
+            "language": "en",
+            "published_at": "2025-05-09T12:02:06.000000Z",
+            "source": "forbes.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 17.589447,
+                    "sentiment_score": 0.180186,
+                    "highlights": [
+                        {
+                            "highlight": "(Photo by Kevin Carter/Getty Images) Get[+238 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Our evaluation of <em>Amazon.com</em> ac[+188 characters]",
+                            "sentiment": 0.5423,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>Amazon.com</em> has a price-to-sales[+298 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>Amazon.com</em> has seen its top lin[+325 characters]",
+                            "sentiment": 0.8834,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "’s Operating Cash Flow (OCF) over this[+333 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "[Note: A lower Debt-to-Equity Ratio is d[+241 characters]",
+                            "sentiment": 0.4215,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Our dashboard How Low Can <em>Amazon.com[+126 characters]",
+                            "sentiment": -0.5859,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "c58f2336-0bc9-4d4c-868c-74a7b93a1831",
+            "title": "Alphabet shares take $120 billion blow as search warnings blare",
+            "description": "Google parent Alphabet Inc. faces growing investor concerns as Apple explores AI integration in its Safari browser, potentially impacting the internet major's lucrative search engine deal. A drop in Safari searches fuels fears that rivals like OpenAI are eroding Google's market share, causing a significant stock selloff.",
+            "keywords": "Alphabet shares, Google, Google Search, AI competition in search, alphabet, microsoft, taiwan semiconductor manufacturing, ChatGPT effect on Google",
+            "snippet": "Bloomberg\n\nLive Events\n\nBloomberg\n\nFor more than a year, Alphabet Inc. shareholders have fretted over long-term risks posed by artificial intelligence to the co...",
+            "url": "https://economictimes.indiatimes.com/tech/technology/alphabet-shares-take-120-billion-blow-as-search-warnings-blare/articleshow/121026707.cms",
+            "image_url": "https://img.etimg.com/thumb/msid-121026956,width-1200,height-630,imgsize-42302,overlay-ettech/articleshow.jpg",
+            "language": "en",
+            "published_at": "2025-05-09T09:54:30.000000Z",
+            "source": "economictimes.indiatimes.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 15.1802,
+                    "sentiment_score": 0.3818,
+                    "highlights": [
+                        {
+                            "highlight": "While that’s below other megacaps — [+337 characters]",
+                            "sentiment": 0.3818,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": [
+                {
+                    "uuid": "ba08ea7f-d051-4184-b4ae-1a2c0d159f94",
+                    "title": "Alphabet shares take $120 billion blow as search warnings blare",
+                    "description": "Google parent Alphabet Inc. faces growing investor concerns as Apple explores AI integration in its Safari browser, potentially impacting the internet major's lucrative search engine deal. A drop in Safari searches fuels fears that rivals like OpenAI are eroding Google's market share, causing a significant stock selloff.",
+                    "keywords": "Alphabet shares, Google, Google Search, AI competition in search, alphabet, microsoft, taiwan semiconductor manufacturing, ChatGPT effect on Google, panasonic",
+                    "snippet": "Bloomberg\n\nLive Events\n\nBloomberg\n\nTop Tech Stories\n\nPanasonic Holdings Corp. said it plans to slash headcount by 10,000, part of an ongoing push to boost profi...",
+                    "url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/alphabet-shares-take-120-billion-blow-as-search-warnings-blare/articleshow/121027065.cms",
+                    "image_url": "https://img.etimg.com/thumb/msid-121026956,width-1200,height-630,imgsize-42302,overlay-ettech/articleshow.jpg",
+                    "language": "en",
+                    "published_at": "2025-05-09T09:54:30.000000Z",
+                    "source": "economictimes.indiatimes.com",
+                    "relevance_score": null,
+                    "entities": [
+                        {
+                            "symbol": "AAPL",
+                            "name": "Apple Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 14.949531,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AMZN",
+                            "name": "Amazon.com, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 13.933478,
+                            "sentiment_score": 0.3818,
+                            "highlights": [
+                                {
+                                    "highlight": "While that’s below other megacaps — [+337 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOG",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 8.199111,
+                            "sentiment_score": 0.25,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOGL",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.721733,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "META",
+                            "name": "Meta Platforms Inc",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 10.447073,
+                            "sentiment_score": 0.3818,
+                            "highlights": [
+                                {
+                                    "highlight": "., and <em>Meta</em> <em>Platforms</em> [+301 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "EXPE",
+                            "name": "Expedia Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 19.173649,
+                            "sentiment_score": -0.6908,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Expedia</em> <em>Group</em> <em>Inc<[+167 characters]",
+                                    "sentiment": -0.6908,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AMZN.MX",
+                            "name": "Amazon.com, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "mx",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 13.933394,
+                            "sentiment_score": 0.3818,
+                            "highlights": [
+                                {
+                                    "highlight": "While that’s below other megacaps — [+337 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPL.MX",
+                            "name": "Apple Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "mx",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 14.949551,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOGL.MX",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "mx",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.719723,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOG.MX",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "mx",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.719723,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "EXPE.MX",
+                            "name": "Expedia Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "mx",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 19.173132,
+                            "sentiment_score": -0.6908,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Expedia</em> <em>Group</em> <em>Inc<[+167 characters]",
+                                    "sentiment": -0.6908,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "0R1T.L",
+                            "name": "Expedia Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "gb",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 19.17237,
+                            "sentiment_score": -0.6908,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Expedia</em> <em>Group</em> <em>Inc<[+167 characters]",
+                                    "sentiment": -0.6908,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "EXGR34.SA",
+                            "name": "Expedia Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "br",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 19.171879,
+                            "sentiment_score": -0.6908,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Expedia</em> <em>Group</em> <em>Inc<[+167 characters]",
+                                    "sentiment": -0.6908,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "MSFT.MI",
+                            "name": "MICROSOFT CORP",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "it",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 13.818364,
+                            "sentiment_score": 0.171875,
+                            "highlights": [
+                                {
+                                    "highlight": "quarter, which ended on March 31.The siz[+333 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Corp</em>.",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Microsoft</em> is priced at 30 times[+247 characters]",
+                                    "sentiment": 0.4588,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "While that’s below other megacaps — [+328 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AMZ.DE",
+                            "name": "Amazon.com, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "de",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 13.933997,
+                            "sentiment_score": 0.3818,
+                            "highlights": [
+                                {
+                                    "highlight": "While that’s below other megacaps — [+337 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "APC.DE",
+                            "name": "Apple Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "de",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 14.949453,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "ABEA.DE",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "de",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.715813,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "ABEC.DE",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "de",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.714787,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "E3X1.DE",
+                            "name": "Expedia Group Inc",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "de",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 19.170076,
+                            "sentiment_score": -0.6908,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Expedia</em> <em>Group</em> <em>Inc<[+167 characters]",
+                                    "sentiment": -0.6908,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPL.BA",
+                            "name": "Apple Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 14.948629,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOGL.BA",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.71287,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "MSFTD.BA",
+                            "name": "MICROSOFT CORP",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 13.818199,
+                            "sentiment_score": 0.171875,
+                            "highlights": [
+                                {
+                                    "highlight": "quarter, which ended on March 31.The siz[+333 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Corp</em>.",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Microsoft</em> is priced at 30 times[+247 characters]",
+                                    "sentiment": 0.4588,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "While that’s below other megacaps — [+328 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPLD.BA",
+                            "name": "APPLE INC",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 14.948629,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "MSFTB.BA",
+                            "name": "MICROSOFT CORP",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 13.818199,
+                            "sentiment_score": 0.171875,
+                            "highlights": [
+                                {
+                                    "highlight": "quarter, which ended on March 31.The siz[+333 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Corp</em>.",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Microsoft</em> is priced at 30 times[+247 characters]",
+                                    "sentiment": 0.4588,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "While that’s below other megacaps — [+328 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "MSFTC.BA",
+                            "name": "MICROSOFT CORP",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 13.818199,
+                            "sentiment_score": 0.171875,
+                            "highlights": [
+                                {
+                                    "highlight": "quarter, which ended on March 31.The siz[+333 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Corp</em>.",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Microsoft</em> is priced at 30 times[+247 characters]",
+                                    "sentiment": 0.4588,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "While that’s below other megacaps — [+328 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOGLD.BA",
+                            "name": "ALPHABET INC",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 35.71271,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPLC.BA",
+                            "name": "APPLE INC",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ar",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 14.94861,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AMZN.SN",
+                            "name": "Amazon.com, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "Consumer Cyclical",
+                            "match_score": 13.933661,
+                            "sentiment_score": 0.3818,
+                            "highlights": [
+                                {
+                                    "highlight": "While that’s below other megacaps — [+337 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOGL.SN",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.70788,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPLCL.SN",
+                            "name": "APPLE INC",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 14.948515,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "MSFTCL.SN",
+                            "name": "MICROSOFT CORP",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 13.818091,
+                            "sentiment_score": 0.171875,
+                            "highlights": [
+                                {
+                                    "highlight": "quarter, which ended on March 31.The siz[+333 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Corp</em>.",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Microsoft</em> is priced at 30 times[+247 characters]",
+                                    "sentiment": 0.4588,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "While that’s below other megacaps — [+328 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPL.SN",
+                            "name": "Apple Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 14.948515,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOG.SN",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "Communication Services",
+                            "match_score": 35.70788,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AMZNCL.SN",
+                            "name": "Amazon.com, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 13.933378,
+                            "sentiment_score": 0.3818,
+                            "highlights": [
+                                {
+                                    "highlight": "While that’s below other megacaps — [+337 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "GOOGCL.SN",
+                            "name": "Alphabet Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 35.70788,
+                            "sentiment_score": 0.17687,
+                            "highlights": [
+                                {
+                                    "highlight": "Earnings Due Friday\n\nPremarket PAR Techn[+226 characters]",
+                                    "sentiment": 0.25,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> said in a subsequent b[+286 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“The basic issue is, will <em>Alphabet[+98 characters]",
+                                    "sentiment": 0.128,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“This is the first time <em>Alphabet</[+336 characters]",
+                                    "sentiment": -0.1531,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "AI chatbot.However, it has shown an abil[+98 characters]",
+                                    "sentiment": -0.1027,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "But that gap has widened over the past y[+277 characters]",
+                                    "sentiment": 0.1779,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "“That means we can’t be confident in[+295 characters]",
+                                    "sentiment": 0.765,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "That compares with 92.9% share in Januar[+198 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "., and Meta Platforms Inc. are all rated[+283 characters]",
+                                    "sentiment": 0.3818,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>Alphabet</em> shares take $120 billion blow as search warnings blare",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "AAPL.NE",
+                            "name": "Apple Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "ca",
+                            "type": "equity",
+                            "industry": "Technology",
+                            "match_score": 14.948527,
+                            "sentiment_score": 0.111167,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>Apple</em> <em>Inc</em>.’s silicon[+178 characters]",
+                                    "sentiment": 0.8344,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This week the threat became much more im[+256 characters]",
+                                    "sentiment": -0.5267,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Alphabet said in a subsequent blog post [+277 characters]",
+                                    "sentiment": 0.0258,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "uuid": "c5da0088-f1d6-4b7f-8676-fb7efaa0b2a8",
+            "title": "Billionaire Paul Tudor Jones’ 10 Stocks Picks with Huge Upside Potential",
+            "description": "It’s all gloomy regardless of what US President Donald Trump does.",
+            "keywords": "",
+            "snippet": "In this article, we discuss Billionaire Paul Tudor Jones’ 10 Stocks Picks with Huge Upside Potential.\n\nIt’s all gloomy regardless of what US President Donal...",
+            "url": "https://www.insidermonkey.com/blog/billionaire-paul-tudor-jones-10-stocks-picks-with-huge-upside-potential-1527755/",
+            "image_url": "https://www.insidermonkey.com/blog/wp-content/uploads/2012/07/Paul-Tudor-Jones-e1351275151296.jpg",
+            "language": "en",
+            "published_at": "2025-05-09T09:52:31.000000Z",
+            "source": "insidermonkey.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 31.164707,
+                    "sentiment_score": 0.516725,
+                    "highlights": [
+                        {
+                            "highlight": "Billionaire Paul Tudor Jones’ 10 Stock[+209 characters]",
+                            "sentiment": 0.3818,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "(<em>NASDAQ:AMZN</em>) is one of billion[+253 characters]",
+                            "sentiment": 0.3182,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "The price cut comes against the backdrop[+290 characters]",
+                            "sentiment": 0.5267,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Amid the challenging macro environment, [+247 characters]",
+                            "sentiment": 0.8402,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "2c9618bf-848a-486a-b368-c99092978f33",
+            "title": "CHARLES SCHWAB INVESTMENT MANAGEMENT INC Reduces Stake in Cracker Barrel Old Country Store Inc",
+            "description": "On March 31, 2025, CHARLES SCHWAB INVESTMENT MANAGEMENT INC (Trades, Portfolio) executed a significant reduction in its holdings of Cracker Barrel Old Country S",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, CBRL, AAPL, AMZN, MSFT, NVDA, FNDX",
+            "snippet": "On March 31, 2025, CHARLES SCHWAB INVESTMENT MANAGEMENT INC (Trades, Portfolio) executed a significant reduction in its holdings of Cracker Barrel Old Country S...",
+            "url": "https://www.gurufocus.com/news/2846906/charles-schwab-investment-management-inc-reduces-stake-in-cracker-barrel-old-country-store-inc",
+            "image_url": "https://s3.amazonaws.com/gurufocus_userupload/1920646785643212800.png",
+            "language": "en",
+            "published_at": "2025-05-09T02:02:38.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "AMZN",
+                    "name": "Amazon.com, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Consumer Cyclical",
+                    "match_score": 15.897682,
+                    "sentiment_score": 0.5719,
+                    "highlights": [
+                        {
+                            "highlight": "The firm manages an equity portfolio val[+187 characters]",
+                            "sentiment": 0.5719,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        }
+    ]
+}

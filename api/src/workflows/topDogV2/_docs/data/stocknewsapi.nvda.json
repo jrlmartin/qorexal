@@ -1,0 +1,332 @@
+{
+    "data": [
+        {
+            "news_url": "https://www.zacks.com/commentary/2466412/ai-stocks-are-back-msft-nvda-pltr?cid=CS-STOCKNEWSAPI-FT-investment_ideas-2466412",
+            "image_url": "https://cdn.snapi.dev/images/v1/t/e/9/software12-3079112.jpg",
+            "title": "AI Stocks Are Back (MSFT, NVDA, PLTR)",
+            "text": "Microsoft, Palantir Technologies and Nvidia remain some of the best ways to gain exposure to the AI boom.",
+            "source_name": "Zacks Investment Research",
+            "date": "Fri, 09 May 2025 16:55:33 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "MSFT",
+                "NVDA",
+                "PLTR"
+            ]
+        },
+        {
+            "news_url": "https://www.youtube.com/watch?v=hbu2n0SaHbk",
+            "image_url": "https://cdn.snapi.dev/images/v1/c/7/k/nvda1-2689497-3078828.jpg",
+            "title": "NVDA's China Dilemma & Why It's Changing the H20 A.I. Chip",
+            "text": "Reports have surfaced that Nvidia (NVDA) plans to release a downgraded version of its H20 A.I. chip for its China-based customers.",
+            "source_name": "Schwab Network",
+            "date": "Fri, 09 May 2025 14:30:44 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Video",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.youtube.com/watch?v=OlGdhJKlsLw",
+            "image_url": "https://cdn.snapi.dev/images/v1/n/q/w/nvdd3-2485387-3078801.jpg",
+            "title": "\"Top Spend\" in A.I. & NVDA Role in Powering GenAI",
+            "text": "@LikeFolio's Andy Swan breaks down the I.T. budgets they have tracked so far for 2025 saying an \"enormous amount of money is flowing into A.I.",
+            "source_name": "Schwab Network",
+            "date": "Fri, 09 May 2025 14:15:06 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Video",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.youtube.com/watch?v=lX8rwmJfLDE",
+            "image_url": "https://cdn.snapi.dev/images/v1/x/i/7/nvda20-2686533-3078578.jpg",
+            "title": "Nvidia modifies H20 chips for China amid shifting U.S. export stance",
+            "text": "CNBC's Deirdre Bosa reports on news regarding Nvidia.",
+            "source_name": "CNBC Television",
+            "date": "Fri, 09 May 2025 12:23:30 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Video",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.benzinga.com/tech/25/05/45320459/nvidia-apple-face-bigger-risks-from-china-trade-talks-than-any-boost-from-uk-deal-analyst-says?utm_source=snapi",
+            "image_url": "https://cdn.snapi.dev/images/v1/8/f/f/computer-electronic1-3078360.jpg",
+            "title": "Nvidia, Apple Face Bigger Risks From China Trade Talks Than Any Boost From UK Deal, Analyst Says",
+            "text": "President Donald Trump is expected to announce a framework trade agreement with the UK, according to The New York Times—marking the first concrete development in a series of proposed deals floated in recent weeks.",
+            "source_name": "Benzinga",
+            "date": "Fri, 09 May 2025 10:46:11 -0400",
+            "topics": [
+                "paywall"
+            ],
+            "sentiment": "Negative",
+            "type": "Article",
+            "tickers": [
+                "AAPL",
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.youtube.com/watch?v=fByRatPa-jU",
+            "image_url": "https://cdn.snapi.dev/images/v1/r/l/5/nvda17-2686859-3078116.jpg",
+            "title": "Market Breadth Behind SPX Strength, NVDA Testing Resistance",
+            "text": "\"Market breadth continues to come into this market,\" says Kevin Green, adding that it's offering much-needed bullish support for the SPX. He also turns to \"critical\" levels in crude oil as price level for the commodity fluctuates.",
+            "source_name": "Schwab Network",
+            "date": "Fri, 09 May 2025 10:01:04 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Video",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.youtube.com/watch?v=bmZ8BDPs_H0",
+            "image_url": "https://cdn.snapi.dev/images/v1/s/b/g/nvda19-2686814-3078033.jpg",
+            "title": "NVDA Making H20 Chip for China, EXPE Sells After Earnings",
+            "text": "A report says Nvidia (NVDA) is building a new H20 A.I. chip that it will be able to sell to China under current trade restrictions.",
+            "source_name": "Schwab Network",
+            "date": "Fri, 09 May 2025 09:30:35 -0400",
+            "topics": [
+                "earnings"
+            ],
+            "sentiment": "Positive",
+            "type": "Video",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://seekingalpha.com/article/4784096-hard-to-imagine-retirement-income-portfolio-without-these-2-picks",
+            "image_url": "https://cdn.snapi.dev/images/v1/b/q/n/reit28-3077994.jpg",
+            "title": "Hard To Imagine Retirement Income Portfolio Without These 2 Picks",
+            "text": "Typically, investors put a focus on high-yield securities if the goal is to live off from portfolio income streams. These high-yielding securities come from BDC, REIT, MLP, CEF and other value-oriented segments. The common drawback of them is the lack of meaningful income growth and tightly correlated exposures.",
+            "source_name": "Seeking Alpha",
+            "date": "Fri, 09 May 2025 09:15:00 -0400",
+            "topics": [
+                "paylimitwall"
+            ],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "ADC",
+                "AMLP",
+                "BIZD",
+                "BTI",
+                "GPIQ",
+                "JEPI",
+                "JEPQ",
+                "NVDA",
+                "O",
+                "PDI",
+                "PFE",
+                "PFFA",
+                "SCHD",
+                "SPY",
+                "TSLA",
+                "VNQ",
+                "VZ"
+            ]
+        },
+        {
+            "news_url": "https://247wallst.com/investing/2025/05/09/nvidia-ceo-chinas-ai-is-already-as-good-as-the-us/?utm_source=snapi",
+            "image_url": "https://cdn.snapi.dev/images/v1/q/b/c/nvda27-2686041-3077841.jpg",
+            "title": "Nvidia CEO: China's AI Is Already As Good As The US",
+            "text": "Nvidia has turned out spectacular gains for early investors, but the good news is ‘The Next Nvidia' stocks may be even better.",
+            "source_name": "24/7 Wall Street",
+            "date": "Fri, 09 May 2025 08:28:55 -0400",
+            "topics": [
+                "CEO"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.investors.com/etfs-and-funds/sectors/sp500-stocks-burn-a-trillion-hole-in-portfolios-including-yours/",
+            "image_url": "https://cdn.snapi.dev/images/v1/3/5/f/computer-electronic38-3077847.jpg",
+            "title": "7 Stocks Burn A $2.5 Trillion Hole In Portfolios — Including Yours",
+            "text": "Last year, S&P 500 investors wanted to make as much money as they could — hence the popularity of the Magnificent 7.",
+            "source_name": "Investors Business Daily",
+            "date": "Fri, 09 May 2025 08:00:33 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AAPL",
+                "GOOG",
+                "GOOGL",
+                "NVDA",
+                "AMZN",
+                "AVGO",
+                "TSLA",
+                "UNH"
+            ]
+        },
+        {
+            "news_url": "https://247wallst.com/investing/2025/05/09/nvidia-stock-price-today-may-9th-2025-why-nvda-is-inching-higher/?utm_source=snapi",
+            "image_url": "https://cdn.snapi.dev/images/v1/7/l/e/nvda11-2688146-3077684.jpg",
+            "title": "NVIDIA Stock Price Today (May 9th, 2025): Why NVDA Is Inching Higher",
+            "text": "“The Next NVIDIA” Could Change Your Life NVIDIA has returned 250-fold in the past 10 years as artificial intelligence took off.",
+            "source_name": "24/7 Wall Street",
+            "date": "Fri, 09 May 2025 07:31:13 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/09/nvidia-and-amd-stock-jump-on-reports-that-trump-wi/",
+            "image_url": "https://cdn.snapi.dev/images/v1/5/c/x/podc10-3077629.jpg",
+            "title": "Nvidia and AMD Stocks Jump on Reports That Trump Will Ease AI Chip Export Restrictions",
+            "text": "In today's video, I discuss recent updates impacting Advanced Micro Devices (AMD 1.31%) and Nvidia (NVDA 0.28%). To learn more, check out the short video, consider subscribing, and click the special offer link below.",
+            "source_name": "The Motley Fool",
+            "date": "Fri, 09 May 2025 05:30:00 -0400",
+            "topics": [
+                "podcast"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMD",
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.barrons.com/articles/nvidia-stock-ai-chips-china-0cf371da",
+            "image_url": "https://cdn.snapi.dev/images/v1/4/i/f/nvdd4-2485362-3077368.jpg",
+            "title": "Nvidia Stock Rises. Why It's Ending a Good Week With More Gains.",
+            "text": "The AI chip maker's shares have climbed around 8% so far in May.",
+            "source_name": "Barrons",
+            "date": "Fri, 09 May 2025 05:19:00 -0400",
+            "topics": [
+                "paywall"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/09/is-amd-becoming-a-serious-threat-to-nvidia-stock-i/",
+            "image_url": "https://cdn.snapi.dev/images/v1/g/k/a/podc8-3077610.jpg",
+            "title": "Is AMD Becoming a Serious Threat to Nvidia Stock Investors?",
+            "text": "In today's video, I discuss recent updates impacting Advanced Micro Devices (AMD 1.31%) and Nvidia (NVDA 0.28%). To learn more, check out the short video, consider subscribing, and click the special offer link below.",
+            "source_name": "The Motley Fool",
+            "date": "Fri, 09 May 2025 05:00:00 -0400",
+            "topics": [
+                "podcast"
+            ],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "AMD",
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/09/nvidia-stock-top-artificial-intelligence-ai-buy/",
+            "image_url": "https://cdn.snapi.dev/images/v1/h/a/r/nvda23-2686354-3077365.jpg",
+            "title": "3 Reasons Nvidia Stock Is Still a Top Artificial Intelligence Buy Right Now",
+            "text": "Nvidia (NVDA 0.28%) stock hit some tough headwinds in 2025 -- shares of the chip designer are down 15% year to date as of this writing. However, evidence is piling up that this selloff may not be justified.",
+            "source_name": "The Motley Fool",
+            "date": "Fri, 09 May 2025 04:55:00 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/09/better-ai-dividend-stock-nvidia-or-dominion/",
+            "image_url": "https://cdn.snapi.dev/images/v1/j/k/p/utilities21-3077330.jpg",
+            "title": "Better AI Dividend Stock: Nvidia or Dominion",
+            "text": "Investors often get an idea in their heads and run with it, pushing prices to extremes that aren't realistic. That's the risk that investors should fear today with artificial intelligence.",
+            "source_name": "The Motley Fool",
+            "date": "Fri, 09 May 2025 03:42:00 -0400",
+            "topics": [
+                "dividend"
+            ],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "D",
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.proactiveinvestors.co.uk/companies/news/1070949?SNAPI",
+            "image_url": "https://cdn.snapi.dev/images/v1/x/4/9/nvda18-2686818-3077305.jpg",
+            "title": "Nvidia to launch downgraded AI chip for China after US export curbs – Reuters",
+            "text": "Nvidia Corp (NASDAQ:NVDA, ETR:NVD) is preparing to launch a lower-spec version of its H20 artificial intelligence chip in China as early as July, according to a Reuters exclusive citing three sources. The move follows fresh US export restrictions that effectively barred the original H20 from the Chinese market.",
+            "source_name": "Proactive Investors",
+            "date": "Fri, 09 May 2025 03:11:34 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/09/2-magnificent-seven-stocks-that-are-screaming-buys/",
+            "image_url": "https://cdn.snapi.dev/images/v1/b/j/r/data-internet21-3077314.jpg",
+            "title": "2 Magnificent Seven Stocks that are Screaming Buys Today",
+            "text": "By the end of last year, Magnificent Seven stocks may have seemed out of reach for many investors. These top technology players saw their shares surge -- and they even led gains in the S&P 500 index -- on optimism about the ability of artificial intelligence (AI) to revolutionize business and our daily lives.",
+            "source_name": "The Motley Fool",
+            "date": "Fri, 09 May 2025 03:10:00 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "GOOG",
+                "GOOGL",
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.reuters.com/world/china/nvidia-modifies-h20-chip-china-overcome-us-export-controls-sources-say-2025-05-09/",
+            "image_url": "https://cdn.snapi.dev/images/v1/c/p/5/nvda13-2688094-3077256.jpg",
+            "title": "Exclusive: Nvidia modifies H20 chip for China to overcome US export controls, sources say",
+            "text": "Nvidia plans to release a downgraded version of its H20 artificial intelligence chip for China in the next two months, following U.S. export restrictions on the original model, three sources familiar with the matter told Reuters.",
+            "source_name": "Reuters",
+            "date": "Fri, 09 May 2025 00:04:11 -0400",
+            "topics": [],
+            "sentiment": "Positive",
+            "type": "Article",
+            "tickers": [
+                "NVDA"
+            ]
+        },
+        {
+            "news_url": "https://www.fool.com/investing/2025/05/08/amd-vs-nvidia-which-artificial-intelligence-stock/",
+            "image_url": "https://cdn.snapi.dev/images/v1/g/a/e/semi21-3077101.jpg",
+            "title": "AMD vs. Nvidia: Which Artificial Intelligence Stock Should You Buy on the Dip?",
+            "text": "Has the excitement surrounding artificial intelligence (AI) stocks cooled off? Many top AI stocks are down this year, including Advanced Micro Devices (AMD 1.31%), better known as just AMD, and Nvidia (NVDA 0.28%).",
+            "source_name": "The Motley Fool",
+            "date": "Thu, 08 May 2025 20:15:00 -0400",
+            "topics": [],
+            "sentiment": "Neutral",
+            "type": "Article",
+            "tickers": [
+                "AMD",
+                "NVDA"
+            ]
+        }
+    ]
+}

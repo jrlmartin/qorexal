@@ -5,7 +5,7 @@ import * as util from 'util';
 import * as moment from 'moment-timezone';
 import { StockService } from 'src/serivces/stock.service';
 import { AppLogger } from 'src/core/logger';
-import { MarketCapTierEnum } from 'src/entities/StockCapTier.entity';
+import { MarketCapTierEnum } from 'src/entities/Stock.entity';
 import * as TurndownService from 'turndown';
 import { NewsItem } from 'src/serivces/market-api/benzinga/types';
 import step1Prompt from './prompts';

@@ -1,0 +1,865 @@
+{
+    "meta": {
+        "found": 16,
+        "returned": 10,
+        "limit": 10,
+        "page": 1
+    },
+    "data": [
+        {
+            "uuid": "85a4f5e3-5448-44db-804a-b0bd9a146c08",
+            "title": "TransMedics (TMDX) Stock Surges Amid Strong Financial Performance",
+            "description": "TransMedics (TMDX) shares experienced a significant rise, soaring by 20.47% recently, propelled by outstanding first-quarter results. The company's revenue surg",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+            "snippet": "TransMedics (TMDX, Financial) shares experienced a significant rise, soaring by 20.47% recently, propelled by outstanding first-quarter results. The company's r...",
+            "url": "https://www.gurufocus.com/news/2850429/transmedics-tmdx-stock-surges-amid-strong-financial-performance",
+            "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?20",
+            "language": "en",
+            "published_at": "2025-05-09T17:51:42.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 59.10134,
+                    "sentiment_score": 0.647238,
+                    "highlights": [
+                        {
+                            "highlight": "<em>TransMedics</em> (TMDX, Financial) s[+212 characters]",
+                            "sentiment": 0.8779,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "This exceeded analysts' expectations, le[+161 characters]",
+                            "sentiment": 0.6908,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+203 characters]",
+                            "sentiment": 0.6369,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "In 2023, <em>TransMedics</em> augmented [+263 characters]",
+                            "sentiment": 0.3182,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "In 2024, <em>TransMedics</em> facilitate[+240 characters]",
+                            "sentiment": 0.7783,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "From an investment perspective, <em>Tran[+152 characters]",
+                            "sentiment": 0.4767,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "As <em>TransMedics</em> continues to adv[+280 characters]",
+                            "sentiment": 0.8885,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> (TMDX) Stock Surges Amid Strong Financial Performance",
+                            "sentiment": 0.5106,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": [
+                {
+                    "uuid": "81dbaad2-cf83-448b-92f0-90caf594f5f1",
+                    "title": "TransMedics Group (TMDX) Target Price Raised by Piper Sandler | TMDX Stock News",
+                    "description": "On May 9, 2025, Piper Sandler's analyst Matt O'Brien reiterated his",
+                    "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+                    "snippet": "On May 9, 2025, Piper Sandler's analyst Matt O'Brien reiterated his \"Overweight\" rating for TransMedics Group (TMDX, Financial), emphasizing the firm's positive...",
+                    "url": "https://www.gurufocus.com/news/2850206/transmedics-group-tmdx-target-price-raised-by-piper-sandler-tmdx-stock-news",
+                    "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?20",
+                    "language": "en",
+                    "published_at": "2025-05-09T16:30:25.000000Z",
+                    "source": "gurufocus.com",
+                    "relevance_score": null,
+                    "entities": [
+                        {
+                            "symbol": "TMDX",
+                            "name": "TransMedics Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Healthcare",
+                            "match_score": 66.58374,
+                            "sentiment_score": 0.263238,
+                            "highlights": [
+                                {
+                                    "highlight": "On May 9, 2025, Piper Sandler's analyst [+279 characters]",
+                                    "sentiment": 0.7096,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "This adjustment reflects Piper Sandler's[+266 characters]",
+                                    "sentiment": 0.8519,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "As such, this update from Piper Sandler [+151 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Wall Street Analysts Forecast\n\nBased on [+300 characters]",
+                                    "sentiment": -0.2732,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "More detailed estimate data can be found[+276 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Based on GuruFocus estimates, the estima[+260 characters]",
+                                    "sentiment": 0.8176,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "More detailed data can be found on the <[+68 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>TransMedics</em> Group (TMDX) Target Price Raised by Piper Sandler | TMDX Stock News",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "uuid": "b58328fe-324b-43da-855c-37aeebf9f513",
+                    "title": "TransMedics (TMDX) Sees Price Target Boost and Strong Q1 Performance | TMDX Stock News",
+                    "description": "Piper Sandler analyst Matt O'Brien has increased the price target for TransMedics (TMDX) from $105 to $125 while maintaining an Overweight rating on the stock.",
+                    "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+                    "snippet": "Piper Sandler analyst Matt O’Brien has increased the price target for TransMedics (TMDX, Financial) from $105 to $125 while maintaining an Overweight rating o...",
+                    "url": "https://www.gurufocus.com/news/2849233/transmedics-tmdx-sees-price-target-boost-and-strong-q1-performance-tmdx-stock-news",
+                    "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?20",
+                    "language": "en",
+                    "published_at": "2025-05-09T13:16:07.000000Z",
+                    "source": "gurufocus.com",
+                    "relevance_score": null,
+                    "entities": [
+                        {
+                            "symbol": "TMDX",
+                            "name": "TransMedics Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Healthcare",
+                            "match_score": 67.35325,
+                            "sentiment_score": 0.43315,
+                            "highlights": [
+                                {
+                                    "highlight": "Piper Sandler analyst Matt O’Brien has[+274 characters]",
+                                    "sentiment": 0.4404,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "As new competitors are anticipated to en[+129 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Wall Street Analysts Forecast\n\nBased on [+299 characters]",
+                                    "sentiment": -0.2732,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "More detailed estimate data can be found[+276 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Based on GuruFocus estimates, the estima[+256 characters]",
+                                    "sentiment": 0.8176,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "More detailed data can be found on the <[+230 characters]",
+                                    "sentiment": 0.3182,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Positive Points\n\n<em>TransMedics</em> <e[+267 characters]",
+                                    "sentiment": 0.8271,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+270 characters]",
+                                    "sentiment": 0.891,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+160 characters]",
+                                    "sentiment": 0.296,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>TransMedics</em> (TMDX) Sees Price Target Boost and Strong Q1 Performance | TMDX Stock News",
+                                    "sentiment": 0.7184,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "uuid": "24f13df8-10fb-4db3-a8b6-e46a262fdc77",
+            "title": "TransMedics (TMDX) Receives Target Price Boost Amid Strong Performance | TMDX Stock News",
+            "description": "TD Cowen has increased its price target for TransMedics (TMDX) from $120 to $130, maintaining a Buy rating on the stock. This decision follows the company's imp",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+            "snippet": "TD Cowen has increased its price target for TransMedics (TMDX, Financial) from $120 to $130, maintaining a Buy rating on the stock. This decision follows the co...",
+            "url": "https://www.gurufocus.com/news/2849962/transmedics-tmdx-receives-target-price-boost-amid-strong-performance-tmdx-stock-news",
+            "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?20",
+            "language": "en",
+            "published_at": "2025-05-09T15:17:10.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 68.220245,
+                    "sentiment_score": 0.52578,
+                    "highlights": [
+                        {
+                            "highlight": "TD Cowen has increased its price target [+263 characters]",
+                            "sentiment": 0.7717,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "During a conference call, <em>TransMedic[+265 characters]",
+                            "sentiment": 0.891,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Wall Street Analysts Forecast\n\nBased on [+300 characters]",
+                            "sentiment": -0.2732,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed estimate data can be found[+276 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Based on GuruFocus estimates, the estima[+261 characters]",
+                            "sentiment": 0.8176,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed data can be found on the <[+230 characters]",
+                            "sentiment": 0.3182,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Positive Points\n\n<em>TransMedics</em> <e[+267 characters]",
+                            "sentiment": 0.8271,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+270 characters]",
+                            "sentiment": 0.891,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+160 characters]",
+                            "sentiment": 0.296,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> (TMDX) Receives Target Price Boost Amid Strong Performance | TMDX Stock News",
+                            "sentiment": 0.7184,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "7fd88bef-c22b-47c9-be6e-d819012bbeb6",
+            "title": "Oppenheimer Boosts TransMedics (TMDX) Target Price Following Strong Performance | TMDX Stock News",
+            "description": "Oppenheimer has increased its price target for TransMedics (TMDX), setting it at $130, up from the previous $125, while maintaining an Outperform rating on the",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+            "snippet": "Oppenheimer has increased its price target for TransMedics (TMDX, Financial), setting it at $130, up from the previous $125, while maintaining an Outperform rat...",
+            "url": "https://www.gurufocus.com/news/2849764/oppenheimer-boosts-transmedics-tmdx-target-price-following-strong-performance-tmdx-stock-news",
+            "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?20",
+            "language": "en",
+            "published_at": "2025-05-09T14:31:33.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 68.727295,
+                    "sentiment_score": 0.468578,
+                    "highlights": [
+                        {
+                            "highlight": "Oppenheimer has increased its price targ[+259 characters]",
+                            "sentiment": 0.6597,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Wall Street Analysts Forecast\n\nBased on [+299 characters]",
+                            "sentiment": -0.2732,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed estimate data can be found[+276 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Based on GuruFocus estimates, the estima[+256 characters]",
+                            "sentiment": 0.8176,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "More detailed data can be found on the <[+230 characters]",
+                            "sentiment": 0.3182,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Positive Points\n\n<em>TransMedics</em> <e[+267 characters]",
+                            "sentiment": 0.8271,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+270 characters]",
+                            "sentiment": 0.891,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+160 characters]",
+                            "sentiment": 0.296,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Oppenheimer Boosts <em>TransMedics</em> (TMDX) Target Price Following Strong Performance | TMDX Stock News",
+                            "sentiment": 0.6808,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "85dcb35d-d42d-49cd-b4db-6b81b17325db",
+            "title": "Insulet Posts Upbeat Earnings, Joins Trade Desk, TransMedics Group, Tesla And Other Big Stocks Moving Higher On Friday - Definitive Healthcare (NASDAQ:DH), AvePoint (NASDAQ:AVPT)",
+            "description": "",
+            "keywords": "",
+            "snippet": "U.S. stocks were higher, with the Nasdaq Composite gaining around 100 points on Friday.\n\nShares of Insulet Corporation PODD rose sharply during Friday's session...",
+            "url": "https://www.benzinga.com/25/05/45319375/insulet-posts-upbeat-earnings-joins-trade-desk-transmedics-group-tesla-and-other-big-stocks-moving-higher-on-frid",
+            "image_url": "https://cdn.benzinga.com/files/images/story/2025/05/09/Tesla.jpeg?width=1200&height=800&fit=crop",
+            "language": "en",
+            "published_at": "2025-05-09T14:18:39.000000Z",
+            "source": "benzinga.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 43.22117,
+                    "sentiment_score": 0,
+                    "highlights": [
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em>, <em[+324 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Insulet Posts Upbeat Earnings, Joins Trade Desk, <em>TransMedics</em> Group, Tesla And Other Big Stocks Moving Higher On Friday - Definitive Healthcare (NASDAQ:DH), AvePoint (NASDAQ:AVPT)",
+                            "sentiment": 0,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "0a3e87f3-9a64-4f87-9af8-33ee53bc23c2",
+            "title": "TransMedics: Exceptional Q1 Undermines The Short Narrative (NASDAQ:TMDX)",
+            "description": "TransMedics posted strong Q1 results, easing fears of prior weakness and short pressure, while expanding logistics and devices. Learn why TMDX stock is a buy.",
+            "keywords": "",
+            "snippet": "TransMedics's ( TMDX ) Q1 results were extremely strong across the board, which is no surprise for anyone that has been tracking transplant volumes and flight a...",
+            "url": "https://seekingalpha.com/article/4784286-transmedics-exceptional-q1-undermines-the-short-narrative",
+            "image_url": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/688000635/image_688000635.jpg?io=getty-c-w1536",
+            "language": "en",
+            "published_at": "2025-05-09T13:48:31.000000Z",
+            "source": "seekingalpha.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 86.8032,
+                    "sentiment_score": -0.34,
+                    "highlights": [
+                        {
+                            "highlight": "<em>TransMedics</em>: Exceptional Q1 Undermines The Short Narrative (<em>NASDAQ:TMDX</em>)",
+                            "sentiment": -0.34,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "49aacba9-d656-4ef0-99b0-8a3dfcf34f43",
+            "title": "Pre-market Movers: ZKIN, JBIO, VEEE, CRVS, IOVA…",
+            "description": "China-headquartered ZK International Group Co., Ltd. (ZKIN) is up over 72 percent in Friday's pre-market trading. The following are some of the other stocks making big moves in Friday's pre-market trading.",
+            "keywords": "Pre-market Movers, pre-market",
+            "snippet": "The following are some of the stocks making big moves in Friday's pre-market trading (as of 07.35 A.M. ET).\n\nIn the Green\n\nZK International Group Co., Ltd. (ZKI...",
+            "url": "https://www.rttnews.com/story.aspx?Id=3537742",
+            "image_url": "https://cdn.rttnews.com/articleimages/ustopstories/2025/may/businessmantrade-17012025_09may25-lt.jpg",
+            "language": "en",
+            "published_at": "2025-05-09T12:01:06.000000Z",
+            "source": "rttnews.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 36.73946,
+                    "sentiment_score": 0.1779,
+                    "highlights": [
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em>, <em[+305 characters]",
+                            "sentiment": 0.1779,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "00ff3b7b-750c-4720-9f63-a1da7391c32a",
+            "title": "Why Pinterest Shares Are Trading Higher By 13%; Here Are 20 Stocks Moving Premarket - Corvus Pharma (NASDAQ:CRVS), Clean Energy Technologies (NASDAQ:CETY)",
+            "description": "",
+            "keywords": "",
+            "snippet": "Shares of Pinterest, Inc. PINS rose sharply in today's pre-market trading after the company reported better-than-expected first-quarter sales results and issued...",
+            "url": "https://www.benzinga.com/25/05/45312215/why-pinterest-shares-are-trading-higher-by-13-here-are-20-stocks-moving-premarket",
+            "image_url": "https://cdn.benzinga.com/files/images/story/2025/05/09/Pinterest-Mobile-App-On-The-Screen-Smart.jpeg?width=1200&height=800&fit=crop",
+            "language": "en",
+            "published_at": "2025-05-09T09:33:50.000000Z",
+            "source": "benzinga.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 22.105785,
+                    "sentiment_score": 0,
+                    "highlights": [
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em>, <em[+11 characters]",
+                            "sentiment": 0,
+                            "highlighted_in": "main_text"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "ba5c200d-e89d-463b-8970-57963600a262",
+            "title": "TransMedics Group Inc (TMDX) Q1 2025 Earnings Call Highlights: Record Revenue and Strategic Growth Amid Challenges",
+            "description": "Release Date: May 08, 2025For the complete transcript of the earnings call, please refer to the full earnings call transcript. Positive Points TransMedics Group",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+            "snippet": "Release Date: May 08, 2025\n\nFor the complete transcript of the earnings call, please refer to the full earnings call transcript.\n\nPositive Points\n\nTransMedics G...",
+            "url": "https://www.gurufocus.com/news/2848334/transmedics-group-inc-tmdx-q1-2025-earnings-call-highlights-record-revenue-and-strategic-growth-amid-challenges",
+            "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?5",
+            "language": "en",
+            "published_at": "2025-05-09T07:41:43.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 90.26976,
+                    "sentiment_score": 0.613625,
+                    "highlights": [
+                        {
+                            "highlight": "Positive Points\n\n<em>TransMedics</em> <e[+267 characters]",
+                            "sentiment": 0.8271,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+270 characters]",
+                            "sentiment": 0.891,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+299 characters]",
+                            "sentiment": 0.296,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>Inc</em> (TMDX) Q1 2025 Earnings Call Highlights: Record Revenue and Strategic Growth Amid Challenges",
+                            "sentiment": 0.4404,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        },
+        {
+            "uuid": "476c8b0a-af8e-461a-bfcb-3dd7880733c2",
+            "title": "Decoding TransMedics Group Inc (TMDX): A Strategic SWOT Insight",
+            "description": "TransMedics Group Inc showcases robust revenue growth and solid net income improvement.Investment in research and development signifies commitment to innovatio",
+            "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+            "snippet": "TransMedics Group Inc (TMDX, Financial), a pioneering medical technology company, has recently filed its 10-Q report on May 8, 2025. The company, known for its ...",
+            "url": "https://www.gurufocus.com/news/2847665/decoding-transmedics-group-inc-tmdx-a-strategic-swot-insight",
+            "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?5",
+            "language": "en",
+            "published_at": "2025-05-09T05:23:15.000000Z",
+            "source": "gurufocus.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 113.39005,
+                    "sentiment_score": 0.514064,
+                    "highlights": [
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+317 characters]",
+                            "sentiment": 0.743,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "However, <em>TransMedics</em> <em>Group<[+331 characters]",
+                            "sentiment": 0.4238,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Strengths\n\nImpressive Revenue Growth and[+305 characters]",
+                            "sentiment": 0.9493,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "With a 50% increase in R&D expenses, <em[+235 characters]",
+                            "sentiment": 0.886,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Opportunities\n\nExpanding Market for Orga[+188 characters]",
+                            "sentiment": 0.8481,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Strategic Partnerships and Expansion: <e[+335 characters]",
+                            "sentiment": 0.6249,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Threats\n\nLegal and Regulatory Challenges[+162 characters]",
+                            "sentiment": -0.6908,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "<em>TransMedics</em> <em>Group</em> <em>[+201 characters]",
+                            "sentiment": 0.5859,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "In conclusion, <em>TransMedics</em> <em>[+316 characters]",
+                            "sentiment": 0.7906,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Overall, <em>TransMedics</em> Group Inc'[+288 characters]",
+                            "sentiment": 0.4939,
+                            "highlighted_in": "main_text"
+                        },
+                        {
+                            "highlight": "Decoding <em>TransMedics</em> <em>Group</em> <em>Inc</em> (TMDX): A Strategic SWOT Insight",
+                            "sentiment": 0,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": [
+                {
+                    "uuid": "51e0a18d-309d-4fbf-a6db-916226c3bbef",
+                    "title": "Q1 2025 Transmedics Group Inc Earnings Call Transcript",
+                    "description": "Refinitiv StreetEvents Event TranscriptE D I T E D   V E R S I O NTMDX.OQ - Transmedics Group IncQ1 2025 Transmedics Group Inc Earnings CallMay 08, 2025 / 08:30",
+                    "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+                    "snippet": "\n\n\n\nRefinitiv StreetEvents Event Transcript\n\nE D I T E D V E R S I O N\n\n\n\nTMDX.OQ - Transmedics Group Inc\n\nQ1 2025 Transmedics Group Inc Earnings Call\n\nMay 08, ...",
+                    "url": "https://www.gurufocus.com/news/2847579/q1-2025-transmedics-group-inc-earnings-call-transcript",
+                    "image_url": "https://static.gurufocus.com/images/global_logo_twitter_card.png",
+                    "language": "en",
+                    "published_at": "2025-05-09T05:22:04.000000Z",
+                    "source": "gurufocus.com",
+                    "relevance_score": null,
+                    "entities": [
+                        {
+                            "symbol": "TMDX",
+                            "name": "TransMedics Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Healthcare",
+                            "match_score": 117.70816,
+                            "sentiment_score": 0,
+                            "highlights": [
+                                {
+                                    "highlight": "Refinitiv StreetEvents Event Transcript\n[+361 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Q1 2025 <em>Transmedics</em> <em>Group</em> <em>Inc</em> Earnings Call Transcript",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "uuid": "3a50f156-89e3-4270-99ab-a8af9252e703",
+                    "title": "TransMedics (TMDX) Achieves Record Q1 Revenue, Raises 2025 Outlook",
+                    "description": "Key Highlights:\n    TransMedics Group, Inc. (TMDX) reported record quarterly revenue of $143.5 million in Q1 2025, an 18% sequential and 48% year-over-year incr",
+                    "keywords": "GuruFocus, Article, News, GuruFocus News, TMDX",
+                    "snippet": "Key Highlights:\n\nTransMedics Group, Inc. (TMDX, Financial) reported record quarterly revenue of $143.5 million in Q1 2025, an 18% sequential and 48% year-over-y...",
+                    "url": "https://www.gurufocus.com/news/2846979/transmedics-tmdx-achieves-record-q1-revenue-raises-2025-outlook",
+                    "image_url": "https://static.gurufocus.com/logos/0C0000BM53.png?20",
+                    "language": "en",
+                    "published_at": "2025-05-09T04:55:20.000000Z",
+                    "source": "gurufocus.com",
+                    "relevance_score": null,
+                    "entities": [
+                        {
+                            "symbol": "TMDX",
+                            "name": "TransMedics Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Healthcare",
+                            "match_score": 72.83912,
+                            "sentiment_score": 0.31025,
+                            "highlights": [
+                                {
+                                    "highlight": "Key Highlights:\n\n<em>TransMedics</em> <e[+280 characters]",
+                                    "sentiment": 0.3182,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Impressive Financial Performance in Q1 2[+272 characters]",
+                                    "sentiment": 0.9337,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Notably, <em>TransMedics</em> enhanced i[+268 characters]",
+                                    "sentiment": 0.8225,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Wall Street Analysts’ Projections\n\nAcc[+325 characters]",
+                                    "sentiment": -0.2732,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "For more in-depth data, visit the <em>Tr[+290 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "GuruFocus GF Value Estimation\n\nBased on [+219 characters]",
+                                    "sentiment": 0.6808,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "For a closer look at this data, check th[+71 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>TransMedics</em> (TMDX) Achieves Record Q1 Revenue, Raises 2025 Outlook",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "uuid": "031f38ef-af08-4698-b5b3-9e6acf81eb34",
+                    "title": "TransMedics Group, Inc. (TMDX) Q1 2025 Earnings Call Transcript",
+                    "description": "TransMedics Group, Inc. (NASDAQ:TMDX) Q1 2025 Earnings Conference Call May 8, 2025 4:30 PM ETCompany ParticipantsLaine Morgan - Gilmartin Group, Investor...",
+                    "keywords": "",
+                    "snippet": "TransMedics Group, Inc. (NASDAQ:TMDX) Q1 2025 Earnings Conference Call May 8, 2025 4:30 PM ET\n\nCompany Participants\n\nLaine Morgan - Gilmartin Group, Investor Re...",
+                    "url": "https://seekingalpha.com/article/4784113-transmedics-group-inc-tmdx-q1-2025-earnings-call-transcript",
+                    "image_url": "https://static.seekingalpha.com/assets/og_image_1200-29b2bfe1a595477db6826bd2126c63ac2091efb7ec76347a8e7f81ba17e3de6c.png",
+                    "language": "en",
+                    "published_at": "2025-05-09T02:40:24.000000Z",
+                    "source": "seekingalpha.com",
+                    "relevance_score": null,
+                    "entities": [
+                        {
+                            "symbol": "TMDX",
+                            "name": "TransMedics Group, Inc.",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "us",
+                            "type": "equity",
+                            "industry": "Healthcare",
+                            "match_score": 129.4031,
+                            "sentiment_score": 0.14192,
+                            "highlights": [
+                                {
+                                    "highlight": "<em>TransMedics</em> <em>Group</em>, <em[+10 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "(<em>NASDAQ:TMDX</em>) Q1 2025 Earnings [+323 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Chris Pasquale - Nephron Research\n\nSuraj[+210 characters]",
+                                    "sentiment": 0.7096,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "Earlier today, <em>TransMedics</em> rele[+127 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                },
+                                {
+                                    "highlight": "<em>TransMedics</em> <em>Group</em>, <em>Inc</em>. (TMDX) Q1 2025 Earnings Call Transcript",
+                                    "sentiment": 0,
+                                    "highlighted_in": "title"
+                                }
+                            ]
+                        },
+                        {
+                            "symbol": "MSCL.SN",
+                            "name": "MORGAN STANLEY",
+                            "exchange": null,
+                            "exchange_long": null,
+                            "country": "cl",
+                            "type": "equity",
+                            "industry": "N/A",
+                            "match_score": 25.244408,
+                            "sentiment_score": 0,
+                            "highlights": [
+                                {
+                                    "highlight": "(NASDAQ:TMDX) Q1 2025 Earnings Conferenc[+332 characters]",
+                                    "sentiment": 0,
+                                    "highlighted_in": "main_text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "uuid": "e5f6f519-4fc7-4723-9b3e-d1e70b5e113e",
+            "title": "Compared to Estimates, TransMedics (TMDX) Q1 Earnings: A Look at Key Metrics",
+            "description": "The headline numbers for TransMedics (TMDX) give insight into how the company performed in the quarter ended March 2025, but it may be worthwhile to compare some of its key metrics to Wall Street estimates and the year-ago actuals.",
+            "keywords": "stock, stocks, investment, investment advice, investing, online trading, online investment, online stock trading, stock market, financial, financial planning, quote, quotes, stock quotes",
+            "snippet": "This page has not been authorized, sponsored, or otherwise approved or endorsed by the companies represented herein. Each of the company logos represented herei...",
+            "url": "https://www.zacks.com/stock/news/2465727/compared-to-estimates-transmedics-tmdx-q1-earnings-a-look-at-key-metrics?cid=CS-ZC-FT-fundamental_analysis|nfm-2465727",
+            "image_url": "https://staticx-tuner.zacks.com/images/default_article_images/default250.jpg",
+            "language": "en",
+            "published_at": "2025-05-08T23:00:05.000000Z",
+            "source": "zacks.com",
+            "relevance_score": null,
+            "entities": [
+                {
+                    "symbol": "TMDX",
+                    "name": "TransMedics Group, Inc.",
+                    "exchange": null,
+                    "exchange_long": null,
+                    "country": "us",
+                    "type": "equity",
+                    "industry": "Healthcare",
+                    "match_score": 42.194153,
+                    "sentiment_score": 0,
+                    "highlights": [
+                        {
+                            "highlight": "Compared to Estimates, <em>TransMedics</em> (TMDX) Q1 Earnings: A Look at Key Metrics",
+                            "sentiment": 0,
+                            "highlighted_in": "title"
+                        }
+                    ]
+                }
+            ],
+            "similar": []
+        }
+    ]
+}
