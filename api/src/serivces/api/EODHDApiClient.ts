@@ -488,6 +488,76 @@ export interface EarningsData {
 export interface FinancialsData {
   [key: string]: any;
 }
+// Options API Response Interfaces
+export interface OptionsAttribute {
+  contract: string;
+  underlying_symbol: string;
+  exp_date: string;
+  expiration_type: string;
+  type: string;
+  strike: number;
+  exchange: string;
+  currency: string;
+  open: number | null;
+  high: number | null;
+  low: number | null;
+  last: number | null;
+  last_size: number | null;
+  change: number | null;
+  pctchange: number | null;
+  previous: number | null;
+  previous_date: string | null;
+  bid: number | null;
+  bid_date: string | null;
+  bid_size: number | null;
+  ask: number | null;
+  ask_date: string | null;
+  ask_size: number | null;
+  moneyness: number | null;
+  volume: number | null;
+  volume_change: number | null;
+  volume_pctchange: number | null;
+  open_interest: number | null;
+  open_interest_change: number | null;
+  open_interest_pctchange: number | null;
+  volatility: number | null;
+  volatility_change: number | null;
+  volatility_pctchange: number | null;
+  theoretical: number | null;
+  delta: number | null;
+  gamma: number | null;
+  theta: number | null;
+  vega: number | null;
+  rho: number | null;
+  tradetime: string | null;
+  vol_oi_ratio: number | null;
+  dte: number | null;
+  midpoint: number | null;
+}
+
+export interface OptionsDataItem {
+  id: string;
+  type: string;
+  attributes: OptionsAttribute;
+}
+
+export interface OptionsMetadata {
+  offset: number;
+  limit: number;
+  total: number;
+  fields: string[];
+}
+
+export interface OptionsContractsResponse {
+  meta: OptionsMetadata;
+  data: OptionsDataItem[];
+}
+
+export interface OptionsEODResponse {
+  meta: OptionsMetadata;
+  data: OptionsDataItem[];
+}
+
 
 // Consolidated Fundamentals type stays the same
 export type Fundamentals = StockFundamentals;
@@ -518,8 +588,6 @@ export class EODHDApiClient {
     }
     return `${ticker.toUpperCase()}.US`;
   }
-
- 
 
   /**
    * Retrieves fundamental data for a given ticker
@@ -1451,5 +1519,186 @@ export class EODHDApiClient {
       to,
       order,
     });
+  }
+
+  /**
+   * Retrieves historical End-of-Day stock price data
+   *
+   * @param ticker Symbol of the instrument (e.g., 'AAPL', 'TSLA', 'AMZN')
+   * @param from Optional start date in YYYY-MM-DD format
+   * @param to Optional end date in YYYY-MM-DD format
+   * @param period Optional time period: 'd' for daily, 'w' for weekly, 'm' for monthly. Default is 'd'
+   * @param order Optional order of results: 'a' for ascending (old to new), 'd' for descending (new to old). Default is 'a'
+   * @param filter Optional field to filter results (e.g., 'last_close')
+   * @returns Array of historical price data points (open, high, low, close, adjusted_close, volume)
+   */
+  async getHistoricalEOD(
+    ticker: string,
+    from?: string,
+    to?: string,
+    period: 'd' | 'w' | 'm' = 'd',
+    order: 'a' | 'd' = 'a',
+    filter?: string
+  ): Promise<HistoricalEODResponse[]> {
+    try {
+      const formattedTicker = this.formatTicker(ticker);
+      
+      const params: Record<string, any> = {
+        api_token: this.apiKey,
+        fmt: 'json',
+      };
+
+      // Add optional parameters if provided
+      if (from) params.from = from;
+      if (to) params.to = to;
+      if (period) params.period = period;
+      if (order) params.order = order;
+      if (filter) params.filter = filter;
+
+      const response = await axios.get(`${this.baseUrl}/eod/${formattedTicker}`, {
+        params,
+      });
+      
+      return response.data;
+    } catch (error: unknown) {
+      console.error(
+        `Error fetching historical EOD data for ${ticker}:`,
+        (error as AxiosError).message,
+      );
+      throw error;
+    }
+  }
+
+  // Options
+
+  /**
+   * Get Options contracts data
+   * 
+   * This endpoint provides data about available options contracts for a specific underlying symbol.
+   * It allows filtering by type (call/put), strike price, expiration date, and other parameters.
+   * 
+   * @param underlyingSymbol Symbol of the underlying instrument (e.g., 'AAPL', 'TSLA')
+   * @param type Optional type of options: 'call' or 'put'
+   * @param strikeFrom Optional minimum strike price to filter by
+   * @param strikeTo Optional maximum strike price to filter by
+   * @param expDateFrom Optional start date for option expiration in YYYY-MM-DD format
+   * @param expDateTo Optional end date for option expiration in YYYY-MM-DD format
+   * @param tradeDateFrom Optional start date for trading period in YYYY-MM-DD format
+   * @param tradeDateTo Optional end date for trading period in YYYY-MM-DD format
+   * @param sort Optional sorting field (e.g., 'exp_date', 'strike')
+   * @param limit Optional number of results to return (default: 1000)
+   * @param offset Optional pagination offset (default: 0)
+   * @returns Options contracts data matching the specified filters
+   */
+  async getOptionsContracts(
+    underlyingSymbol: string,
+    type?: 'call' | 'put',
+    strikeFrom?: number,
+    strikeTo?: number,
+    expDateFrom?: string,
+    expDateTo?: string,
+    tradeDateFrom?: string,
+    tradeDateTo?: string,
+    sort?: string,
+    limit: number = 1000,
+    offset: number = 0
+  ): Promise<OptionsContractsResponse> {
+    try {
+      const params: Record<string, any> = {
+        api_token: this.apiKey,
+      };
+
+      // Add filter parameters
+      if (underlyingSymbol) params['filter[underlying_symbol]'] = underlyingSymbol;
+      if (type) params['filter[type]'] = type;
+      if (strikeFrom) params['filter[strike_from]'] = strikeFrom;
+      if (strikeTo) params['filter[strike_to]'] = strikeTo;
+      if (expDateFrom) params['filter[exp_date_from]'] = expDateFrom;
+      if (expDateTo) params['filter[exp_date_to]'] = expDateTo;
+      if (tradeDateFrom) params['filter[tradetime_from]'] = tradeDateFrom;
+      if (tradeDateTo) params['filter[tradetime_to]'] = tradeDateTo;
+      
+      // Add sorting and pagination
+      if (sort) params.sort = sort;
+      if (limit) params.limit = limit;
+      if (offset !== undefined) params.offset = offset;
+
+      const response = await axios.get(`${this.baseUrl}/mp/unicornbay/options/contracts`, {
+        params,
+      });
+      
+      return response.data;
+    } catch (error: unknown) {
+      console.error(
+        `Error fetching options contracts for ${underlyingSymbol}:`,
+        (error as AxiosError).message,
+      );
+      throw error;
+    }
+  }
+
+  /**
+   * Get End-of-Day (EOD) Options data
+   * 
+   * This endpoint provides historical EOD data for options contracts with various filtering capabilities.
+   * 
+   * @param underlyingSymbol Symbol of the underlying instrument (e.g., 'AAPL', 'TSLA')
+   * @param type Optional type of options: 'call' or 'put'
+   * @param strikeFrom Optional minimum strike price to filter by
+   * @param strikeTo Optional maximum strike price to filter by
+   * @param expDateFrom Optional start date for option expiration in YYYY-MM-DD format
+   * @param expDateTo Optional end date for option expiration in YYYY-MM-DD format
+   * @param tradeDateFrom Optional start date for trading period in YYYY-MM-DD format
+   * @param tradeDateTo Optional end date for trading period in YYYY-MM-DD format
+   * @param sort Optional sorting field (e.g., 'exp_date', 'strike')
+   * @param limit Optional number of results to return (default: 1000)
+   * @param offset Optional pagination offset (default: 0)
+   * @returns EOD options data matching the specified filters
+   */
+  async getOptionsEOD(
+    underlyingSymbol: string,
+    type?: 'call' | 'put',
+    strikeFrom?: number,
+    strikeTo?: number,
+    expDateFrom?: string,
+    expDateTo?: string,
+    tradeDateFrom?: string,
+    tradeDateTo?: string,
+    sort?: string,
+    limit: number = 1000,
+    offset: number = 0
+  ): Promise<OptionsEODResponse> {
+    try {
+      const params: Record<string, any> = {
+        api_token: this.apiKey,
+      };
+
+      // Add filter parameters
+      if (underlyingSymbol) params['filter[underlying_symbol]'] = underlyingSymbol;
+      if (type) params['filter[type]'] = type;
+      if (strikeFrom) params['filter[strike_from]'] = strikeFrom;
+      if (strikeTo) params['filter[strike_to]'] = strikeTo;
+      if (expDateFrom) params['filter[exp_date_from]'] = expDateFrom;
+      if (expDateTo) params['filter[exp_date_to]'] = expDateTo;
+      if (tradeDateFrom) params['filter[tradetime_from]'] = tradeDateFrom;
+      if (tradeDateTo) params['filter[tradetime_to]'] = tradeDateTo;
+      
+      // Add sorting and pagination
+      if (sort) params.sort = sort;
+      if (limit) params.limit = limit;
+      if (offset !== undefined) params.offset = offset;
+
+      const response = await axios.get(`${this.baseUrl}/mp/unicornbay/options/eod`, {
+        params,
+      });
+      
+      return response.data;
+    } catch (error: unknown) {
+      console.error(
+        `Error fetching EOD options data for ${underlyingSymbol}:`,
+        (error as AxiosError).message,
+      );
+      throw error;
+    }
   }
 }

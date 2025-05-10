@@ -1,1 +1,0 @@
-Avoid  response.data.quotes && response.data.quotes.quote and isntead do response?.data?.quotes?.quote

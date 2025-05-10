@@ -317,7 +317,7 @@ export class TradierApiClient {
   /**
    * Gets historical market data for a symbol
    * Endpoint: /markets/history
-   * @param symbol - The ticker symbol to get data for
+   * @param symbol - The ticker symbol to get data for (could also use an option symbol)
    * @param start - Start date in YYYY-MM-DD format
    * @param end - End date in YYYY-MM-DD format
    * @param interval - Data interval (daily, weekly, monthly)
@@ -434,7 +434,7 @@ export class TradierApiClient {
       throw error;
     }
   }
-  
+ 
   /**
    * Gets options chains for a symbol and expiration date
    * Endpoint: /markets/options/chains
