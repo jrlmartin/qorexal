@@ -1,13 +1,13 @@
 // @ts-nocheck
 import { Injectable, Inject, forwardRef } from '@nestjs/common';
-import { BenzingaService } from '../../serivces/market-api/benzinga/benzinga.service';
+import { BenzingaService } from '../../serivces/api/benzinga.service';
 import * as util from 'util';
 import * as moment from 'moment-timezone';
 import { StockService } from 'src/serivces/stock.service';
 import { AppLogger } from 'src/core/logger';
 import { MarketCapTierEnum } from 'src/entities/Stock.entity';
 import * as TurndownService from 'turndown';
-import { NewsItem } from 'src/serivces/market-api/benzinga/types';
+import { NewsItem } from 'src/serivces/api/types';
 import step1Prompt from './prompts';
 import { CompanyDatasetService } from 'src/serivces/company-dataset.service';
 

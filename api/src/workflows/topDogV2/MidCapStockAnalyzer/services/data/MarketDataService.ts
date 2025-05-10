@@ -1,11 +1,17 @@
-// src/services/data/MarketDataService.ts
 import { MarketData } from '../../models/MarketData';
-import { TradierApiClient } from '../api/TradierApiClient';
-import { EODHDApiClient } from '../api/EODHDApiClient';
 import { StockDataService } from './StockDataService';
 import { SectorRotationService } from '../algorithms/SectorRotationService';
-import { format } from 'date-fns';
 import { config } from '../../config';
+import { TradierApiClient } from 'src/serivces/api/TradierApiClient';
+import { EODHDApiClient } from 'src/serivces/api/EODHDApiClient';
+ 
+// Helper function to check for undefined or null values
+function validateCriticalData<T>(value: T | undefined | null, fieldName: string, context?: string): T {
+  if (value === undefined || value === null) {
+    throw new Error(`Critical data missing: ${fieldName}${context ? ` for ${context}` : ''}`);
+  }
+  return value;
+}
 
 export class MarketDataService {
   private tradierClient: TradierApiClient;
@@ -37,7 +43,8 @@ export class MarketDataService {
     let economicData = [];
     if (config.eodhd.apiKey) {
       try {
-        economicData = await this.eodhdClient.getEconomicCalendar(date, date, 'US');
+        const response  = await this.eodhdClient.getEconomicCalendar(date, date, 'US');
+        economicData = validateCriticalData(response.events, 'events', `events ${response.events}`);
       } catch (error) {
         console.error('Error fetching economic calendar data:', error);
         economicData = [];
@@ -62,10 +69,10 @@ export class MarketDataService {
         ? indicesData.quotes.quote 
         : [indicesData.quotes.quote];
       
-      quotes.forEach((quote: any) => {
+      quotes.forEach((quote) => {
         processedIndices[quote.symbol] = {
-          price: quote.last || 0,
-          change_percent: quote.change_percentage || 0
+          price: validateCriticalData(quote.last, 'price', `index ${quote.symbol}`),
+          change_percent: validateCriticalData(quote.change_percentage, 'change_percentage', `index ${quote.symbol}`)
         };
       });
     }
@@ -78,8 +85,12 @@ export class MarketDataService {
         ? sectorData.quotes.quote 
         : [sectorData.quotes.quote];
       
-      quotes.forEach((quote: any) => {
-        sectorPerformance[quote.symbol] = quote.change_percentage || 0;
+      quotes.forEach((quote) => {
+        sectorPerformance[quote.symbol] = validateCriticalData(
+          quote.change_percentage, 
+          'change_percentage', 
+          `sector ETF ${quote.symbol}`
+        );
       });
     }
     
@@ -87,22 +98,40 @@ export class MarketDataService {
     const sectorRotation = this.sectorRotationService.calculateSectorRotation(sectorPerformance);
     
     // Process VIX data
-    const vix = vixData.quotes?.quote?.last || 0;
+    let vix: number;
+    if (vixData.quotes && vixData.quotes.quote) {
+      const vixQuote = Array.isArray(vixData.quotes.quote) 
+        ? vixData.quotes.quote[0] 
+        : vixData.quotes.quote;
+      
+      vix = validateCriticalData(vixQuote?.last, 'VIX price');
+    } else {
+      throw new Error('Critical data missing: VIX data not available');
+    }
     
     // Calculate put/call ratio
-    let putCallRatio = 0.8; // Default value
+    let putCallRatio: number;
     
     if (spyOptions.options && spyOptions.options.option) {
       const options = spyOptions.options.option;
-      const calls = options.filter((opt: any) => opt.option_type === 'call');
-      const puts = options.filter((opt: any) => opt.option_type === 'put');
+      const calls = options.filter((opt) => opt.option_type === 'call');
+      const puts = options.filter((opt) => opt.option_type === 'put');
       
-      const callVolume = calls.reduce((sum: number, opt: any) => sum + (opt.volume || 0), 0);
-      const putVolume = puts.reduce((sum: number, opt: any) => sum + (opt.volume || 0), 0);
+      const callVolume = calls.reduce((sum: number, opt) => {
+        return sum + validateCriticalData(opt.volume, 'volume', `call option ${opt.symbol}`);
+      }, 0);
       
-      putCallRatio = callVolume > 0 
-        ? parseFloat((putVolume / callVolume).toFixed(2))
-        : 0.8;
+      const putVolume = puts.reduce((sum: number, opt) => {
+        return sum + validateCriticalData(opt.volume, 'volume', `put option ${opt.symbol}`);
+      }, 0);
+      
+      if (callVolume === 0) {
+        throw new Error('Critical data issue: call option volume is zero, cannot calculate put/call ratio');
+      }
+      
+      putCallRatio = parseFloat((putVolume / callVolume).toFixed(2));
+    } else {
+      throw new Error('Critical data missing: options data not available for put/call ratio calculation');
     }
     
     // Process economic events
