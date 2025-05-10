@@ -63,7 +63,7 @@ export interface Quote {
 
 export interface QuotesResponse {
   quotes: {
-    quote: Quote | Quote[];
+    quote: Quote[];
   };
 }
 
@@ -410,7 +410,7 @@ export class TradierApiClient {
    * Gets real-time quotes for one or more symbols
    * Endpoint: /markets/quotes
    * @param symbols - Array of ticker symbols to get quotes for
-   * @returns Real-time quotes for the requested symbols
+   * @returns Real-time quotes for the requested symbols, always as an array
    */
   async getQuotes(symbols: string[]): Promise<QuotesResponse> {
     try {
@@ -420,6 +420,13 @@ export class TradierApiClient {
         },
         headers: this.headers
       });
+      
+      // Ensure the quote property is always an array
+      if (response?.data?.quotes?.quote) {
+        if (!Array.isArray(response.data.quotes.quote)) {
+          response.data.quotes.quote = [response.data.quotes.quote];
+        }
+      }
       
       return response.data;
     } catch (error) {

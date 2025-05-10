@@ -9,13 +9,14 @@ import {
   NewsData,
   DayTradingMetrics,
 } from '../../models/Stock';
-import { TradierApiClient } from '../api/TradierApiClient';
-import { EODHDApiClient } from '../api/EODHDApiClient';
+
 import { BenzingaService } from '../api/BenzingaApiClient';
 import { ScoringService } from '../algorithms/ScoringService';
 import { OptionsService } from '../algorithms/OptionsService';
 import { PatternRecognitionService } from '../algorithms/PatternRecognitionService';
 import { addDays, format, subDays, subMonths, parse } from 'date-fns';
+import { EODHDApiClient } from 'src/serivces/api/EODHDApiClient';
+import { TradierApiClient } from 'src/serivces/api/TradierApiClient';
 
 // Define a broader set of positive and negative regex patterns:
 const positivePatterns = [
@@ -62,6 +63,14 @@ const negativePatterns = [
   /\bdowngrade\b/i,
 ];
 
+// Helper function to check for undefined or null values
+function vcd<T>(value: T | undefined | null, fieldName: string): T {
+  if (value === undefined || value === null) {
+    throw new Error(`Critical data missing: ${fieldName}`);
+  }
+  return value;
+}
+
 export class StockDataService {
   private tradierClient: TradierApiClient;
   private eodhdClient: EODHDApiClient;
@@ -85,16 +94,17 @@ export class StockDataService {
     const today = parse(dateStr, 'yyyy-MM-dd', new Date());
 
     // Calculate dates for API calls
-    const yesterday = format(subDays(today, 1), 'yyyy-MM-dd');
     const tenDaysAgo = format(subDays(today, 10), 'yyyy-MM-dd');
-    const monthAgo = format(subMonths(today, 1), 'yyyy-MM-dd');
 
     // Step 1: Get basic stock information and options expirations
-    const [fundamentals, quote, expirationDates] = await Promise.all([
+    const [fundamentals, quotes, expirationDates] = await Promise.all([
       this.eodhdClient.getFundamentals(ticker),
       this.tradierClient.getQuotes([ticker]),
       this.tradierClient.getOptionsExpirations(ticker),
     ]);
+
+    // Extract quote data from response
+    const quoteData = vcd(quotes[0], 'quote data');
 
     // Find the closest expiration date to today
     let closestExpiration = dateStr; // Default to today if no dates available
@@ -120,8 +130,12 @@ export class StockDataService {
       }
     }
 
-    // Extract quote data from response
-    const quoteData = quote.quotes?.quote || {};
+    // Get historical data for the past 10 days specifically
+    const historical10DaysAgoData = await this.tradierClient.getHistoricalData(
+      ticker,
+      tenDaysAgo,
+      dateStr,
+    );
 
     // Step 2: Get historical data and technical indicators
     const [
@@ -140,7 +154,7 @@ export class StockDataService {
       earningsData,
       newsData,
     ] = await Promise.all([
-      this.tradierClient.getHistoricalData(ticker, tenDaysAgo, dateStr),
+      Promise.resolve({ ...historical10DaysAgoData, historical10DaysAgoData }), // Include the 10-day historical data
       this.tradierClient.getPreMarketData(ticker, today), // Passing the Date object
       this.tradierClient.getIntradayData(ticker, today), // New: Get intraday data for VWAP
       this.eodhdClient.getRSI(ticker),
@@ -156,12 +170,15 @@ export class StockDataService {
       this.benzingaClient.getNews({ tickers: ticker, pageSize: 5 }),
     ]);
 
+    // Validate critical data
+    const validatedHistoricalData = vcd(historicalData, 'historical data');
+
     // Step 3: Process the data into our standard format
     // Process price data
     const priceData = this.processPriceData(
       quoteData,
       preMarketData,
-      historicalData,
+      validatedHistoricalData,
       intradayData, // Pass the intradayData parameter
       sma20Data,
       sma50Data,
@@ -172,7 +189,7 @@ export class StockDataService {
     const volumeData = this.processVolumeData(
       quoteData,
       preMarketData,
-      historicalData,
+      validatedHistoricalData,
       today, // Pass today parameter
     );
 
@@ -184,13 +201,12 @@ export class StockDataService {
       bollingerBands,
       adxData,
       patternData,
-      historicalData, // Pass historical data to the function
+      validatedHistoricalData, // Pass historical data to the function
     );
 
     // Process options data
-    const optionsDataProcessed = this.processOptionsData(
-      optionsData?.options?.option || [],
-    );
+    const optionsChain = vcd(optionsData?.options?.option, 'options chain');
+    const optionsDataProcessed = this.processOptionsData(optionsChain);
 
     // Process earnings data
     const earningsDataProcessed = this.processEarningsData(earningsData);
@@ -202,19 +218,22 @@ export class StockDataService {
     const dayTradingMetrics = this.calculateDayTradingMetrics(
       priceData,
       technicalIndicators,
-      historicalData,
+      validatedHistoricalData,
       volumeData, // Add this parameter
     );
 
     // Construct full stock object
     return {
       ticker,
-      company_name: fundamentals?.General?.Name || ticker,
-      sector: fundamentals?.General?.Sector || 'Unknown',
-      industry: fundamentals?.General?.Industry || 'Unknown',
-      market_cap: fundamentals?.Highlights?.MarketCapitalization || 0,
-      float: fundamentals?.SharesStats?.SharesFloat || 0,
-      avg_daily_volume: quoteData.average_volume || 0,
+      company_name: vcd(fundamentals?.General?.Name, 'company name'),
+      sector: vcd(fundamentals?.General?.Sector, 'sector'),
+      industry: vcd(fundamentals?.General?.Industry, 'industry'),
+      market_cap: vcd(
+        fundamentals?.Highlights?.MarketCapitalization,
+        'market cap',
+      ),
+      float: vcd(fundamentals?.SharesStats?.SharesFloat, 'float'),
+      avg_daily_volume: vcd(quoteData.average_volume, 'average volume'),
       price_data: priceData,
       volume_data: volumeData,
       technical_indicators: technicalIndicators,
@@ -225,92 +244,192 @@ export class StockDataService {
     };
   }
 
-  // Process raw price data into standardized format
+  /**
+   * Helper function to convert local CST time to market time (ET)
+   * Eastern Time is 1 hour ahead of Central Time
+   */
+  private convertToMarketTime(localDate: Date): Date {
+    // Create a new date object to avoid modifying the original
+    const marketDate = new Date(localDate);
+    // Add 1 hour to convert from CST to ET
+    marketDate.setHours(marketDate.getHours() + 1);
+    return marketDate;
+  }
+
+  /**
+   * Helper function to check if a timestamp is within market first hour (9:30-10:30 AM ET)
+   * Handles the conversion from local CST to market ET
+   */
+  private isWithinFirstTradingHour(timestamp: Date): boolean {
+    // Convert the timestamp to ET for market hour comparison
+    const marketTime = this.convertToMarketTime(timestamp);
+
+    const hours = marketTime.getHours();
+    const minutes = marketTime.getMinutes();
+
+    // First trading hour in ET: 9:30 AM to 10:30 AM
+    return (hours === 9 && minutes >= 30) || (hours === 10 && minutes < 30);
+  }
+
+  /**
+   * Process raw price data into standardized format with time zone awareness
+   */
   private processPriceData(
     quoteData: any,
     preMarketData: any,
     historicalData: any,
-    intradayData: any, // Add intradayData parameter
+    intradayData: any,
     sma20Data: any,
     sma50Data: any,
-    today: Date, // Add today parameter
+    today: Date, // This is in local CST time
   ): PriceData {
-    // Use the pre-market price from our enhanced pre-market data
-    const preMarketPrice = preMarketData?.price || quoteData.open;
+    // 1. Pre-market price handling
+    const preMarketPrice = preMarketData?.price
+      ? vcd(preMarketData.price, 'pre-market price')
+      : vcd(quoteData.open, 'open price');
 
-    // Calculate opening range using intraday data (minute-by-minute)
-    let openingHighLow = { high: quoteData.high || 0, low: quoteData.low || 0 };
+    // 2. Default opening range to day high/low
+    let openingHighLow = {
+      high: vcd(quoteData.high, 'high price'),
+      low: vcd(quoteData.low, 'low price'),
+    };
 
-    if (intradayData && intradayData.data && Array.isArray(intradayData.data)) {
-      // Market opens at 9:30 AM ET, so we filter for the first hour (9:30 AM to 10:30 AM)
+    // 3. Calculate first-hour trading range (9:30 - 10:30 AM ET)
+    if (
+      intradayData?.data &&
+      Array.isArray(intradayData.data) &&
+      intradayData.data.length > 0
+    ) {
+      // Filter for data points in the first trading hour with time zone awareness
       const firstHourData = intradayData.data.filter((d: any) => {
-        const dataDate = new Date(d.time || d.date);
-        const hours = dataDate.getHours();
-        const minutes = dataDate.getMinutes();
+        if (!d.time && !d.date) {
+          throw new Error(`Critical data missing: intraday data timestamp`);
+        }
 
-        // First trading hour: 9:30 AM to 10:30 AM
-        return (hours === 9 && minutes >= 30) || (hours === 10 && minutes < 30);
+        // Parse the datetime
+        const dataDate = new Date(d.time || d.date);
+
+        // Use the helper function to check if this is within the first trading hour in ET
+        return this.isWithinFirstTradingHour(dataDate);
       });
 
       if (firstHourData.length > 0) {
+        const highValues = firstHourData.map((d: any) => {
+          return vcd(d.high !== undefined ? d.high : d.price, 'intraday high');
+        });
+
+        const lowValues = firstHourData.map((d: any) => {
+          return vcd(d.low !== undefined ? d.low : d.price, 'intraday low');
+        });
+
         openingHighLow = {
-          high: Math.max(...firstHourData.map((d: any) => d.high || d.price)),
-          low: Math.min(...firstHourData.map((d: any) => d.low || d.price)),
+          high: Math.max(...highValues),
+          low: Math.min(...lowValues),
         };
       }
     }
 
-    // Determine if there's a breakout from opening range
-    const openingRangeBreakout = quoteData.last > openingHighLow.high;
+    // 4. Determine if current price has broken out above the opening range high
+    const currentPrice = vcd(quoteData.last, 'last price');
+    const openingRangeBreakout = currentPrice > openingHighLow.high;
 
-    // Calculate VWAP using minute-by-minute intraday data
-    let vwap = quoteData.last || 0;
+    // 5. VWAP calculation
+    let vwap = currentPrice;
 
-    // Use the VWAP calculated from minute-by-minute data if available
-    if (intradayData && intradayData.vwap !== null) {
-      vwap = intradayData.vwap;
-    } else if (historicalData?.history?.day) {
-      // Fallback to the old method if intraday data is not available
+    if (intradayData?.vwap != null) {
+      vwap = vcd(intradayData.vwap, 'intraday VWAP');
+    } else if (
+      historicalData?.history?.day &&
+      Array.isArray(historicalData.history.day)
+    ) {
       console.warn(
-        `Falling back to approximate VWAP calculation for ${quoteData.symbol}`,
+        `Falling back to approximate VWAP calculation for ${vcd(quoteData.symbol, 'symbol')}`,
       );
+
+      // Filter for today's data with time zone awareness
       const todayData = historicalData.history.day.filter((d: any) => {
+        if (!d.date) {
+          throw new Error(`Critical data missing: historical data date`);
+        }
+
         const dataDate = new Date(d.date);
+        const marketToday = this.convertToMarketTime(today);
+
         return (
-          dataDate.getDate() === today.getDate() &&
-          dataDate.getMonth() === today.getMonth() &&
-          dataDate.getFullYear() === today.getFullYear()
+          dataDate.getDate() === marketToday.getDate() &&
+          dataDate.getMonth() === marketToday.getMonth() &&
+          dataDate.getFullYear() === marketToday.getFullYear()
         );
       });
 
       if (todayData.length > 0) {
         const priceVolumeSum = todayData.reduce((sum: number, d: any) => {
-          return sum + ((d.high + d.low + d.close) / 3) * d.volume;
+          const typicalPrice =
+            (vcd(d.high, 'historical high') +
+              vcd(d.low, 'historical low') +
+              vcd(d.close, 'historical close')) /
+            3;
+
+          return sum + typicalPrice * vcd(d.volume, 'historical volume');
         }, 0);
 
         const volumeSum = todayData.reduce(
-          (sum: number, d: any) => sum + d.volume,
+          (sum: number, d: any) => sum + vcd(d.volume, 'historical volume'),
           0,
         );
 
-        vwap = volumeSum > 0 ? priceVolumeSum / volumeSum : quoteData.last;
+        if (volumeSum > 0) {
+          vwap = priceVolumeSum / volumeSum;
+        } else {
+          throw new Error(
+            `Critical data invalid: volume sum must be positive for VWAP calculation`,
+          );
+        }
       }
     }
 
-    // Get latest SMA values
-    const ma20 =
-      sma20Data?.length > 0 ? sma20Data[sma20Data.length - 1].sma : 0;
+    // 6. Process moving averages
+    let ma20 = null;
+    let ma50 = null;
 
-    const ma50 =
-      sma50Data?.length > 0 ? sma50Data[sma50Data.length - 1].sma : 0;
+    if (sma20Data && Array.isArray(sma20Data) && sma20Data.length > 0) {
+      const latestSma20 = sma20Data[sma20Data.length - 1];
+      if (
+        latestSma20 &&
+        latestSma20.sma !== undefined &&
+        latestSma20.sma !== null
+      ) {
+        ma20 = vcd(latestSma20.sma, 'SMA20');
+      } else {
+        console.warn(
+          'SMA20 data available but latest value is missing or invalid',
+        );
+      }
+    }
 
+    if (sma50Data && Array.isArray(sma50Data) && sma50Data.length > 0) {
+      const latestSma50 = sma50Data[sma50Data.length - 1];
+      if (
+        latestSma50 &&
+        latestSma50.sma !== undefined &&
+        latestSma50.sma !== null
+      ) {
+        ma50 = vcd(latestSma50.sma, 'SMA50');
+      } else {
+        console.warn(
+          'SMA50 data available but latest value is missing or invalid',
+        );
+      }
+    }
+
+    // 7. Build and return the complete price data object
     return {
-      previous_close: quoteData.prevclose || 0,
-      pre_market: preMarketPrice || 0,
-      current: quoteData.last || 0,
+      previous_close: vcd(quoteData.prevclose, 'previous close'),
+      pre_market: preMarketPrice,
+      current: currentPrice,
       day_range: {
-        low: quoteData.low || 0,
-        high: quoteData.high || 0,
+        low: vcd(quoteData.low, 'low price'),
+        high: vcd(quoteData.high, 'high price'),
       },
       moving_averages: {
         ma_20: ma20,
@@ -327,51 +446,106 @@ export class StockDataService {
     };
   }
 
-  // Process volume data
+  /**
+   * Process volume data with time zone awareness for market hours
+   */
   private processVolumeData(
     quoteData: any,
     preMarketData: any,
     historicalData: any,
-    today: Date, // Add today parameter
+    today: Date, // This is in local CST time
   ): VolumeData {
-    // Use the accumulated pre-market volume from our enhanced pre-market data
-    const preMarketVolume = preMarketData?.volume || 0;
+    // 1. Pre-market volume
+    const preMarketVolume = preMarketData?.volume
+      ? vcd(preMarketData.volume, 'pre-market volume')
+      : 0;
 
-    // Calculate first hour volume percentage
-    const dailyData = historicalData?.history?.day
-      ? historicalData.history.day.filter((d: any) => {
+    // 2. Current trading volume
+    const totalVolume = vcd(quoteData.volume, 'current volume');
+
+    // 3. First hour volume calculation with time zone awareness
+    let firstHourPercent = 0;
+
+    if (
+      historicalData?.history?.day &&
+      Array.isArray(historicalData.history.day)
+    ) {
+      // Convert today to market time (ET) for comparison
+      const marketToday = this.convertToMarketTime(today);
+
+      // Filter for today's data points
+      const todayData = historicalData.history.day.filter((d: any) => {
+        if (!d.date) {
+          throw new Error(`Critical data missing: historical data date`);
+        }
+
+        try {
           const dataDate = new Date(d.date);
+
+          if (isNaN(dataDate.getTime())) {
+            throw new Error(
+              `Invalid date format in historical data: ${d.date}`,
+            );
+          }
+
+          // Compare with market time (ET)
           return (
-            dataDate.getDate() === today.getDate() &&
-            dataDate.getMonth() === today.getMonth() &&
-            dataDate.getFullYear() === today.getFullYear()
+            dataDate.getDate() === marketToday.getDate() &&
+            dataDate.getMonth() === marketToday.getMonth() &&
+            dataDate.getFullYear() === marketToday.getFullYear()
           );
-        })
-      : [];
+        } catch (error) {
+          throw new Error(
+            `Error processing date in historical data: ${error.message}`,
+          );
+        }
+      });
 
-    const firstHourData = dailyData.filter((d: any) => {
-      const dataDate = new Date(d.date);
-      return dataDate.getHours() >= 9 && dataDate.getHours() <= 10;
-    });
+      // Filter for first hour trading data (9:30 AM to 10:30 AM ET)
+      const firstHourData = todayData.filter((d: any) => {
+        try {
+          const dataDate = new Date(d.date);
+          return this.isWithinFirstTradingHour(dataDate);
+        } catch (error) {
+          throw new Error(
+            `Error processing time in historical data: ${error.message}`,
+          );
+        }
+      });
 
-    const firstHourVolume = firstHourData.reduce(
-      (sum: number, d: any) => sum + (d.volume || 0),
-      0,
+      const firstHourVolume = firstHourData.reduce(
+        (sum: number, d: any) => sum + vcd(d.volume, 'hourly volume'),
+        0,
+      );
+
+      if (totalVolume > 0) {
+        firstHourPercent = Math.round((firstHourVolume / totalVolume) * 100);
+      } else {
+        console.warn(
+          'Total volume is zero or negative - first hour percentage calculation skipped',
+        );
+      }
+    } else {
+      console.warn(
+        'Historical data missing or invalid - first hour percentage calculation skipped',
+      );
+    }
+
+    // 4. Average 10-day volume
+    const avg10DayVolume = vcd(quoteData.average_volume, 'average volume');
+
+    if (avg10DayVolume <= 0) {
+      throw new Error(
+        'Average 10-day volume must be positive for relative volume calculation',
+      );
+    }
+
+    // 5. Calculate relative volume
+    const relativeVolume = parseFloat(
+      (totalVolume / avg10DayVolume).toFixed(1),
     );
-    const totalVolume = quoteData.volume || 0;
 
-    const firstHourPercent =
-      totalVolume > 0 ? Math.round((firstHourVolume / totalVolume) * 100) : 0;
-
-    // Calculate average 10-day volume
-    const avg10DayVolume = quoteData.average_volume || 0;
-
-    // Calculate relative volume
-    const relativeVolume =
-      avg10DayVolume > 0
-        ? parseFloat((totalVolume / avg10DayVolume).toFixed(1))
-        : 1.0;
-
+    // 6. Return complete volume data structure
     return {
       pre_market: preMarketVolume,
       current: totalVolume,
@@ -623,13 +797,15 @@ export class StockDataService {
     } else if (positiveArticles > 0 && negativeArticles > 0) {
       newsClassification = 'mixed';
     }
- // @ts-ignore
+    // @ts-ignore
     return {
       recent_articles: recentArticles.map((article) => ({
         date: article.created,
         title: article.title,
         teaser: article.teaser,
-        content: article.bodyMarkdown ? article.bodyMarkdown.substring(0, 1200) : '',
+        content: article.bodyMarkdown
+          ? article.bodyMarkdown.substring(0, 1200)
+          : '',
         link: article.url,
         symbols: article.stocks ? article.stocks.map((s: any) => s.name) : [],
         tags: article.tags ? article.tags.map((t: any) => t.name) : [],
@@ -640,7 +816,7 @@ export class StockDataService {
         //   pos: 0
         // }
       })),
-    //  material_news_classification: newsClassification,
+      //  material_news_classification: newsClassification,
     };
   }
 
